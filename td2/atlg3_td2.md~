@@ -55,40 +55,5 @@
 
 ### N°3
 
-- Non, la classe ColoredPoint fera appel au constructeur sans parametres de la classe parent, c-à-d classe Point.
-
-## Question 4:
-
-### N°1
- 
-- Le programme affiche les 3 messages se trouvant dans le constructeur.
-
-### N°2
-
-- Affiche seulement les 2 messages, c'est-à-dire du constructeur classe A et B, car par défaut il fait appel au constructeur de la classe parent.
-
-### N°3
-
-- On obtient le meme résultat que précedemment, super() fera un appel au constructeur de la classe B, classe B à la classe A et la classe A au constructeur de la classe Object.
-
-### N°4
-
-- 
-
-## Question 5: 
-
-### N°1:
-
-- Programme affiche  
-
-### N°2: 
-
-- Méthode move de la classe PinnablePoint est utilisé car l'objet est déclaré comme un objet PinnablePoint.
-
-### N° 3
-
-- Que la méthode de la classe parent n'a pas d'exception.
-
-### N° 4
-
+- Oui, car il n'y a aucun appel au constructeur parent dans le constructeur de la classe enfant.
 
