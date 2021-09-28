@@ -1,6 +1,7 @@
 package ascii.paint;
 
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -102,21 +103,18 @@ public class Application {
     }
 
     private boolean checkParams(String[] command) {
+        Pattern pattern = Pattern.compile("\\d+(\\.\\d+)?");
         for (int i = 2; i < command.length - 1; i++) {
             if (command[i] == null) {
                 return false;
             }
-            try {
-                int d = Integer.parseInt(command[i]);
-            } catch (NumberFormatException nfe) {
+            if (!pattern.matcher(command[i]).matches()) {
+                System.out.println("aaaaa  ");
                 return false;
             }
+
         }
         return true;
-    }
-
-    private void displayHelp(String[] command) {
-   
     }
 
     public void start() {
@@ -124,8 +122,8 @@ public class Application {
         Scanner kbd = new Scanner(System.in);
         boolean exit = false;
         while (!exit) {
-            System.out.println("Avaiable commands: move, add "
-                    + "(circle, rectangle, square) and show");
+            System.out.println("Avaiable commands: add "
+                    + "(circle, rectangle, square), show, help and exit");
             String input = kbd.nextLine();
             command = input.split(" ");
             switch (command[0]) {
@@ -137,9 +135,6 @@ public class Application {
                     break;
                 case "exit":
                     exit = true;
-                    break;
-                case "help":
-                    displayHelp(command);
                     break;
                 default:
                     System.err.println("Wrongly implemented command,"
