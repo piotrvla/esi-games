@@ -1,6 +1,7 @@
 package ascii.paint;
 
 /**
+ * Rectangle.
  *
  * @author g56212
  */
@@ -10,6 +11,15 @@ public class Rectangle extends ColoredShape {
     private double width;
     private double height;
 
+    /**
+     * Creates a rectangle with its main point as upper left, with its size
+     * width x height, and its color.
+     *
+     * @param upperLeft Main point of the shape in the drawing.
+     * @param width width of the shape.
+     * @param height height of the shape.
+     * @param color color of the shape.
+     */
     public Rectangle(Point upperLeft, double width, double height, char color) {
         super(color);
         this.upperLeft = upperLeft;
@@ -19,7 +29,10 @@ public class Rectangle extends ColoredShape {
 
     @Override
     public boolean isInside(Point p) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return p.getX() >= this.upperLeft.getX()
+                && p.getX() <= this.upperLeft.getX() + (this.width - 1)
+                && p.getY() <= this.upperLeft.getY()
+                && p.getY() >= this.upperLeft.getY() - (this.height - 1);
     }
 
     @Override

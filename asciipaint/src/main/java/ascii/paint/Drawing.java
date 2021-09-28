@@ -13,12 +13,23 @@ public class Drawing {
     int height;
     int width;
 
+    /**
+     * Creates a drawing with default parameters as height at 50, and width at
+     * 50;
+     *
+     */
     public Drawing() {
-        this.height = 100;
-        this.width = 100;
+        this.height = 50;
+        this.width = 50;
         this.shapes = new ArrayList();
     }
 
+    /**
+     * Creates a drawing wth the given parameteres.
+     *
+     * @param width width of the drawing.
+     * @param height height of the drawing.
+     */
     public Drawing(int width, int height) {
         this.width = width;
         this.height = height;
@@ -26,16 +37,44 @@ public class Drawing {
 
     }
 
+    /**
+     * Adds a shape to our list of shapes.
+     *
+     * @param shape shape to add to the list.
+     */
     public void addShape(Shape shape) {
         shapes.add(shape);
     }
 
-    // public Shape getShapeAt(Point p) {
-    //}
+    /**
+     * Returns the shape at the given position.
+     *
+     * @param p point to check if there's any shape.
+     * @return A shape or null if there's no shape.
+     */
+    public Shape getShapeAt(Point p) {
+        for (Shape shape : shapes) {
+            if (shape.isInside(p)) {
+                return shape;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Returns the height of the drawing.
+     *
+     * @return height.
+     */
     int getHeight() {
         return this.height;
     }
 
+    /**
+     * Returns the width of the drawing.
+     *
+     * @return width.
+     */
     int getWidth() {
         return this.width;
     }

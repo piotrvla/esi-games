@@ -8,25 +8,28 @@ public abstract class ColoredShape implements Shape {
 
     private char color;
 
+    /**
+     * Creates a new colored shape with given color.
+     * @param color
+     */
     public ColoredShape(char color) {
         this.color = color;
     }
 
+    /**
+     * Returns the color of the shape.
+     * @return
+     */
     @Override
     public char getColor() {
         return this.color;
     }
 
+    /**
+     * Changes the color of the shape.
+     * @param color
+     */
     public void setColor(char color) {
         this.color = color;
-    }
-
-    @Override
-    public boolean isInside(Point p) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void move(double dx, double dy) {
     }
 }
