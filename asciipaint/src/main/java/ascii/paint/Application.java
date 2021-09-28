@@ -70,9 +70,53 @@ public class Application {
         return kbd.nextLine().charAt(0) == 'y';
     }
 
-    private boolean checkParams(String[] command, int nbParam) {
+    private void initializeParams(String[] command) {
+        if (checkParams(command)) {
+            switch (command[1]) {
+                case "circle":
+                    this.ascii.newCircle(Integer.parseInt(command[2]),
+                            Integer.parseInt(command[3]),
+                            Double.parseDouble(command[4]),
+                            command[5].charAt(0));
+                    break;
+                case "rectangle":
+                    this.ascii.newRectangle(Integer.parseInt(command[2]),
+                            Integer.parseInt(command[3]),
+                            Double.parseDouble(command[4]),
+                            Double.parseDouble(command[5]),
+                            command[6].charAt(0));
+                    break;
+                case "square":
+                    this.ascii.newSquare(Integer.parseInt(command[2]),
+                            Integer.parseInt(command[3]),
+                            Double.parseDouble(command[4]),
+                            command[5].charAt(0));
+                    break;
+            }
+        } else {
+            System.err.println("Retry, the command looks like: "
+                    + "add [shape] [x] [y] [radius/width/height] [color] "
+                    + "For more info type help (command).");
+        }
 
+    }
+
+    private boolean checkParams(String[] command) {
+        for (int i = 2; i < command.length - 1; i++) {
+            if (command[i] == null) {
+                return false;
+            }
+            try {
+                int d = Integer.parseInt(command[i]);
+            } catch (NumberFormatException nfe) {
+                return false;
+            }
+        }
         return true;
+    }
+
+    private void displayHelp(String[] command) {
+   
     }
 
     public void start() {
@@ -86,13 +130,7 @@ public class Application {
             command = input.split(" ");
             switch (command[0]) {
                 case "add":
-                    if (command[1].toLowerCase() == "circle") {
-
-                        this.ascii.newCircle(Integer.parseInt(command[2]),
-                                Integer.parseInt(command[3]),
-                                Integer.parseInt(command[4]),
-                                command[5].charAt(0));
-                    }
+                    initializeParams(command);
                     break;
                 case "show":
                     System.out.printf(this.ascii.asAscii());
@@ -101,8 +139,11 @@ public class Application {
                     exit = true;
                     break;
                 case "help":
+                    displayHelp(command);
                     break;
                 default:
+                    System.err.println("Wrongly implemented command,"
+                            + " use command help");
                     break;
             }
         }
