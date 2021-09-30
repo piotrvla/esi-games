@@ -73,7 +73,7 @@ public class Application {
 
     private void initializeParams(String[] command) {
         if (checkParams(command)) {
-            switch (command[1]) {
+            switch (command[1].toLowerCase()) {
                 case "circle":
                     this.ascii.newCircle(Integer.parseInt(command[2]),
                             Integer.parseInt(command[3]),
@@ -96,24 +96,27 @@ public class Application {
             }
         } else {
             System.err.println("Retry, the command looks like: "
-                    + "add [shape] [x] [y] [radius/width/height] [color] "
-                    + "For more info type help (command).");
+                    + "add [shape] [x] [y] [radius/width/height] [color] ");
         }
 
     }
 
     private boolean checkParams(String[] command) {
         Pattern pattern = Pattern.compile("\\d+(\\.\\d+)?");
-        for (int i = 2; i < command.length - 1; i++) {
-            if (command[i] == null) {
-                return false;
-            }
-            if (!pattern.matcher(command[i]).matches()) {
-                System.out.println("aaaaa  ");
-                return false;
+        if (command.length == 6 || command.length == 7) {
+            for (int i = 2; i < command.length - 1; i++) {
+                if (command[i] == null) {
+                    return false;
+                }
+                if (!pattern.matcher(command[i]).matches()) {
+                    return false;
+                }
             }
 
+        } else {
+            return false;
         }
+
         return true;
     }
 
@@ -126,12 +129,15 @@ public class Application {
                     + "(circle, rectangle, square), show, help and exit");
             String input = kbd.nextLine();
             command = input.split(" ");
-            switch (command[0]) {
+            switch (command[0].toLowerCase()) {
                 case "add":
                     initializeParams(command);
                     break;
                 case "show":
-                    System.out.printf(this.ascii.asAscii());
+                    String ascii = this.ascii.asAscii();
+                    for (int i = 0; i < ascii.length(); i++) {
+                        System.out.printf("%2s", ascii.charAt(i));
+                    }
                     break;
                 case "exit":
                     exit = true;

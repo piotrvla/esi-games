@@ -70,7 +70,7 @@ public class AsciiPaint {
                     ascii += " ";
                 }
             }
-            ascii += "%n";
+            ascii += "\n";
         }
         return ascii;
 
