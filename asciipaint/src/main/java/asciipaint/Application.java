@@ -1,7 +1,6 @@
 package asciipaint;
 
 import java.util.Scanner;
-import java.util.regex.Pattern;
 
 /**
  *
@@ -11,15 +10,19 @@ public class Application {
 
     private AsciiPaint ascii;
 
+<<<<<<< HEAD:asciipaint/src/main/java/asciipaint/Application.java
     /**
      * Creates a new Application instance by initialazing it at the default
      * parameters, defined in drawing's class.
      */
+=======
+>>>>>>> 1a34caf2aebe57b6a69b76ce6ca50033f3896d6e:asciipaint/src/main/java/ascii/paint/Application.java
     public Application() {
         this.ascii = new AsciiPaint();
 
     }
 
+<<<<<<< HEAD:asciipaint/src/main/java/asciipaint/Application.java
     /**
      * Creates new Application instance by initializing new AsciiPaint instance,
      * at given parameters.
@@ -27,16 +30,21 @@ public class Application {
      * @param width width used to initialize new AsciiPaint
      * @param height height used to initialize new AsciiPaint
      */
+=======
+>>>>>>> 1a34caf2aebe57b6a69b76ce6ca50033f3896d6e:asciipaint/src/main/java/ascii/paint/Application.java
     public Application(int width, int height) {
         this.ascii = new AsciiPaint(width, height);
     }
 
+<<<<<<< HEAD:asciipaint/src/main/java/asciipaint/Application.java
     /**
      * Reads an integer from the keyboard
      *
      * @param message Message to display.
      * @return an Integer.
      */
+=======
+>>>>>>> 1a34caf2aebe57b6a69b76ce6ca50033f3896d6e:asciipaint/src/main/java/ascii/paint/Application.java
     private static int readNumber(String message) {
         Scanner kbd = new Scanner(System.in);
         System.out.println(message);
@@ -48,6 +56,7 @@ public class Application {
         return kbd.nextInt();
     }
 
+<<<<<<< HEAD:asciipaint/src/main/java/asciipaint/Application.java
     /**
      * Returns only a number that's is bigger than minimal number given, as the
      * parameter
@@ -56,6 +65,8 @@ public class Application {
      * @param min Minimal integer.
      * @return An integer.
      */
+=======
+>>>>>>> 1a34caf2aebe57b6a69b76ce6ca50033f3896d6e:asciipaint/src/main/java/ascii/paint/Application.java
     private static int sizeBetweenRange(String message, int min) {
 
         int number = readNumber(message);
@@ -66,12 +77,20 @@ public class Application {
         return number;
     }
 
+<<<<<<< HEAD:asciipaint/src/main/java/asciipaint/Application.java
     /**
      * Creates new application class by it's default size or chosen one by the
      * user.
      *
      * @return new Application instance.
      */
+=======
+    private Application createAsciiPaint() {
+        return new Application(sizeBetweenRange("width", 0),
+                sizeBetweenRange("height", 0));
+    }
+
+>>>>>>> 1a34caf2aebe57b6a69b76ce6ca50033f3896d6e:asciipaint/src/main/java/ascii/paint/Application.java
     private static Application defaultSizeOrNot() {
         System.out.println("Are you willing to create a"
                 + " default size of the drawing?");
@@ -87,12 +106,15 @@ public class Application {
         }
     }
 
+<<<<<<< HEAD:asciipaint/src/main/java/asciipaint/Application.java
     /**
      * Used
      *
      * @param message
      * @return
      */
+=======
+>>>>>>> 1a34caf2aebe57b6a69b76ce6ca50033f3896d6e:asciipaint/src/main/java/ascii/paint/Application.java
     private static boolean defaultOrNot(String message) {
         Scanner kbd = new Scanner(System.in);
         System.out.println(message);
@@ -103,6 +125,7 @@ public class Application {
         return kbd.nextLine().charAt(0) == 'y';
     }
 
+<<<<<<< HEAD:asciipaint/src/main/java/asciipaint/Application.java
     /**
      * Initializes a new shape given in the parameter, but at first all it's
      * values and types are verified if it is correct.
@@ -163,10 +186,14 @@ public class Application {
         } else {
             return false;
         }
+=======
+    private boolean checkParams(String[] command, int nbParam) {
+>>>>>>> 1a34caf2aebe57b6a69b76ce6ca50033f3896d6e:asciipaint/src/main/java/ascii/paint/Application.java
 
         return true;
     }
 
+<<<<<<< HEAD:asciipaint/src/main/java/asciipaint/Application.java
     /**
      * Displays given string.
      *
@@ -182,32 +209,50 @@ public class Application {
      * Controls the whole algorithm and its behavior during its lifetime.
      *
      */
+=======
+>>>>>>> 1a34caf2aebe57b6a69b76ce6ca50033f3896d6e:asciipaint/src/main/java/ascii/paint/Application.java
     public void start() {
         String[] command;
         Scanner kbd = new Scanner(System.in);
         boolean exit = false;
         while (!exit) {
+<<<<<<< HEAD:asciipaint/src/main/java/asciipaint/Application.java
             System.out.println("Avaiable commands: add "
                     + "(circle, rectangle, square), show, and exit");
+=======
+            System.out.println("Avaiable commands: move, add "
+                    + "(circle, rectangle, square) and show");
+>>>>>>> 1a34caf2aebe57b6a69b76ce6ca50033f3896d6e:asciipaint/src/main/java/ascii/paint/Application.java
             String input = kbd.nextLine();
             command = input.split(" ");
-            switch (command[0].toLowerCase()) {
+            switch (command[0]) {
                 case "add":
-                    initializeParams(command);
+                    if (command[1].toLowerCase() == "circle") {
+
+                        this.ascii.newCircle(Integer.parseInt(command[2]),
+                                Integer.parseInt(command[3]),
+                                Integer.parseInt(command[4]),
+                                command[5].charAt(0));
+                    }
                     break;
                 case "show":
+<<<<<<< HEAD:asciipaint/src/main/java/asciipaint/Application.java
                     displayAscii(this.ascii.asAscii());
 
+=======
+                    System.out.printf(this.ascii.asAscii());
+>>>>>>> 1a34caf2aebe57b6a69b76ce6ca50033f3896d6e:asciipaint/src/main/java/ascii/paint/Application.java
                     break;
                 case "exit":
                     exit = true;
                     break;
+                case "help":
+                    break;
                 default:
-                    System.err.println("Wrongly implemented command,"
-                            + " use command help");
                     break;
             }
         }
+
     }
 
     public static void main(String[] args) {
