@@ -93,10 +93,11 @@ public class Application {
     }
 
     /**
-     * Used
+     * Asks the user for the keyboard input if it's a 'y' it returns true if not
+     * a false.
      *
-     * @param message
-     * @return
+     * @param message Message to print.
+     * @return a Boolean if it's a 'y' it returns true if not a false.
      */
     private static boolean defaultOrNot(String message) {
         Scanner kbd = new Scanner(System.in);
@@ -211,9 +212,9 @@ public class Application {
                 case "exit":
                     exit = true;
                     break;
-                case "help":
-                    break;
                 default:
+                    System.err.println("Retry, the command looks like: "
+                            + "add [shape] [x] [y] [radius/width/height] [color] ");
                     break;
             }
         }

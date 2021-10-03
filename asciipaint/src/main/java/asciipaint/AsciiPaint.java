@@ -12,11 +12,8 @@ public class AsciiPaint {
      *
      * Creates new AsciiPaint at given size in the parameters.
      *
-     *
-     *
-     *
-     * @param width
-     * @param height
+     * @param width width of the drawing.
+     * @param height height of the drawing.
      */
     public AsciiPaint(int width, int height) {
         this.drawing = new Drawing(width, height);
@@ -26,8 +23,6 @@ public class AsciiPaint {
      *
      * Creates a new Ascii Paint by initialazing it at the default parameters,
      * defined in drawing's class.
-     *
-     *
      *
      */
     public AsciiPaint() {
