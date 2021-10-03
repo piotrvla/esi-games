@@ -5,6 +5,8 @@
  */
 package ascii.paint;
 
+import asciipaint.Rectangle;
+import asciipaint.Point;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 

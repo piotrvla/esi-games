@@ -1,4 +1,4 @@
-package ascii.paint;
+package asciipaint;
 
 /**
  *
@@ -9,6 +9,7 @@ public class AsciiPaint {
     private Drawing drawing;
 
     /**
+     * Creates new AsciiPaint at given size in the parameters.
      *
      * @param width
      * @param height
@@ -18,24 +19,27 @@ public class AsciiPaint {
     }
 
     /**
-     *
+     * Creates a new Ascii Paint by initialazing it at the default parameters,
+     * defined in drawing's class.
      */
     public AsciiPaint() {
         this.drawing = new Drawing();
     }
 
     /**
+     * Creates a new circle then adds it, to the drawing.
      *
-     * @param x
-     * @param y
-     * @param radius
-     * @param color
+     * @param x point X of the center of the circle.
+     * @param y point Y of the center of the circle.
+     * @param radius radius of the circle.
+     * @param color color of the circle.
      */
     public void newCircle(int x, int y, double radius, char color) {
         drawing.addShape(new Circle(new Point(x, y), radius, color));
     }
 
     /**
+     * Creates a new rectangle then adds it, to the drawing.
      *
      * @param x
      * @param y
@@ -48,6 +52,7 @@ public class AsciiPaint {
     }
 
     /**
+     * Creates a new square then adds the square to the drawing.
      *
      * @param x
      * @param y
@@ -62,8 +67,11 @@ public class AsciiPaint {
     }
 
     /**
+     * Transforms the drawing and its all shapes in to an Ascii Paint string by
+     * verifying if at the given point there's a shape, if it's the case its
+     * color will be added to the string.
      *
-     * @return
+     * @return String with all shapes that the drawing contains.
      */
     public String asAscii() {
         String ascii = "";
@@ -82,19 +90,4 @@ public class AsciiPaint {
 
     }
 
-    /**
-     *
-     * @return
-     */
-    public int getHeight() {
-        return this.drawing.getHeight();
-    }
-
-    /**
-     *
-     * @return
-     */
-    public int getWidth() {
-        return this.drawing.getWidth();
-    }
 }

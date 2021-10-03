@@ -1,4 +1,4 @@
-package ascii.paint;
+package asciipaint;
 
 /**
  * Point in our drawing.
@@ -22,7 +22,8 @@ public class Point {
     }
 
     /**
-     * Creates a new point with 
+     * Creates a new point with
+     *
      * @param p
      */
     public Point(Point p) {
@@ -32,6 +33,7 @@ public class Point {
 
     /**
      * Moving the point at the given position in the parameter.
+     *
      * @param dx X to be moved at.
      * @param dy Y to be moved at.
      */
@@ -41,7 +43,8 @@ public class Point {
     }
 
     /**
-     * Calculate the distance between 2 points using pythagore's method.
+     * Calculates the distance between 2 points using pythagore's method.
+     *
      * @param other The other point to get the distance between.
      * @return the distance between 2 points.
      */
@@ -51,15 +54,19 @@ public class Point {
                 + Math.pow(other.y - this.y, 2));
         return distance;
     }
+
     /**
      * Returns X of the point.
+     *
      * @return X
      */
     double getX() {
         return this.x;
     }
+
     /**
      * Returns Y of the point.
+     *
      * @return Y
      */
     double getY() {

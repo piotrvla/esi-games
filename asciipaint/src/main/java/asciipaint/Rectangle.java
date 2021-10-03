@@ -1,4 +1,4 @@
-package ascii.paint;
+package asciipaint;
 
 /**
  * Rectangle.

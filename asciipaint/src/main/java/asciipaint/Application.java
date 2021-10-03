@@ -1,4 +1,4 @@
-package ascii.paint;
+package asciipaint;
 
 import java.util.Scanner;
 import java.util.regex.Pattern;
@@ -12,7 +12,8 @@ public class Application {
     private AsciiPaint ascii;
 
     /**
-     *
+     * Creates a new Application instance by initialazing it at the default
+     * parameters, defined in drawing's class.
      */
     public Application() {
         this.ascii = new AsciiPaint();
@@ -20,18 +21,21 @@ public class Application {
     }
 
     /**
+     * Creates new Application instance by initializing new AsciiPaint instance,
+     * at given parameters.
      *
-     * @param width
-     * @param height
+     * @param width width used to initialize new AsciiPaint
+     * @param height height used to initialize new AsciiPaint
      */
     public Application(int width, int height) {
         this.ascii = new AsciiPaint(width, height);
     }
 
     /**
+     * Reads an integer from the keyboard
      *
-     * @param message
-     * @return
+     * @param message Message to display.
+     * @return an Integer.
      */
     private static int readNumber(String message) {
         Scanner kbd = new Scanner(System.in);
@@ -45,16 +49,17 @@ public class Application {
     }
 
     /**
+     * Returns only a number that's is bigger than minimal number given, as the
+     * parameter
      *
-     * @param message
-     * @param min
-     * @param max
-     * @return
+     * @param message Message to display to the user.
+     * @param min Minimal integer.
+     * @return An integer.
      */
-    private static int sizeBetweenRange(String message, int min, int max) {
+    private static int sizeBetweenRange(String message, int min) {
 
         int number = readNumber(message);
-        while (number < min || (max < number && max != 0)) {
+        while (number < min) {
             System.out.println("Inserted number isn't above " + min);
             number = readNumber(message);
         }
@@ -62,8 +67,10 @@ public class Application {
     }
 
     /**
+     * Creates new application class by it's default size or chosen one by the
+     * user.
      *
-     * @return
+     * @return new Application instance.
      */
     private static Application defaultSizeOrNot() {
         System.out.println("Are you willing to create a"
@@ -74,13 +81,14 @@ public class Application {
         } else {
             return new Application(
                     sizeBetweenRange("Insert the width,"
-                            + " it must be above 10", 10, 0),
+                            + " it must be above 10", 10),
                     sizeBetweenRange("Insert the height,"
-                            + " it must be above 10", 10, 0));
+                            + " it must be above 10", 10));
         }
     }
 
     /**
+     * Used
      *
      * @param message
      * @return
@@ -96,11 +104,13 @@ public class Application {
     }
 
     /**
+     * Initializes a new shape given in the parameter, but at first all it's
+     * values and types are verified if it is correct.
      *
-     * @param command
+     * @param command Command used to initialize a new shape.
      */
     private void initializeParams(String[] command) {
-        if (checkTypeOfParams(command) && checkValueOfParams(command)) {
+        if (checkTypeOfParams(command)) {
             switch (command[1].toLowerCase()) {
                 case "circle":
                     this.ascii.newCircle(Integer.parseInt(command[2]),
@@ -130,9 +140,11 @@ public class Application {
     }
 
     /**
+     * Verifies if the type of the parameters is correct, in this case the
+     * algorithm verifies if the parameters are of the type numeric.
      *
-     * @param command
-     * @return
+     * @param command Command to verify.
+     * @return Boolean
      */
     private boolean checkTypeOfParams(String[] command) {
         Pattern pattern = Pattern.compile("\\d+(\\.\\d+)?");
@@ -155,32 +167,19 @@ public class Application {
         return true;
     }
 
-    private boolean checkValueOfParams(String[] command) {
-        int width;
-        int height;
-        if (command.length == 6) {
-            width = Integer.parseInt(command[4]);
-            height = Integer.parseInt(command[4]);
-        } else if (command.length == 7) {
-            width = Integer.parseInt(command[4]);
-            height = Integer.parseInt(command[5]);
-        } else {
-            return false;
+    /**
+     * Displays given string.
+     *
+     * @param ascii string to display.
+     */
+    private void displayAscii(String ascii) {
+        for (int i = 0; i < ascii.length(); i++) {
+            System.out.printf("%2s", ascii.charAt(i));
         }
-        if (Integer.parseInt(command[2]) >= this.ascii.getWidth()
-                || Integer.parseInt(command[2]) + width
-                >= this.ascii.getWidth()) {
-            return false;
-        }
-        if (Integer.parseInt(command[3]) > this.ascii.getHeight()
-                || Integer.parseInt(command[3]) + height
-                >= this.ascii.getWidth()) {
-            return false;
-        }
-        return true;
     }
 
     /**
+     * Controls the whole algorithm and its behavior during its lifetime.
      *
      */
     public void start() {
@@ -189,7 +188,7 @@ public class Application {
         boolean exit = false;
         while (!exit) {
             System.out.println("Avaiable commands: add "
-                    + "(circle, rectangle, square), show, help and exit");
+                    + "(circle, rectangle, square), show, and exit");
             String input = kbd.nextLine();
             command = input.split(" ");
             switch (command[0].toLowerCase()) {
@@ -197,10 +196,8 @@ public class Application {
                     initializeParams(command);
                     break;
                 case "show":
-                    String ascii = this.ascii.asAscii();
-                    for (int i = 0; i < ascii.length(); i++) {
-                        System.out.printf("%2s", ascii.charAt(i));
-                    }
+                    displayAscii(this.ascii.asAscii());
+
                     break;
                 case "exit":
                     exit = true;

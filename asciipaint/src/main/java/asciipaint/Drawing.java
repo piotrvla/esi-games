@@ -1,4 +1,4 @@
-package ascii.paint;
+package asciipaint;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +47,8 @@ public class Drawing {
     }
 
     /**
-     * Returns the shape at the given position.
+     * Verifies if there's an existing shape at the position X and Y if it's the
+     * case the shape is returned, if not else.
      *
      * @param p point to check if there's any shape.
      * @return A shape or null if there's no shape.
