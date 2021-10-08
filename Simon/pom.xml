@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>atl.sample</groupId>
-    <artifactId>JavaFx</artifactId>
+    <artifactId>Simon</artifactId>
     <version>1.0</version>
 
     <dependencies>
