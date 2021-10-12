@@ -1,7 +1,5 @@
 package g56212.simon.view;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.util.Duration;
 import javafx.animation.PauseTransition;
 import javafx.application.Application;
@@ -38,9 +36,14 @@ public class View
         StackPane stack = new StackPane();
 
         Button red = new Button();
+        red.setId("red");
+
         Button green = new Button();
+        green.setId("green");
         Button yellow = new Button();
+        yellow.setId("yellow");
         Button blue = new Button();
+        blue.setId("blue");
 
         RowConstraints row1 = new RowConstraints();
         RowConstraints row2 = new RowConstraints();
@@ -61,7 +64,7 @@ public class View
         yellow.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         blue.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         green.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-        
+
         background.add(red, 1, 1);
         background.add(blue, 0, 0);
         background.add(yellow, 1, 0);
@@ -119,19 +122,34 @@ public class View
         red.setOnAction(actionEvent -> {
             hasBeenClicked(red);
             try {
-                playSoundOnClick(silentMode);
+                playSoundOnClick(red, silentMode);
             } catch (MidiUnavailableException ex) {
-                Logger.getLogger(View.class.getName()).log(Level.SEVERE, null, ex);
+                ex.printStackTrace();
             }
         });
         yellow.setOnAction(actionEvent -> {
             hasBeenClicked(yellow);
+            try {
+                playSoundOnClick(yellow, silentMode);
+            } catch (MidiUnavailableException ex) {
+                ex.printStackTrace();
+            }
         });
         green.setOnAction(actionEvent -> {
             hasBeenClicked(green);
+            try {
+                playSoundOnClick(green, silentMode);
+            } catch (MidiUnavailableException ex) {
+                ex.printStackTrace();
+            }
         });
         blue.setOnAction(actionEvent -> {
             hasBeenClicked(blue);
+            try {
+                playSoundOnClick(blue, silentMode);
+            } catch (MidiUnavailableException ex) {
+                ex.printStackTrace();
+            }
         });
         Scene scene = new Scene(stack, 650, 650);
         primaryStage.setScene(scene);
@@ -149,14 +167,34 @@ public class View
         pause.play();
     }
 
-    private void playSoundOnClick(CheckBox sound) throws MidiUnavailableException {
+    private int getNoteByIdButton(Button button) {
+        int note = 0;
+        switch (button.getId()) {
+            case "red":
+                note = 65;
+                break;
+            case "blue":
+                note = 66;
+                break;
+            case "yellow":
+                note = 67;
+                break;
+            case "green":
+                note = 68;
+                break;
+        }
+        return note;
+    }
+
+    private void playSoundOnClick(Button button, CheckBox sound) throws MidiUnavailableException {
+        final int note = getNoteByIdButton(button);
         if (!sound.isSelected()) {
             var synth = MidiSystem.getSynthesizer();
             synth.open();
             var channel = synth.getChannels()[0];
-            channel.noteOn(72, 80);
+            channel.noteOn(note, 80);
             var pause = new PauseTransition(Duration.seconds(1));
-            pause.setOnFinished(ev -> channel.noteOff(72));
+            pause.setOnFinished(ev -> channel.noteOff(0));
             pause.play();
 
         }
