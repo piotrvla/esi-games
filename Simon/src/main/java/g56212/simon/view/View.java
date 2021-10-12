@@ -1,5 +1,7 @@
 package g56212.simon.view;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.util.Duration;
 import javafx.animation.PauseTransition;
 import javafx.application.Application;
@@ -17,6 +19,8 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javax.sound.midi.MidiSystem;
+import javax.sound.midi.MidiUnavailableException;
 
 public class View
         extends Application {
@@ -57,21 +61,7 @@ public class View
         yellow.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         blue.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         green.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-
-        red.setOnAction(actionEvent -> {
-            hasBeenClicked(red);
-        });
-        yellow.setOnAction(actionEvent -> {
-            hasBeenClicked(yellow);
-        });
-        green.setOnAction(actionEvent -> {
-            hasBeenClicked(green);
-        });
-        blue.setOnAction(actionEvent -> {
-            hasBeenClicked(blue);
-        });
         
-
         background.add(red, 1, 1);
         background.add(blue, 0, 0);
         background.add(yellow, 1, 0);
@@ -126,6 +116,23 @@ public class View
         menu.getChildren().addAll(title, menuSpeed, menuButtons, silentMode);
         menu.setAlignment(Pos.CENTER);
         stack.getChildren().addAll(background, menu);
+        red.setOnAction(actionEvent -> {
+            hasBeenClicked(red);
+            try {
+                playSoundOnClick(silentMode);
+            } catch (MidiUnavailableException ex) {
+                Logger.getLogger(View.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+        yellow.setOnAction(actionEvent -> {
+            hasBeenClicked(yellow);
+        });
+        green.setOnAction(actionEvent -> {
+            hasBeenClicked(green);
+        });
+        blue.setOnAction(actionEvent -> {
+            hasBeenClicked(blue);
+        });
         Scene scene = new Scene(stack, 650, 650);
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -134,10 +141,24 @@ public class View
 
     private void hasBeenClicked(Button button) {
         button.setOpacity(0.5);
+
         var pause = new PauseTransition(Duration.seconds(1));
         pause.setOnFinished(ev -> {
             button.setOpacity(1.);
         });
         pause.play();
+    }
+
+    private void playSoundOnClick(CheckBox sound) throws MidiUnavailableException {
+        if (!sound.isSelected()) {
+            var synth = MidiSystem.getSynthesizer();
+            synth.open();
+            var channel = synth.getChannels()[0];
+            channel.noteOn(72, 80);
+            var pause = new PauseTransition(Duration.seconds(1));
+            pause.setOnFinished(ev -> channel.noteOff(72));
+            pause.play();
+
+        }
     }
 }
