@@ -1,15 +1,18 @@
 package g56212.simon.view;
 
+import g56212.simon.controller.Controller;
+import g56212.simon.model.Model;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Observable;
+import java.util.Observer;
 import javafx.animation.KeyFrame;
 import javafx.util.Duration;
 import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
+import javafx.beans.InvalidationListener;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -27,10 +30,23 @@ import javax.sound.midi.MidiSystem;
 import javax.sound.midi.MidiUnavailableException;
 
 public class View
-        extends Application {
+        extends Application implements Observer {
+
+    private Controller controller;
+    private Model model;
+
+    public View(Controller controller, Model model) {
+        this.controller = controller;
+        this.model = model;
+        model.addListener((InvalidationListener) model);
+    }
 
     public static void main(String[] args) {
         launch(args);
+    }
+
+    @Override
+    public void update(Observable o, Object o1) {
     }
 
     @Override
@@ -179,7 +195,7 @@ public class View
     private void hasBeenClicked(Button button, CheckBox sound) throws MidiUnavailableException {
         button.setOpacity(0.5);
         playSoundOnClick(button, sound);
-        var pause = new PauseTransition(Duration.seconds(1));
+        var pause = new PauseTransition(Duration.seconds(0.3));
         pause.setOnFinished(ev -> {
             button.setOpacity(1.);
         });
@@ -220,7 +236,7 @@ public class View
     }
 
     private void playSequence(List<Button> colors, CheckBox silentMode) {
-        var timeline = new Timeline((new KeyFrame(Duration.seconds(2), event -> {
+        var timeline = new Timeline((new KeyFrame(Duration.seconds(1), event -> {
             try {
                 hasBeenClicked(randomColor(colors), silentMode);
             } catch (MidiUnavailableException ex) {
@@ -234,4 +250,5 @@ public class View
     private Button randomColor(List<Button> colors) {
         return colors.get((int) (Math.random() * colors.size()));
     }
+
 }
