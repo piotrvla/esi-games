@@ -4,15 +4,11 @@ import g56212.simon.controller.Controller;
 import g56212.simon.model.Model;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
-import javafx.animation.KeyFrame;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.util.Duration;
 import javafx.animation.PauseTransition;
-import javafx.animation.Timeline;
-import javafx.application.Application;
 import static javafx.application.Application.launch;
-import javafx.beans.InvalidationListener;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -26,30 +22,26 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javax.sound.midi.MidiSystem;
 import javax.sound.midi.MidiUnavailableException;
 
 public class View
-        extends Application implements Observer {
+        implements Observer {
 
     private Controller controller;
     private Model model;
+    private Sound sound;
+    private CheckBox silentMode;
 
     public View(Controller controller, Model model) {
         this.controller = controller;
         this.model = model;
-        model.addListener((InvalidationListener) model);
+        this.sound = new Sound();
     }
 
     public static void main(String[] args) {
         launch(args);
     }
 
-    @Override
-    public void update(Observable o, Object o1) {
-    }
-
-    @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("SIMON");
 
@@ -127,13 +119,13 @@ public class View
         silentMode.setText("Silent mode");
 
         VBox menuSpeed = new VBox(10);
-        Slider speed = new Slider(0, 5, 2.5);
-        speed.setMaxWidth(200);
-        speed.setShowTickMarks(true);
-        Label speedText = new Label();
-        speedText.setText(" Speed");
+        Slider gameSpeed = new Slider(0, 5, 2.5);
+        gameSpeed.setMaxWidth(200);
+        gameSpeed.setShowTickMarks(true);
+        Label gameSpeedText = new Label();
+        gameSpeedText.setText(" Speed");
         menuSpeed.setAlignment(Pos.CENTER);
-        menuSpeed.getChildren().addAll(speed, speedText);
+        menuSpeed.getChildren().addAll(gameSpeed, gameSpeedText);
 
         menu.setMaxSize(250, 200);
         menu.setStyle("-fx-background-color:rgba(219, 219, 219, 0.9)");
@@ -145,46 +137,40 @@ public class View
         // ACTION ON CLICK
         red.setOnAction(actionEvent -> {
 
-            try {
-                hasBeenClicked(red, silentMode);
-            } catch (MidiUnavailableException ex) {
-                ex.printStackTrace();
-            }
+            this.controller.click(red);
         });
         yellow.setOnAction(actionEvent -> {
 
-            try {
-                hasBeenClicked(yellow, silentMode);
-            } catch (MidiUnavailableException ex) {
-                ex.printStackTrace();
-            }
+            this.controller.click(yellow);
         });
         green.setOnAction(actionEvent -> {
 
-            try {
-                hasBeenClicked(green, silentMode);
-            } catch (MidiUnavailableException ex) {
-                ex.printStackTrace();
-            }
+            this.controller.click(green);
         });
         blue.setOnAction(actionEvent -> {
-            try {
-                hasBeenClicked(blue, silentMode);
-            } catch (MidiUnavailableException ex) {
-                ex.printStackTrace();
-            }
+            this.controller.click(blue);
         });
-
         //CREATING A LIST OF BUTTONS
         List colors = new ArrayList<Button>();
         colors.add(red);
         colors.add(yellow);
         colors.add(green);
         colors.add(blue);
+        this.model.subscribe(this);
 
         start.setOnAction(actionEvent -> {
-            playSequence(colors, silentMode);
+            this.controller.start(colors, gameSpeed.getValue());
         });
+//        last.setOnAction(actionEvent -> {
+//
+//            this.controller.last();
+//
+//        });
+//        longest.setOnAction(actionEvent -> {
+//
+//            this.controller.longest();
+//
+//        });
 
         Scene scene = new Scene(stack, 650, 650);
         primaryStage.setScene(scene);
@@ -192,63 +178,25 @@ public class View
 
     }
 
-    private void hasBeenClicked(Button button, CheckBox sound) throws MidiUnavailableException {
+    private void hasBeenClicked(Button button) {
+
         button.setOpacity(0.5);
-        playSoundOnClick(button, sound);
         var pause = new PauseTransition(Duration.seconds(0.3));
         pause.setOnFinished(ev -> {
+            try {
+                Sound.playSound(button);
+            } catch (MidiUnavailableException ex) {
+                Logger.getLogger(View.class.getName()).log(Level.SEVERE, null, ex);
+            }
             button.setOpacity(1.);
         });
         pause.play();
+
     }
 
-    private int getNoteByIdButton(Button button) {
-        int note = 0;
-        switch (button.getId()) {
-            case "red":
-                note = 65;
-                break;
-            case "blue":
-                note = 66;
-                break;
-            case "yellow":
-                note = 67;
-                break;
-            case "green":
-                note = 68;
-                break;
-        }
-        return note;
-    }
-
-    private void playSoundOnClick(Button button, CheckBox sound) throws MidiUnavailableException {
-        final int note = getNoteByIdButton(button);
-        if (!sound.isSelected()) {
-            var synth = MidiSystem.getSynthesizer();
-            synth.open();
-            var channel = synth.getChannels()[0];
-            channel.noteOn(note, 80);
-            var pause = new PauseTransition(Duration.seconds(1));
-            pause.setOnFinished(ev -> channel.noteOff(0));
-            pause.play();
-
-        }
-    }
-
-    private void playSequence(List<Button> colors, CheckBox silentMode) {
-        var timeline = new Timeline((new KeyFrame(Duration.seconds(1), event -> {
-            try {
-                hasBeenClicked(randomColor(colors), silentMode);
-            } catch (MidiUnavailableException ex) {
-                ex.printStackTrace();
-            }
-        })));
-        timeline.setCycleCount(3);
-        timeline.play();
-    }
-
-    private Button randomColor(List<Button> colors) {
-        return colors.get((int) (Math.random() * colors.size()));
+    @Override
+    public void update(Button button) {
+        hasBeenClicked(button);
     }
 
 }

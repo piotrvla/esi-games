@@ -47,6 +47,7 @@ public class Application {
         }
         return kbd.nextInt();
     }
+    public void blabla(){}
 
     /**
      * Returns only a number that's is bigger than minimal number given, as the

@@ -59,6 +59,7 @@ public class AsciiPaint {
      */
     public void newRectangle(int x, int y, double width, double height, char color) {
         drawing.addShape(new Rectangle(new Point(x, y), width, height, color));
+        
     }
 
     /**

@@ -23,7 +23,7 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.4</version>
                 <configuration>
-                    <mainClass>g56212.simon.view.View</mainClass>
+                    <mainClass>g56212.simon.Simon</mainClass>
                 </configuration>
             </plugin>
         </plugins>
