@@ -26,6 +26,7 @@ public class Model implements Observable {
     private List<Button> colors;
     private double speed;
     private boolean inProgress;
+    private int indexSequence;
 
     public Model() {
         this.observer = new ArrayList();
@@ -42,10 +43,13 @@ public class Model implements Observable {
 
     public void playSequence() {
         if (this.inProgress) {
+            Button randomButton = randomColor();
+            this.gameSequence.add(randomButton);
+            this.indexSequence = 0;
             var timeline = new Timeline((new KeyFrame(Duration.seconds(1), event -> {
-                Button randomButton = randomColor();
-                notifyObs(randomButton);
-                this.gameSequence.add(randomButton);
+
+                notifyObs(this.gameSequence.get(this.indexSequence));
+                this.indexSequence++;
 
             })));
             timeline.setCycleCount(this.gameSequence.size());
@@ -77,8 +81,8 @@ public class Model implements Observable {
 
     public void checkSequence() {
         int i = 0;
-        while (i < gameSequence.size() && !inProgress) {
-            if (equals(userSequence.get(i), gameSequence.get(i))) {
+        while (i < gameSequence.size()) {
+            if (!equals(userSequence.get(i), gameSequence.get(i))) {
                 System.out.println("perdu PAS BONNE SEQUENCE");
                 inProgress = false;
                 gameSequence = new ArrayList();
