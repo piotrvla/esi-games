@@ -1,6 +1,8 @@
 g56212\simon\model\Model.class
+g56212\simon\view\ViewMenu.class
 g56212\simon\view\Observer.class
 g56212\simon\view\Sound.class
+g56212\simon\Simon.class
 g56212\simon\controller\Controller.class
 g56212\simon\model\Observable.class
 g56212\simon\view\View.class

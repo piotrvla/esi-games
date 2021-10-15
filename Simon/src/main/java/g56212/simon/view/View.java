@@ -29,13 +29,12 @@ public class View
 
     private Controller controller;
     private Model model;
-    private Sound sound;
     private CheckBox silentMode;
 
     public View(Controller controller, Model model) {
         this.controller = controller;
         this.model = model;
-        this.sound = new Sound();
+
     }
 
     public static void main(String[] args) {
@@ -115,8 +114,8 @@ public class View
         title.setStyle("-fx-font-size: 32px;"
                 + "   -fx-font-family: Arial Black;");
 
-        CheckBox silentMode = new CheckBox();
-        silentMode.setText("Silent mode");
+        this.silentMode = new CheckBox();
+        this.silentMode.setText("Silent mode");
 
         VBox menuSpeed = new VBox(10);
         Slider gameSpeed = new Slider(0, 5, 2.5);
@@ -130,7 +129,7 @@ public class View
         menu.setMaxSize(250, 200);
         menu.setStyle("-fx-background-color:rgba(219, 219, 219, 0.9)");
 
-        menu.getChildren().addAll(title, menuSpeed, menuButtons, silentMode);
+        menu.getChildren().addAll(title, menuSpeed, menuButtons, this.silentMode);
         menu.setAlignment(Pos.CENTER);
         stack.getChildren().addAll(background, menu);
 
@@ -181,10 +180,11 @@ public class View
     private void hasBeenClicked(Button button) {
 
         button.setOpacity(0.5);
+
         var pause = new PauseTransition(Duration.seconds(0.3));
         pause.setOnFinished(ev -> {
             try {
-                Sound.playSound(button);
+                Sound.playSound(button, this.silentMode);
             } catch (MidiUnavailableException ex) {
                 Logger.getLogger(View.class.getName()).log(Level.SEVERE, null, ex);
             }

@@ -2,10 +2,8 @@ package g56212.simon.model;
 
 import g56212.simon.view.Observer;
 
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
@@ -13,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.util.Duration;
 
 /**
+ * Model of Simon game.
  *
  * @author g56212
  */
@@ -38,6 +37,8 @@ public class Model implements Observable {
         this.inProgress = true;
         this.colors = colors;
         this.speed = speed;
+        this.gameSequence=new ArrayList();
+        this.userSequence=new ArrayList();
         playSequence();
     }
 
