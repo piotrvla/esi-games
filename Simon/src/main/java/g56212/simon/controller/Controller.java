@@ -7,7 +7,7 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 /**
- *
+ * Controller of Simon game.
  * @author g56212
  */
 public class Controller {
@@ -33,7 +33,6 @@ public class Controller {
 //    public void longest() {
 //        this.model.longest();
 //    }
-
     public void click(Button button) {
         this.model.click(button);
     }

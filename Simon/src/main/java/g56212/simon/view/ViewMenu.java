@@ -9,21 +9,29 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 /**
- *
+ * View responsable for the menu of Simon game.
  * @author g56212
  */
-public class ViewMenu {
+public class ViewMenu extends VBox {
+
+    private final Slider gameSpeed;
+    private final CheckBox silentMode;
+    private final Button last;
+    private final Button longest;
+    private final Button start;
 
     public ViewMenu() {
         HBox menuButtons = new HBox(8);
-        VBox menu = new VBox(10);
 
-        Button longest = new Button();
-        longest.setText("Longest");
-        Button start = new Button();
-        Button last = new Button();
-        start.setText("start");
-        last.setText("Last");
+        this.gameSpeed = new Slider(0, 5, 2.5);
+        this.silentMode = new CheckBox();
+
+        this.longest = new Button();
+        this.longest.setText("Longest");
+        this.start = new Button();
+        this.last = new Button();
+        this.start.setText("start");
+        this.last.setText("Last");
 
         String style = "-fx-border-radius:50px;"
                 + " -fx-background-color:#a816b5;"
@@ -34,10 +42,10 @@ public class ViewMenu {
                 + " -fx-padding:5px 10px;"
                 + " -fx-text-decoration:none;";
 
-        longest.setStyle(style);
-        last.setStyle(style);
-        start.setStyle(style);
-        menuButtons.getChildren().addAll(longest, start, last);
+        this.longest.setStyle(style);
+        this.last.setStyle(style);
+        this.start.setStyle(style);
+        menuButtons.getChildren().addAll(this.longest, this.start, this.last);
         menuButtons.setAlignment(Pos.CENTER);
 
         Label title = new Label();
@@ -46,16 +54,49 @@ public class ViewMenu {
         title.setStyle("-fx-font-size: 32px;"
                 + "   -fx-font-family: Arial Black;");
 
-        CheckBox silentMode = new CheckBox();
-        silentMode.setText("Silent mode");
+        this.silentMode.setText("Silent mode");
 
         VBox menuSpeed = new VBox(10);
-        Slider gameSpeed = new Slider(0, 5, 2.5);
-        gameSpeed.setMaxWidth(200);
-        gameSpeed.setShowTickMarks(true);
+
+        this.gameSpeed.setMaxWidth(200);
+        this.gameSpeed.setShowTickMarks(true);
         Label gameSpeedText = new Label();
         gameSpeedText.setText(" Speed");
         menuSpeed.setAlignment(Pos.CENTER);
         menuSpeed.getChildren().addAll(gameSpeed, gameSpeedText);
+        menuSpeed.setAlignment(Pos.CENTER);
+
+        this.setMaxSize(250, 200);
+        this.setStyle("-fx-background-color:rgba(219, 219, 219, 0.9)");
+
+        this.getChildren().addAll(title, menuSpeed, menuButtons, gameSpeed, this.silentMode);
+        this.setAlignment(Pos.CENTER);
+
     }
+
+    VBox getMenu() {
+        return this;
+    }
+
+    Double getGameSpeed() {
+        return this.gameSpeed.getValue();
+    }
+
+    CheckBox getSilentMode() {
+        return this.silentMode;
+    }
+
+    Button getLast() {
+        return this.last;
+
+    }
+
+    Button getLongest() {
+        return this.longest;
+    }
+
+    Button getStart() {
+        return this.start;
+    }
+
 }

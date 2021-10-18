@@ -37,8 +37,8 @@ public class Model implements Observable {
         this.inProgress = true;
         this.colors = colors;
         this.speed = speed;
-        this.gameSequence=new ArrayList();
-        this.userSequence=new ArrayList();
+        this.gameSequence = new ArrayList();
+        this.userSequence = new ArrayList();
         playSequence();
     }
 
