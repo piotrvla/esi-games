@@ -4,8 +4,9 @@ import g56212.simon.view.Observer;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 import javafx.animation.KeyFrame;
-import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
 import javafx.scene.control.Button;
 import javafx.util.Duration;
@@ -50,29 +51,28 @@ public class Model implements Observable {
         }
 
         this.indexSequence = 0;
-        var timeline = new Timeline((new KeyFrame(Duration.seconds(1), event -> {
+        var timeline = new Timeline((new KeyFrame(Duration.seconds(1 / this.speed), event -> {
 
             notifyObs(list.get(this.indexSequence));
             this.indexSequence++;
 
         })));
+
         timeline.setCycleCount(list.size());
         timeline.play();
-
+        if (list.equals(this.gameSequence)) {
+            timer();
+        }
     }
 
     public void click(Button button) {
         this.userSequence.add(button);
         System.out.println(button.getId());
         notifyObs(button);
-        if (this.gameSequence.size() == this.userSequence.size()) {
-            checkSequence();
-        }
 
     }
 
     public void last() {
-
         playSequence(this.lastSequence);
     }
 
@@ -85,9 +85,12 @@ public class Model implements Observable {
         return this.colors.get(randomNb);
     }
 
-    public void checkSequence() {
+    private void checkSequence() {
         int i = 0;
-        while (i < this.gameSequence.size()) {
+        if (gameSequence.size() != this.userSequence.size()) {
+            this.inProgress = false;
+        }
+        while (i < this.gameSequence.size() && inProgress) {
             if (!equals(this.userSequence.get(i), this.gameSequence.get(i))) {
                 this.inProgress = false;
                 this.lastSequence = this.gameSequence;
@@ -104,23 +107,22 @@ public class Model implements Observable {
         if (this.inProgress) {
             playSequence(this.gameSequence);
         }
-
-    }
-
-    public void addNewRandomColorToGameSequence() {
-
     }
 
     private boolean equals(Button a, Button b) {
         return a.getId().equals(b.getId());
     }
 
-    public void timer() {
-        var pause = new PauseTransition(Duration.seconds(5));
-        pause.setOnFinished(ev -> {
-            checkSequence();
-        });
-        pause.play();
+    private void timer() {
+        var timerTask = new TimerTask() {
+            @Override
+            public void run() {
+
+                checkSequence();
+            }
+        };
+        Timer timer = new Timer();
+        timer.schedule(timerTask, (long) ((3000 + (this.gameSequence.size() * 500))));
     }
 
     @Override
@@ -140,7 +142,4 @@ public class Model implements Observable {
         observer.remove(ob);
     }
 
-    public int getGameSequenceSize() {
-        return this.gameSequence.size();
-    }
 }
