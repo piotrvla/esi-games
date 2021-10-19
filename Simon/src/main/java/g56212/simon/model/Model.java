@@ -39,23 +39,26 @@ public class Model implements Observable {
         this.speed = speed;
         this.gameSequence = new ArrayList();
         this.userSequence = new ArrayList();
-        playSequence();
+        playSequence(this.gameSequence);
     }
 
-    public void playSequence() {
-        if (this.inProgress) {
+    public void playSequence(List<Button> list) {
+
+        if (list.equals(this.gameSequence)) {
             Button randomButton = randomColor();
             this.gameSequence.add(randomButton);
-            this.indexSequence = 0;
-            var timeline = new Timeline((new KeyFrame(Duration.seconds(1), event -> {
-
-                notifyObs(this.gameSequence.get(this.indexSequence));
-                this.indexSequence++;
-
-            })));
-            timeline.setCycleCount(this.gameSequence.size());
-            timeline.play();
         }
+
+        this.indexSequence = 0;
+        var timeline = new Timeline((new KeyFrame(Duration.seconds(1), event -> {
+
+            notifyObs(list.get(this.indexSequence));
+            this.indexSequence++;
+
+        })));
+        timeline.setCycleCount(list.size());
+        timeline.play();
+
     }
 
     public void click(Button button) {
@@ -68,13 +71,15 @@ public class Model implements Observable {
 
     }
 
-//    public void last() {
-//        playSequence(this.lastSequence);
-//    }
-//
-//    public void longest() {
-//        playSequence(this.longestSequence);
-//    }
+    public void last() {
+
+        playSequence(this.lastSequence);
+    }
+
+    public void longest() {
+        playSequence(this.longestSequence);
+    }
+
     private Button randomColor() {
         int randomNb = (int) (Math.random() * 4);
         return this.colors.get(randomNb);
@@ -82,20 +87,23 @@ public class Model implements Observable {
 
     public void checkSequence() {
         int i = 0;
-        while (i < gameSequence.size()) {
-            if (!equals(userSequence.get(i), gameSequence.get(i))) {
-                System.out.println("perdu PAS BONNE SEQUENCE");
-                inProgress = false;
-                gameSequence = new ArrayList();
+        while (i < this.gameSequence.size()) {
+            if (!equals(this.userSequence.get(i), this.gameSequence.get(i))) {
+                this.inProgress = false;
+                this.lastSequence = this.gameSequence;
+                this.gameSequence = new ArrayList();
+                System.out.println(this.lastSequence.size());
             }
             i++;
         }
-        userSequence = new ArrayList();
-        lastSequence = gameSequence;
-        if (lastSequence.size() > longestSequence.size()) {
-            longestSequence = lastSequence;
+        this.userSequence = new ArrayList();
+
+        if (this.lastSequence.size() > this.longestSequence.size()) {
+            this.longestSequence = this.lastSequence;
         }
-        playSequence();
+        if (this.inProgress) {
+            playSequence(this.gameSequence);
+        }
 
     }
 

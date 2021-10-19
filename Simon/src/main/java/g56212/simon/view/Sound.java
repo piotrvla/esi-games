@@ -15,7 +15,12 @@ import javax.sound.midi.MidiUnavailableException;
  * @author piotr
  */
 public class Sound {
-
+    /**
+     * Makes a sound with specific note number for every button.
+     * @param button Used to get note's number.
+     * @param silentMode Used to know if the game is muted or not.
+     * @throws MidiUnavailableException 
+     */
     public static void playSound(Button button, CheckBox silentMode) throws MidiUnavailableException {
         if (!silentMode.isSelected()) {
             int noteNumber = getNoteByColor(button);
@@ -32,7 +37,11 @@ public class Sound {
         }
 
     }
-
+    /**
+     * Gets note number from button's id
+     * @param button button with it's id.
+     * @return Button's note number.
+     */
     private static int getNoteByColor(Button button) {
         int noteNumber;
         switch (button.getId()) {

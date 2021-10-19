@@ -47,20 +47,21 @@ public class View
                 this.controller.click(button);
             });
         }
+
         menu.getStart().setOnAction(actionEvent -> {
-           this.controller.start(buttons, menu.getGameSpeed());
+            this.controller.start(buttons, menu.getGameSpeed());
         });
-//
-//        menu.getLast().setOnAction(actionEvent -> {
-//
-//            this.controller.last();
-//
-//        });
-//        menu.getLongest().setOnAction(actionEvent -> {
-//
-//            this.controller.longest();
-//
-//        });
+
+        menu.getLast().setOnAction(actionEvent -> {
+
+            this.controller.last();
+
+        });
+        menu.getLongest().setOnAction(actionEvent -> {
+
+            this.controller.longest();
+
+        });
         Scene scene = new Scene(stack, 650, 650);
         primaryStage.setScene(scene);
         primaryStage.show();

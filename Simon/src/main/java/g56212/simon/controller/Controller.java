@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 
 /**
  * Controller of Simon game.
+ *
  * @author g56212
  */
 public class Controller {
@@ -26,13 +27,14 @@ public class Controller {
         this.model.start(colors, speed);
     }
 
-//    public void last() {
-//        this.model.last();
-//    }
-//
-//    public void longest() {
-//        this.model.longest();
-//    }
+    public void last() {
+        this.model.last();
+    }
+
+    public void longest() {
+        this.model.longest();
+    }
+
     public void click(Button button) {
         this.model.click(button);
     }
