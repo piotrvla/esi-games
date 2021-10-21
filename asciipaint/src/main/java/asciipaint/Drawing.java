@@ -19,9 +19,12 @@ public class Drawing {
      *
      */
     public Drawing() {
+        this(50,50);
+        /*
         this.height = 50;
         this.width = 50;
         this.shapes = new ArrayList();
+        */
     }
 
     /**
