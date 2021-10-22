@@ -1,13 +1,16 @@
 package g56212.simon.model;
 
 import g56212.simon.view.Observer;
-
+import static g56212.simon.model.GameState.GAME_OVER;
+import static g56212.simon.model.GameState.RUNNING;
+import static g56212.simon.model.GameState.TIME_IS_OVER;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.scene.control.Button;
 import javafx.util.Duration;
 
@@ -27,6 +30,7 @@ public class Model implements Observable {
     private double speed;
     private boolean inProgress;
     private int indexSequence;
+    private GameState state;
 
     public Model() {
         this.observer = new ArrayList();
@@ -40,6 +44,7 @@ public class Model implements Observable {
         this.speed = speed;
         this.gameSequence = new ArrayList();
         this.userSequence = new ArrayList();
+        this.state=RUNNING;
         playSequenceStart();
     }
 
@@ -49,7 +54,7 @@ public class Model implements Observable {
         this.gameSequence.add(randomButton);
         this.indexSequence = 0;
         var timeline = new Timeline((new KeyFrame(Duration.seconds(1 / this.speed), event -> {
-            notifyObs(gameSequence.get(this.indexSequence));
+            notifyObs(gameSequence.get(this.indexSequence), RUNNING);
             this.indexSequence++;
         })));
         timeline.setCycleCount(gameSequence.size());
@@ -65,7 +70,7 @@ public class Model implements Observable {
         this.indexSequence = 0;
         var timeline = new Timeline((new KeyFrame(Duration.seconds(1 / this.speed), event -> {
 
-            notifyObs(list.get(this.indexSequence));
+            notifyObs(list.get(this.indexSequence), RUNNING);
             this.indexSequence++;
 
         })));
@@ -76,8 +81,7 @@ public class Model implements Observable {
 
     public void click(Button button) {
         this.userSequence.add(button);
-        System.out.println(button.getId());
-        notifyObs(button);
+        notifyObs(button, null);
 
     }
 
@@ -102,14 +106,14 @@ public class Model implements Observable {
         int i = 0;
         lastSequence = gameSequence;
         if (gameSequence.size() != this.userSequence.size()) {
-            this.inProgress = false;
+            this.state=TIME_IS_OVER;
         }
         while (i < this.gameSequence.size() && inProgress) {
             if (!equals(this.userSequence.get(i), this.gameSequence.get(i))) {
-                this.inProgress = false;
+                this.state=GAME_OVER;
                 this.lastSequence = this.gameSequence;
                 this.gameSequence = new ArrayList();
-                System.out.println(this.lastSequence.size());
+                this.inProgress = false;
             }
             i++;
         }
@@ -121,6 +125,7 @@ public class Model implements Observable {
         if (inProgress) {
             playSequenceStart();
         }
+
     }
 
     private boolean equals(Button a, Button b) {
@@ -133,16 +138,18 @@ public class Model implements Observable {
             public void run() {
 
                 checkSequence();
+                notifyObs(null,state);
             }
         };
         Timer timer = new Timer();
         timer.schedule(timerTask, (long) ((3000 + (this.gameSequence.size() * 500))));
+
     }
 
     @Override
-    public void notifyObs(Button button) {
+    public void notifyObs(Button button, GameState state) {
         for (Observer obs : observer) {
-            obs.update(button);
+            obs.update(button, state);
         }
     }
 

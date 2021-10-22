@@ -2,6 +2,7 @@ package g56212.simon.controller;
 
 import g56212.simon.model.Model;
 import g56212.simon.view.View;
+import g56212.simon.view.ViewMenu;
 import java.util.List;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
@@ -15,10 +16,12 @@ public class Controller {
 
     private Model model;
     private View view;
+    private ViewMenu viewMenu;
 
     public Controller(Model model, Stage stage) {
         this.model = model;
-        this.view = new View(this, model);
+        this.viewMenu = new ViewMenu();
+        this.view = new View(this, model, viewMenu);
         this.view.start(stage);
         // model.initialize();
     }
@@ -38,4 +41,5 @@ public class Controller {
     public void click(Button button) {
         this.model.click(button);
     }
+
 }
