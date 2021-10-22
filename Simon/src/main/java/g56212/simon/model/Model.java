@@ -40,16 +40,28 @@ public class Model implements Observable {
         this.speed = speed;
         this.gameSequence = new ArrayList();
         this.userSequence = new ArrayList();
-        playSequence(this.gameSequence);
+        playSequenceStart();
+    }
+
+    private void playSequenceStart() {
+
+        Button randomButton = randomColor();
+        this.gameSequence.add(randomButton);
+        this.indexSequence = 0;
+        var timeline = new Timeline((new KeyFrame(Duration.seconds(1 / this.speed), event -> {
+            notifyObs(gameSequence.get(this.indexSequence));
+            this.indexSequence++;
+        })));
+        timeline.setCycleCount(gameSequence.size());
+        timeline.play();
+
+        timer();
+
     }
 
     public void playSequence(List<Button> list) {
 
-        if (list.equals(this.gameSequence)) {
-            Button randomButton = randomColor();
-            this.gameSequence.add(randomButton);
-        }
-
+        System.out.println(list.size());
         this.indexSequence = 0;
         var timeline = new Timeline((new KeyFrame(Duration.seconds(1 / this.speed), event -> {
 
@@ -60,9 +72,6 @@ public class Model implements Observable {
 
         timeline.setCycleCount(list.size());
         timeline.play();
-        if (list.equals(this.gameSequence)) {
-            timer();
-        }
     }
 
     public void click(Button button) {
@@ -73,11 +82,15 @@ public class Model implements Observable {
     }
 
     public void last() {
-        playSequence(this.lastSequence);
+        if (!(lastSequence == null)) {
+            playSequence(this.lastSequence);
+        }
     }
 
     public void longest() {
-        playSequence(this.longestSequence);
+        if (!(longestSequence == null)) {
+            playSequence(this.longestSequence);
+        }
     }
 
     private Button randomColor() {
@@ -87,6 +100,7 @@ public class Model implements Observable {
 
     private void checkSequence() {
         int i = 0;
+        lastSequence = gameSequence;
         if (gameSequence.size() != this.userSequence.size()) {
             this.inProgress = false;
         }
@@ -101,11 +115,11 @@ public class Model implements Observable {
         }
         this.userSequence = new ArrayList();
 
-        if (this.lastSequence.size() > this.longestSequence.size()) {
-            this.longestSequence = this.lastSequence;
+        if (gameSequence.size() > this.longestSequence.size()) {
+            this.longestSequence = gameSequence;
         }
-        if (this.inProgress) {
-            playSequence(this.gameSequence);
+        if (inProgress) {
+            playSequenceStart();
         }
     }
 
