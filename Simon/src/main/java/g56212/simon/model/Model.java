@@ -32,29 +32,46 @@ public class Model implements Observable {
     private int indexSequence;
     private GameState state;
 
+    /**
+     * Constructor of the model that initialize observer list, last and longest
+     * sequence list.
+     */
     public Model() {
         this.observer = new ArrayList();
         this.lastSequence = new ArrayList();
         this.longestSequence = new ArrayList();
     }
 
+    /**
+     * Starts a game, by retrieving the speed, list of the colors, swapping the
+     * state to RUNNING,
+     *
+     * @param colors every avaiable color used to play the game.
+     * @param speed speed of the game.
+     */
     public void start(List<Button> colors, double speed) {
         this.inProgress = true;
         this.colors = colors;
         this.speed = speed;
         this.gameSequence = new ArrayList();
         this.userSequence = new ArrayList();
-        this.state=RUNNING;
+        this.state = RUNNING;
+        notifyObs(state);
         playSequenceStart();
     }
 
+    /**
+     * Plays the sequence by adding a new random color to repeat, then displays
+     * every color from the first to the new one.
+     */
     private void playSequenceStart() {
 
         Button randomButton = randomColor();
         this.gameSequence.add(randomButton);
         this.indexSequence = 0;
-        var timeline = new Timeline((new KeyFrame(Duration.seconds(1 / this.speed), event -> {
-            notifyObs(gameSequence.get(this.indexSequence), RUNNING);
+        var timeline = new Timeline((new KeyFrame(
+                Duration.seconds(1 / this.speed), event -> {
+            notifyObs(gameSequence.get(this.indexSequence));
             this.indexSequence++;
         })));
         timeline.setCycleCount(gameSequence.size());
@@ -64,13 +81,19 @@ public class Model implements Observable {
 
     }
 
+    /**
+     * Displays the sequence given in the parameter from the 1st element to the
+     * last one.
+     *
+     * @param list list to display as a sequence of colors.
+     */
     public void playSequence(List<Button> list) {
 
         System.out.println(list.size());
         this.indexSequence = 0;
         var timeline = new Timeline((new KeyFrame(Duration.seconds(1 / this.speed), event -> {
 
-            notifyObs(list.get(this.indexSequence), RUNNING);
+            notifyObs(list.get(this.indexSequence));
             this.indexSequence++;
 
         })));
@@ -79,38 +102,41 @@ public class Model implements Observable {
         timeline.play();
     }
 
+    /**
+     * Notifies the observer that a button was clicked.
+     *
+     * @param button
+     */
     public void click(Button button) {
         this.userSequence.add(button);
-        notifyObs(button, null);
+        notifyObs(button);
 
     }
 
-    public void last() {
-        if (!(lastSequence == null)) {
-            playSequence(this.lastSequence);
-        }
-    }
-
-    public void longest() {
-        if (!(longestSequence == null)) {
-            playSequence(this.longestSequence);
-        }
-    }
-
+    /**
+     * Chooses a new random color within the list of the colors.
+     *
+     * @return A new random button.
+     */
     private Button randomColor() {
         int randomNb = (int) (Math.random() * 4);
         return this.colors.get(randomNb);
     }
 
+    /**
+     * Verifies the user sequence if it's the same as the random generated one,
+     * at the start it verifies
+     */
     private void checkSequence() {
         int i = 0;
         lastSequence = gameSequence;
         if (gameSequence.size() != this.userSequence.size()) {
-            this.state=TIME_IS_OVER;
+            this.state = TIME_IS_OVER;
+            inProgress = false;
         }
         while (i < this.gameSequence.size() && inProgress) {
             if (!equals(this.userSequence.get(i), this.gameSequence.get(i))) {
-                this.state=GAME_OVER;
+                this.state = GAME_OVER;
                 this.lastSequence = this.gameSequence;
                 this.gameSequence = new ArrayList();
                 this.inProgress = false;
@@ -125,20 +151,27 @@ public class Model implements Observable {
         if (inProgress) {
             playSequenceStart();
         }
-
     }
 
+    /**
+     *
+     * @param a
+     * @param b
+     * @return
+     */
     private boolean equals(Button a, Button b) {
         return a.getId().equals(b.getId());
     }
 
+    /**
+     *
+     */
     private void timer() {
         var timerTask = new TimerTask() {
             @Override
             public void run() {
-
                 checkSequence();
-                notifyObs(null,state);
+                notifyObs(state);
             }
         };
         Timer timer = new Timer();
@@ -146,10 +179,27 @@ public class Model implements Observable {
 
     }
 
+    /**
+     *
+     */
+    public void last() {
+        if (!(lastSequence == null)) {
+            playSequence(this.lastSequence);
+        }
+    }
+    /**
+     * 
+     */
+    public void longest() {
+        if (!(longestSequence == null)) {
+            playSequence(this.longestSequence);
+        }
+    }
+
     @Override
-    public void notifyObs(Button button, GameState state) {
+    public void notifyObs(Object args) {
         for (Observer obs : observer) {
-            obs.update(button, state);
+            obs.update(args);
         }
     }
 

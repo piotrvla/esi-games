@@ -1,7 +1,6 @@
 package g56212.simon.view;
 
 import g56212.simon.controller.Controller;
-import g56212.simon.model.GameState;
 import g56212.simon.model.Model;
 import java.util.List;
 import java.util.logging.Level;
@@ -15,11 +14,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.layout.StackPane;
 import javax.sound.midi.MidiUnavailableException;
-import static g56212.simon.model.GameState.GAME_OVER;
-import static g56212.simon.model.GameState.RUNNING;
-import static g56212.simon.model.GameState.TIME_IS_OVER;
-import javafx.application.Platform;
 
+/**
+ * Main View of the game Simon.
+ *
+ * @author piotr
+ */
 public class View
         implements Observer {
 
@@ -34,19 +34,26 @@ public class View
         this.menu = viewMenu;
     }
 
-    public static void main(String[] args) {
-        launch(args);
-    }
-
+    /**
+     * Creates the whole interface of the Simon game.
+     *
+     * @param primaryStage primary stage of the window.
+     */
     public void start(Stage primaryStage) {
+
+        this.model.subscribe(this);
+        this.model.subscribe(menu);
+
         primaryStage.setTitle("SIMON");
+        primaryStage.setMinHeight(650);
+        primaryStage.setMinWidth(650);
 
         StackPane stack = new StackPane();
         ViewBackground background = new ViewBackground();
 
         this.silentMode = menu.getSilentMode();
         stack.getChildren().addAll(background, menu);
-        this.model.subscribe(this);
+        menu.setVisible(false);
         List<Button> buttons = background.getButtons();
 
         for (Button button : buttons) {
@@ -70,11 +77,18 @@ public class View
 
         });
         Scene scene = new Scene(stack, 650, 650);
+
         primaryStage.setScene(scene);
         primaryStage.show();
 
     }
 
+    /**
+     * Illuminates and plays a note according to the button given in the
+     * parameter.
+     *
+     * @param button Button to illuminate and play a sound.
+     */
     private void hasBeenClicked(Button button) {
 
         button.setOpacity(0.5);
@@ -92,29 +106,19 @@ public class View
 
     }
 
+    /**
+     * Updates the interface by illuminating a button only if the object given
+     * in the parameter's class equals this of the button, if it's the case the
+     * button is illuminated
+     *
+     * @param args Object to verify if it's class is Button.
+     */
     @Override
-    public void update(Button button, GameState state) {
-        if (button != null) {
-            hasBeenClicked(button);
-        }
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                switch (state) {
-                    case GAME_OVER:
-                        menu.setMessage("GAME IS OVER");
-                        break;
-                    case TIME_IS_OVER:
-                        menu.setMessage("TIME IS OVER");
-                        break;
-                    case RUNNING:
-                        menu.setMessage("Info");
-                        break;
-                }
-            }
+    public void update(Object args) {
 
+        if (args.getClass().equals(Button.class)) {
+            hasBeenClicked((Button) args);
         }
-        );
 
     }
 

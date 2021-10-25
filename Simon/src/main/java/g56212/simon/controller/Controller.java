@@ -26,18 +26,34 @@ public class Controller {
         // model.initialize();
     }
 
+    /**
+     *
+     * @param colors
+     * @param speed
+     */
     public void start(List<Button> colors, double speed) {
         this.model.start(colors, speed);
     }
 
+    /**
+     *
+     */
     public void last() {
         this.model.last();
     }
+
+    /**
+     *
+     */
 
     public void longest() {
         this.model.longest();
     }
 
+    /**
+     *
+     * @param button
+     */
     public void click(Button button) {
         this.model.click(button);
     }

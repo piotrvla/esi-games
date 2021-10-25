@@ -1,4 +1,4 @@
-    package g56212.simon.view;
+package g56212.simon.view;
 
 import java.util.ArrayList;
 import java.util.List;

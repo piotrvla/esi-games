@@ -1,5 +1,6 @@
 package g56212.simon.view;
 
+import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -7,13 +8,17 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import g56212.simon.model.GameState;
+import static g56212.simon.model.GameState.GAME_OVER;
+import static g56212.simon.model.GameState.RUNNING;
+import static g56212.simon.model.GameState.TIME_IS_OVER;
 
 /**
  * Menu view of the Simon's game.
  *
  * @author g56212
  */
-public class ViewMenu extends VBox {
+public class ViewMenu extends VBox implements Observer {
 
     private final Slider gameSpeed;
     private final CheckBox silentMode;
@@ -22,10 +27,13 @@ public class ViewMenu extends VBox {
     private final Button start;
     private final Label message;
 
+    /**
+     * Constructor of ViewMenu that creates the whole interface of the menu.
+     */
     public ViewMenu() {
         this.setSpacing(15);
 
-        this.gameSpeed = new Slider(0, 5, 2.5);
+        this.gameSpeed = new Slider(0.5, 5.5, 3);
         this.silentMode = new CheckBox();
         this.longest = new Button();
         this.longest.setText("Longest");
@@ -65,7 +73,7 @@ public class ViewMenu extends VBox {
         this.gameSpeed.setMaxWidth(200);
         this.gameSpeed.setShowTickMarks(true);
         Label gameSpeedText = new Label();
-        gameSpeedText.setText(" Speed");
+        gameSpeedText.setText("Speed");
         menuSpeed.setAlignment(Pos.CENTER);
         menuSpeed.getChildren().addAll(this.gameSpeed, gameSpeedText);
         menuSpeed.setAlignment(Pos.CENTER);
@@ -78,32 +86,83 @@ public class ViewMenu extends VBox {
 
     }
 
-    VBox getMenu() {
-        return this;
+    /**
+     * Updates the message whenever the class of the object given in the
+     * parameter is equal to GameState class, if it's the case message is set
+     * depending of the state given in the parameter.
+     *
+     * @param args Object used to check and to set the message.
+     */
+    @Override
+    public void update(Object args) {
+        if (args.getClass().equals(GAME_OVER.getClass())) {
+
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    switch ((GameState) args) {
+                        case GAME_OVER:
+                            setMessage("GAME OVER");
+                            break;
+                        case TIME_IS_OVER:
+                            setMessage("TIME IS OVER");
+                            break;
+                        case RUNNING:
+                            setMessage("Info");
+                            break;
+                        default:
+                            break;
+                    }
+                }
+
+            }
+            );
+        }
     }
 
+    /**
+     * Returns the game speed from the slider.
+     *
+     * @return speed of the game as a double value.
+     */
     Double getGameSpeed() {
         return this.gameSpeed.getValue();
     }
 
+    /**
+     *
+     * @return
+     */
     CheckBox getSilentMode() {
         return this.silentMode;
     }
 
+    /**
+     *
+     * @return
+     */
     Button getLast() {
         return this.last;
 
     }
 
+    /**
+     *
+     * @return
+     */
     Button getLongest() {
         return this.longest;
     }
 
+    /*
+    
+    
+     */
     Button getStart() {
         return this.start;
     }
 
-    public void setMessage(String message) {
+    void setMessage(String message) {
         this.message.setText(message);
     }
 
