@@ -16,6 +16,10 @@ public class ViewBackground extends GridPane {
 
     private final List<Button> buttons;
 
+    /**
+     * Constructor of the view background, that initializes every single 
+     * component of the background (colors and it's size.)
+     */
     public ViewBackground() {
         this.buttons = new ArrayList();
 
@@ -60,10 +64,20 @@ public class ViewBackground extends GridPane {
         this.buttons.add(blue);
     }
 
+    /**
+     * Getter of the gridpane with every composite of the background.
+     *
+     * @return gridpane.
+     */
     GridPane getBackGround() {
         return this;
     }
 
+    /**
+     * Getter of the list with every color (button) used to play the game.
+     *
+     * @return list of the buttons.
+     */
     List getButtons() {
         return this.buttons;
     }

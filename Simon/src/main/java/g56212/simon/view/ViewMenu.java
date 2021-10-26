@@ -1,5 +1,6 @@
 package g56212.simon.view;
 
+import g56212.simon.model.Observer;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -97,26 +98,21 @@ public class ViewMenu extends VBox implements Observer {
     public void update(Object args) {
         if (args.getClass().equals(GAME_OVER.getClass())) {
 
-            Platform.runLater(new Runnable() {
-                @Override
-                public void run() {
-                    switch ((GameState) args) {
-                        case GAME_OVER:
-                            setMessage("GAME OVER");
-                            break;
-                        case TIME_IS_OVER:
-                            setMessage("TIME IS OVER");
-                            break;
-                        case RUNNING:
-                            setMessage("Info");
-                            break;
-                        default:
-                            break;
-                    }
+            Platform.runLater(() -> {
+                switch ((GameState) args) {
+                    case GAME_OVER:
+                        setMessage("GAME OVER");
+                        break;
+                    case TIME_IS_OVER:
+                        setMessage("TIME IS OVER");
+                        break;
+                    case RUNNING:
+                        setMessage("Info");
+                        break;
+                    default:
+                        break;
                 }
-
-            }
-            );
+            });
         }
     }
 
@@ -130,16 +126,18 @@ public class ViewMenu extends VBox implements Observer {
     }
 
     /**
+     * Getter of the silent mode checkbox.
      *
-     * @return
+     * @return checkbox
      */
     CheckBox getSilentMode() {
         return this.silentMode;
     }
 
     /**
+     * Getter of a button "Last" used to replay last sequence.
      *
-     * @return
+     * @return a button.
      */
     Button getLast() {
         return this.last;
@@ -147,21 +145,28 @@ public class ViewMenu extends VBox implements Observer {
     }
 
     /**
+     * Getter of a button "Longest" used to replay the longest sequence.
      *
-     * @return
+     * @return a button.
      */
     Button getLongest() {
         return this.longest;
     }
 
     /*
-    
-    
+    *Getter of a button "Start" used to start the game.
+    *@return a button.
      */
     Button getStart() {
         return this.start;
     }
 
+    /**
+     * Setter of the label, used to let know to the user if the game is still
+     * running, game over or if the time is over.
+     *
+     * @param message Message to set.
+     */
     void setMessage(String message) {
         this.message.setText(message);
     }

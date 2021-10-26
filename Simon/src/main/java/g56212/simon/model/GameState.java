@@ -1,7 +1,7 @@
 package g56212.simon.model;
 
 /**
- * Different states of tha game.
+ * Different states of the game.
  *
  * @author g56212
  */

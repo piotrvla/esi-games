@@ -1,5 +1,6 @@
 package g56212.simon.view;
 
+import g56212.simon.model.Observer;
 import g56212.simon.controller.Controller;
 import g56212.simon.model.Model;
 import java.util.List;
@@ -7,7 +8,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.util.Duration;
 import javafx.animation.PauseTransition;
-import static javafx.application.Application.launch;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
@@ -53,7 +53,6 @@ public class View
 
         this.silentMode = menu.getSilentMode();
         stack.getChildren().addAll(background, menu);
-        menu.setVisible(false);
         List<Button> buttons = background.getButtons();
 
         for (Button button : buttons) {
