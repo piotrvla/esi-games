@@ -4,7 +4,7 @@
 Simon is a game that consists on replaying current sequence of colors. Every turn there's one random color added to the game sequence. Whenever the player chooses a wrong color or the time is over, the game stops.
 
 ## Files:
-
+```bash
 │   pom.xml
 │   readme.md
 │
@@ -34,5 +34,5 @@ Simon is a game that consists on replaying current sequence of colors. Every tur
 │       └───java
 └───target
        Simon-1.0.jar
-    
+```    
     
