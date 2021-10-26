@@ -26,7 +26,6 @@ public class Model implements Observable {
     private List<Button> longestSequence;
     private List<Button> colors;
     private double speed;
-    private boolean inProgress;
     private int indexSequence;
     private GameState state;
 
@@ -150,17 +149,19 @@ public class Model implements Observable {
     }
 
     /**
+     * Equals method used to compare two colors.
      *
-     * @param a
-     * @param b
-     * @return
+     * @param a Color a to check.
+     * @param b Color b to check.
+     * @return a boolean.
      */
     private boolean equals(Button a, Button b) {
         return a.getId().equals(b.getId());
     }
 
     /**
-     *
+     * Timer that runs playSequence and notifies the observer after an amount of
+     * time.
      */
     private void timer() {
         var timerTask = new TimerTask() {
