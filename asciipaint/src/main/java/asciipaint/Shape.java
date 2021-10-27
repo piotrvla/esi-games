@@ -30,5 +30,4 @@ public interface Shape {
      */
     char getColor();
 
-    public String getName();
 }

@@ -8,10 +8,10 @@ public class Line extends ColoredShape {
 
     private Point a;
     private Point b;
-    private final String name="Line";
+
 
     public Line(Point a, Point b, char color) {
-        super(color);
+        super(color,"Line");
         this.a = a;
         this.b = b;
     }
@@ -30,9 +30,6 @@ public class Line extends ColoredShape {
         this.b.move(dx, dy);
     }
 
-    @Override
-    public String getName() {
-        return this.name;
-    }
+
 
 }

@@ -9,7 +9,7 @@ import java.util.List;
  */
 public class Drawing {
 
-    private List<Shape> shapes;
+    private List<ColoredShape> shapes;
     int height;
     int width;
 
@@ -42,7 +42,7 @@ public class Drawing {
      *
      * @param shape shape to add to the list.
      */
-    public void addShape(Shape shape) {
+    public void addShape(ColoredShape shape) {
         shapes.add(shape);
     }
 
@@ -80,7 +80,7 @@ public class Drawing {
         return this.width;
     }
 
-    List<Shape> getShapes() {
+    List<ColoredShape> getShapes() {
         return this.shapes;
     }
 
