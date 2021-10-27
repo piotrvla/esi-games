@@ -38,8 +38,8 @@ public class Point {
      * @param dy Y to be moved at.
      */
     public void move(double dx, double dy) {
-        this.x = dx;
-        this.y = dy;
+        this.x += dx;
+        this.y += dy;
     }
 
     /**

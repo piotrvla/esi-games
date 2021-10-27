@@ -59,7 +59,7 @@ public class AsciiPaint {
      */
     public void newRectangle(int x, int y, double width, double height, char color) {
         drawing.addShape(new Rectangle(new Point(x, y), width, height, color));
-        
+
     }
 
     /**
@@ -77,6 +77,29 @@ public class AsciiPaint {
         Square s = new Square(p, side, color);
 
         this.drawing.addShape(s);
+    }
+
+    /**
+     *
+     * @param x
+     * @param y
+     * @param dx
+     * @param dy
+     * @param color
+     */
+    public void newLine(int x, int y, int dx, int dy, char color) {
+
+        this.drawing.addShape(new Line(new Point(x, y),
+                new Point(dx, dy), color));
+    }
+    /**
+     * 
+     */
+    public void displayShapes() {
+        for (int i = 0; i < this.drawing.getShapes().size(); i++) {
+            System.out.println("N° " + i + " | "
+                    + this.drawing.getShapes().get(i).getName());
+        }
     }
 
     /**

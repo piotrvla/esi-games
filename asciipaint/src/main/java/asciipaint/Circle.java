@@ -8,9 +8,11 @@ public class Circle extends ColoredShape {
 
     private Point center;
     private double radius;
+    private final String name = "Color";
 
     /**
      * Creates a circle with given center, radius and its color.
+     *
      * @param center center of the circle.
      * @param radius radius of the circle.
      * @param color color of the circle.
@@ -30,6 +32,11 @@ public class Circle extends ColoredShape {
     @Override
     public void move(double dx, double dy) {
         this.center = new Point(dx, dy);
+    }
+
+    @Override
+    public String getName() {
+        return this.name;
     }
 
 }

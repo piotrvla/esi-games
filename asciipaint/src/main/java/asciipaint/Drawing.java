@@ -80,4 +80,8 @@ public class Drawing {
         return this.width;
     }
 
+    List<Shape> getShapes() {
+        return this.shapes;
+    }
+
 }

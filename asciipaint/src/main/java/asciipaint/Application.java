@@ -47,7 +47,9 @@ public class Application {
         }
         return kbd.nextInt();
     }
-    public void blabla(){}
+
+    public void blabla() {
+    }
 
     /**
      * Returns only a number that's is bigger than minimal number given, as the
@@ -117,31 +119,33 @@ public class Application {
      * @param command Command used to initialize a new shape.
      */
     private void initializeParams(String[] command) {
-        if (checkTypeOfParams(command)) {
-            switch (command[1].toLowerCase()) {
-                case "circle":
-                    this.ascii.newCircle(Integer.parseInt(command[2]),
-                            Integer.parseInt(command[3]),
-                            Double.parseDouble(command[4]),
-                            command[5].charAt(0));
-                    break;
-                case "rectangle":
-                    this.ascii.newRectangle(Integer.parseInt(command[2]),
-                            Integer.parseInt(command[3]),
-                            Double.parseDouble(command[4]),
-                            Double.parseDouble(command[5]),
-                            command[6].charAt(0));
-                    break;
-                case "square":
-                    this.ascii.newSquare(Integer.parseInt(command[2]),
-                            Integer.parseInt(command[3]),
-                            Double.parseDouble(command[4]),
-                            command[5].charAt(0));
-                    break;
-            }
-        } else {
-            System.err.println("Retry, the command looks like: "
-                    + "add [shape] [x] [y] [radius/width/height] [color] ");
+
+        switch (command[1].toLowerCase()) {
+            case "circle":
+                this.ascii.newCircle(Integer.parseInt(command[2]),
+                        Integer.parseInt(command[3]),
+                        Double.parseDouble(command[4]),
+                        command[5].charAt(0));
+                break;
+            case "rectangle":
+                this.ascii.newRectangle(Integer.parseInt(command[2]),
+                        Integer.parseInt(command[3]),
+                        Double.parseDouble(command[4]),
+                        Double.parseDouble(command[5]),
+                        command[6].charAt(0));
+                break;
+            case "square":
+                this.ascii.newSquare(Integer.parseInt(command[2]),
+                        Integer.parseInt(command[3]),
+                        Double.parseDouble(command[4]),
+                        command[5].charAt(0));
+                break;
+            case "line":
+                this.ascii.newLine(Integer.parseInt(command[2]),
+                        Integer.parseInt(command[3]),
+                        Integer.parseInt(command[4]),
+                        Integer.parseInt(command[5]),
+                        command[6].charAt(0));
         }
 
     }

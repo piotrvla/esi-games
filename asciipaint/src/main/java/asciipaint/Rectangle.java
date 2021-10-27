@@ -10,6 +10,7 @@ public class Rectangle extends ColoredShape {
     private Point upperLeft;
     private double width;
     private double height;
+    private final String name = "Rectangle";
 
     /**
      * Creates a rectangle with its main point as upper left, with its size
@@ -39,6 +40,11 @@ public class Rectangle extends ColoredShape {
     public void move(double dx, double dy) {
         this.upperLeft = new Point(dx, dy);
 
+    }
+
+    @Override
+    public String getName() {
+        return this.name;
     }
 
 }
