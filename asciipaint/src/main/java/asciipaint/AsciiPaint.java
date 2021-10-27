@@ -21,7 +21,7 @@ public class AsciiPaint {
 
     /**
      *
-     * Creates a new Ascii Paint by initialazing it at the default parameters,
+     * Creates a new Ascii Paint by initializing it at the default parameters,
      * defined in drawing's class.
      *
      */
@@ -92,15 +92,16 @@ public class AsciiPaint {
         this.drawing.addShape(new Line(new Point(x, y),
                 new Point(dx, dy), color));
     }
+
     /**
-     * 
+     *
      */
-    public void displayShapes() {
-        for (int i = 0; i < this.drawing.getShapes().size(); i++) {
-            System.out.println("N° " + i + " | "
-                    + this.drawing.getShapes().get(i).getName());
-        }
-    }
+//    public void displayShapes() {
+//        for (int i = 0; i < this.drawing.getShapes().size(); i++) {
+//            System.out.println("N° " + i + " | "
+//                    + this.drawing.getShapes().get(i));
+//        }
+//    }
 
     /**
      *

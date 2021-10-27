@@ -1,5 +1,6 @@
 package asciipaint;
 
+import asciipaint.util.Component;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
  */
 public class Drawing {
 
-    private List<ColoredShape> shapes;
+    private List<Component> shapes;
     int height;
     int width;
 
@@ -25,7 +26,7 @@ public class Drawing {
     }
 
     /**
-     * Creates a drawing wth the given parameteres.
+     * Creates a drawing with the given parameteres.
      *
      * @param width width of the drawing.
      * @param height height of the drawing.
@@ -42,7 +43,7 @@ public class Drawing {
      *
      * @param shape shape to add to the list.
      */
-    public void addShape(ColoredShape shape) {
+    public void addShape(Component shape) {
         shapes.add(shape);
     }
 
@@ -80,7 +81,7 @@ public class Drawing {
         return this.width;
     }
 
-    List<ColoredShape> getShapes() {
+    List<Component> getShapes() {
         return this.shapes;
     }
 

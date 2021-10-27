@@ -13,7 +13,7 @@ public interface Shape {
      * @param p point to check.
      * @return boolean, true if it's inside, if not false.
      */
-    boolean isInside(Point p);
+    abstract boolean isInside(Point p);
 
     /**
      * Moves the main point of the shape at the given position in the parameter.
@@ -21,7 +21,7 @@ public interface Shape {
      * @param dx x of the point to move at.
      * @param dy y of the point to move at.
      */
-    void move(double dx, double dy);
+    abstract void move(double dx, double dy);
 
     /**
      * Returns the color of the shape.

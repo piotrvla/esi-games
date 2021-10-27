@@ -7,7 +7,7 @@ package asciipaint;
  */
 public class Square extends Rectangle {
 
-    private final String name = "Square";
+    private static String name = "Square";
 
     /**
      * Creates a square at the given position with its main point as upper left,
@@ -21,8 +21,4 @@ public class Square extends Rectangle {
         super(upperLeft, side, side, color);
     }
 
-    @Override
-    public String getName() {
-        return this.name;
-    }
 }

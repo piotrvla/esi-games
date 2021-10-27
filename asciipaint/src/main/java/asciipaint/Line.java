@@ -1,17 +1,19 @@
 package asciipaint;
 
+import asciipaint.util.Component;
+
 /**
  *
  * @autor piotr
  */
-public class Line extends ColoredShape {
+public class Line extends Component {
 
     private Point a;
     private Point b;
 
 
     public Line(Point a, Point b, char color) {
-        super(color,"Line");
+        super("Line", color);
         this.a = a;
         this.b = b;
     }

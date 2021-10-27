@@ -1,10 +1,12 @@
 package asciipaint;
 
+import asciipaint.util.Component;
+
 /**
  *
  * @author g56212
  */
-public abstract class ColoredShape extends Component implements Shape {
+public abstract class ColoredShape implements Shape {
 
     private char color;
 
@@ -12,10 +14,9 @@ public abstract class ColoredShape extends Component implements Shape {
      * Creates a new colored shape with given color.
      *
      * @param color
-     * @param name
      */
-    public ColoredShape(char color, String name) {
-        super(name);
+    public ColoredShape(char color) {
+
         this.color = color;
     }
 

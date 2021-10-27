@@ -1,14 +1,15 @@
 package asciipaint;
 
+import asciipaint.util.Component;
+
 /**
  *
  * @author g56212
  */
-public class Circle extends ColoredShape {
+public class Circle extends Component {
 
     private Point center;
     private double radius;
- 
 
     /**
      * Creates a circle with given center, radius and its color.
@@ -18,7 +19,7 @@ public class Circle extends ColoredShape {
      * @param color color of the circle.
      */
     public Circle(Point center, double radius, char color) {
-        super(color,"Color");
+        super("Circle", color);
         this.center = center;
         this.radius = radius;
     }
@@ -33,7 +34,5 @@ public class Circle extends ColoredShape {
     public void move(double dx, double dy) {
         this.center = new Point(dx, dy);
     }
-
-
 
 }

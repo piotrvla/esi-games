@@ -1,11 +1,13 @@
 package asciipaint;
 
+import asciipaint.util.Component;
+
 /**
  * Rectangle.
  *
  * @author g56212
  */
-public class Rectangle extends ColoredShape {
+public class Rectangle extends Component {
 
     private Point upperLeft;
     private double width;
@@ -21,7 +23,7 @@ public class Rectangle extends ColoredShape {
      * @param color color of the shape.
      */
     public Rectangle(Point upperLeft, double width, double height, char color) {
-        super(color, "Rectangle");
+        super("Rectangle", color);
         this.upperLeft = upperLeft;
         this.width = width;
         this.height = height;
