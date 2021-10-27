@@ -56,7 +56,7 @@ public class Drawing {
      * @return A shape or null if there's no shape.
      */
     public Shape getShapeAt(Point p) {
-        for (Shape shape : shapes) {
+        for (Component shape : shapes) {
             if (shape.isInside(p)) {
                 return shape;
             }
@@ -64,26 +64,10 @@ public class Drawing {
         return null;
     }
 
-    /**
-     * Returns the height of the drawing.
-     *
-     * @return height.
-     */
-    int getHeight() {
-        return this.height;
-    }
-
-    /**
-     * Returns the width of the drawing.
-     *
-     * @return width.
-     */
-    int getWidth() {
-        return this.width;
-    }
-
-    List<Component> getShapes() {
-        return this.shapes;
+    void listOfComponents() {
+        for (int i = 0; i < shapes.size(); i++) {
+            System.out.println((i + 1) + ") " + shapes.get(i).getName());
+        }
     }
 
     void groupLeafs(int leafA, int leafB, String name, char color) {
@@ -113,10 +97,26 @@ public class Drawing {
 
     }
 
-    void display() {
-        for (Component shape : shapes) {
-            System.out.println(shape.toString());
-        }
+    List<Component> getShapes() {
+        return this.shapes;
+    }
+
+    /**
+     * Returns the height of the drawing.
+     *
+     * @return height.
+     */
+    int getHeight() {
+        return this.height;
+    }
+
+    /**
+     * Returns the width of the drawing.
+     *
+     * @return width.
+     */
+    int getWidth() {
+        return this.width;
     }
 
 }

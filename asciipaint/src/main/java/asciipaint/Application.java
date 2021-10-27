@@ -217,6 +217,9 @@ public class Application {
                 case "exit":
                     exit = true;
                     break;
+                case "list":
+                    this.ascii.list();
+                    break;
 
                 default:
                     System.err.println("Retry, the command looks like: "

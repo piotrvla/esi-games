@@ -23,6 +23,7 @@ public class Rectangle extends Component {
      * @param color color of the shape.
      */
     public Rectangle(Point upperLeft, double width, double height, char color) {
+
         super("Rectangle", color);
         this.upperLeft = upperLeft;
         this.width = width;

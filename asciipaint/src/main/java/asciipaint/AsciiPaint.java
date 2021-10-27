@@ -117,4 +117,7 @@ public class AsciiPaint {
         return ascii;
 
     }
+    void list(){
+    this.drawing.listOfComponents();
+    }
 }
