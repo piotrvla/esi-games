@@ -217,12 +217,7 @@ public class Application {
                 case "exit":
                     exit = true;
                     break;
-                case "group":
-                    this.ascii.group();
-                    break;
-                case "display":
-                    this.ascii.displayElem();
-                    break;
+
                 default:
                     System.err.println("Retry, the command looks like: "
                             + "add [shape] [x] [y] [radius/width/height] [color] ");
