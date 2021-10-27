@@ -95,16 +95,6 @@ public class AsciiPaint {
 
     /**
      *
-     */
-//    public void displayShapes() {
-//        for (int i = 0; i < this.drawing.getShapes().size(); i++) {
-//            System.out.println("N° " + i + " | "
-//                    + this.drawing.getShapes().get(i));
-//        }
-//    }
-
-    /**
-     *
      * Transforms the drawing and its all shapes in to an Ascii Paint string by
      * verifying if at the given point there's a shape, if it's the case its
      * color will be added to the string.
@@ -127,5 +117,4 @@ public class AsciiPaint {
         return ascii;
 
     }
-
 }

@@ -1,7 +1,5 @@
 package asciipaint;
 
-import asciipaint.util.Component;
-
 /**
  *
  * @author g56212

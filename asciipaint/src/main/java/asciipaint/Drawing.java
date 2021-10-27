@@ -90,23 +90,33 @@ public class Drawing {
         Composite comp = new Composite(name, color);
         comp.addLeaf(this.shapes.get(leafA));
         comp.addLeaf(this.shapes.get(leafB));
+        if (leafA > leafB) {
+            this.shapes.remove(leafB);
+            this.shapes.remove(leafA);
+        } else {
+            this.shapes.remove(leafA);
+            this.shapes.remove(leafB);
+        }
+
         this.shapes.add(comp);
-        this.shapes.remove(leafA);
-        this.shapes.remove(leafB);
     }
 
     void ungroupLeafs(int comp) {
-
         if (!Composite.class.equals(this.shapes.get(comp))) {
             throw new IllegalArgumentException("That's not a group!");
         }
-
         List<Component> leafs = ((Composite) this.shapes.get(comp)).removeGroup();
         for (Component leaf : leafs) {
             this.shapes.add(leaf);
         }
         this.shapes.remove(comp);
 
+    }
+
+    void display() {
+        for (Component shape : shapes) {
+            System.out.println(shape.toString());
+        }
     }
 
 }

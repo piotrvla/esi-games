@@ -19,14 +19,12 @@ public class Composite extends Component {
 
     @Override
     public boolean isInside(Point p) {
-        boolean isInside = false;
-        for (Component component : components) {
-            if (!isInside) {
-                isInside = component.isInside(p);
+        for (Component element : this.components) {
+            if (element.isInside(p)) {
+                return true;
             }
-
         }
-        return isInside;
+        return false;
     }
 
     @Override
@@ -38,7 +36,10 @@ public class Composite extends Component {
     }
 
     public void addLeaf(Component leaf) {
+        System.out.println(leaf.getName());
         this.components.add(leaf);
+        System.out.println(this.components.size());
+
     }
 
     public void removeLeaf(Component leaf) {
@@ -55,4 +56,7 @@ public class Composite extends Component {
         }
     }
 
+    public List<Component> getComponents() {
+        return this.components;
+    }
 }
