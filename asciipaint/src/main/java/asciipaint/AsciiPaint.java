@@ -117,7 +117,12 @@ public class AsciiPaint {
         return ascii;
 
     }
-    void list(){
-    this.drawing.listOfComponents();
+
+    void list() {
+        this.drawing.listOfComponents();
+    }
+
+    void move(int pos, int dx, int dy) {
+        this.drawing.move(pos, dx, dy);
     }
 }

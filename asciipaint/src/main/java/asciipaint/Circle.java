@@ -7,7 +7,7 @@ import asciipaint.util.Component;
  * @author g56212
  */
 public class Circle extends Component {
-
+    
     private Point center;
     private double radius;
 
@@ -23,16 +23,16 @@ public class Circle extends Component {
         this.center = center;
         this.radius = radius;
     }
-
+    
     @Override
     public boolean isInside(Point p) {
         return Math.pow(p.getX() - center.getX(), 2)
                 + Math.pow((p.getY() - center.getY()), 2) < Math.pow(radius, 2);
     }
-
+    
     @Override
     public void move(double dx, double dy) {
-        this.center = new Point(dx, dy);
+        this.center.move(dx, dy);
     }
-
+    
 }

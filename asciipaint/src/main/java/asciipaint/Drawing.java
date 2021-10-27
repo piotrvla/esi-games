@@ -70,6 +70,10 @@ public class Drawing {
         }
     }
 
+    void move(int pos, int dx, int dy) {
+        this.shapes.get(pos).move(dx, dy);
+    }
+
     void groupLeafs(int leafA, int leafB, String name, char color) {
         Composite comp = new Composite(name, color);
         comp.addLeaf(this.shapes.get(leafA));

@@ -40,7 +40,7 @@ public class Rectangle extends Component {
 
     @Override
     public void move(double dx, double dy) {
-        this.upperLeft = new Point(dx, dy);
+        this.upperLeft.move(dx, dy);
 
     }
 
