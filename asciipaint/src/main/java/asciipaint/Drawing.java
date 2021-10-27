@@ -1,6 +1,7 @@
 package asciipaint;
 
 import asciipaint.util.Component;
+import asciipaint.util.Composite;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -83,6 +84,29 @@ public class Drawing {
 
     List<Component> getShapes() {
         return this.shapes;
+    }
+
+    void groupLeafs(int leafA, int leafB, String name, char color) {
+        Composite comp = new Composite(name, color);
+        comp.addLeaf(this.shapes.get(leafA));
+        comp.addLeaf(this.shapes.get(leafB));
+        this.shapes.add(comp);
+        this.shapes.remove(leafA);
+        this.shapes.remove(leafB);
+    }
+
+    void ungroupLeafs(int comp) {
+
+        if (!Composite.class.equals(this.shapes.get(comp))) {
+            throw new IllegalArgumentException("That's not a group!");
+        }
+
+        List<Component> leafs = ((Composite) this.shapes.get(comp)).removeGroup();
+        for (Component leaf : leafs) {
+            this.shapes.add(leaf);
+        }
+        this.shapes.remove(comp);
+
     }
 
 }

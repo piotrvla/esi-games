@@ -44,11 +44,15 @@ public class Composite extends Component {
     public void removeLeaf(Component leaf) {
         this.components.remove(leaf);
     }
-    public void colorGroup(char color){
+
+    public List<Component> removeGroup() {
+        return this.components;
+    }
+
+    public void colorGroup(char color) {
         for (Component component : components) {
             component.setColor(color);
         }
-    
     }
 
 }
