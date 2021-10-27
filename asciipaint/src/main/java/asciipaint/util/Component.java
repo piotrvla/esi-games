@@ -1,6 +1,6 @@
 package asciipaint.util;
 
-import asciipaint.ColoredShape;
+import asciipaint.model.ColoredShape;
 
 /**
  *

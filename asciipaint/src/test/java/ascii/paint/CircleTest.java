@@ -5,8 +5,8 @@
  */
 package ascii.paint;
 
-import asciipaint.Circle;
-import asciipaint.Point;
+import asciipaint.model.Circle;
+import asciipaint.model.Point;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 

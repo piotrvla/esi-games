@@ -1,6 +1,6 @@
 package asciipaint.util;
 
-import asciipaint.Point;
+import asciipaint.model.Point;
 import java.util.ArrayList;
 import java.util.List;
 

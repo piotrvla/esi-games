@@ -1,4 +1,4 @@
-package asciipaint;
+package asciipaint.model;
 
 /**
  *
@@ -118,11 +118,11 @@ public class AsciiPaint {
 
     }
 
-    void list() {
+    public void list() {
         this.drawing.listOfComponents();
     }
 
-    void move(int pos, int dx, int dy) {
+    public void move(int pos, int dx, int dy) {
         this.drawing.move(pos, dx, dy);
     }
 }

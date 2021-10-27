@@ -1,4 +1,4 @@
-package asciipaint;
+package asciipaint.model;
 
 /**
  *

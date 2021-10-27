@@ -1,4 +1,4 @@
-package asciipaint;
+package asciipaint.model;
 
 /**
  * Represents all kind of shapes in our drawing.
