@@ -1,7 +1,8 @@
 package asciipaint.model;
 
+import asciipaint.util.Component;
+
 /**
- *
  * @author g56212
  */
 public class AsciiPaint {
@@ -9,10 +10,9 @@ public class AsciiPaint {
     private Drawing drawing;
 
     /**
-     *
      * Creates new AsciiPaint at given size in the parameters.
      *
-     * @param width width of the drawing.
+     * @param width  width of the drawing.
      * @param height height of the drawing.
      */
     public AsciiPaint(int width, int height) {
@@ -20,10 +20,8 @@ public class AsciiPaint {
     }
 
     /**
-     *
      * Creates a new Ascii Paint by initializing it at the default parameters,
      * defined in drawing's class.
-     *
      */
     public AsciiPaint() {
         this.drawing = new Drawing();
@@ -33,12 +31,10 @@ public class AsciiPaint {
      * Creates a new shape, the circle with its size and position given in the
      * arguments.
      *
-     * @param x point X of the center of the circle.
-     * @param y point Y of the center of the circle.
+     * @param x      point X of the center of the circle.
+     * @param y      point Y of the center of the circle.
      * @param radius radius of the circle.
-     * @param color color of the circle.
-     *
-     *
+     * @param color  color of the circle.
      */
     public void newCircle(int x, int y, double radius, char color) {
         if (0 > x || x > this.drawing.getWidth()
@@ -49,17 +45,14 @@ public class AsciiPaint {
     }
 
     /**
-     *
-     *
-     *
      * Creates a new shape, the rectangle with its size and position given in
      * the arguments.
      *
-     * @param x point X of the center of the rectangle.
-     * @param y point Y of the center of the rectangle.
-     * @param width width of the rectangle.
+     * @param x      point X of the center of the rectangle.
+     * @param y      point Y of the center of the rectangle.
+     * @param width  width of the rectangle.
      * @param height height of the rectangle.
-     * @param color color of the shape.
+     * @param color  color of the shape.
      */
     public void newRectangle(int x, int y, double width, double height, char color) {
         if (0 > x || x > this.drawing.getWidth()
@@ -71,13 +64,12 @@ public class AsciiPaint {
     }
 
     /**
-     *
      * Creates a new shape, the square with its size and position given in the
      * arguments.
      *
-     * @param x point X of the center of the square.
-     * @param y point Y of the center of the square.
-     * @param side size of the side of the square.
+     * @param x     point X of the center of the square.
+     * @param y     point Y of the center of the square.
+     * @param side  size of the side of the square.
      * @param color color of the shape.
      */
     public void newSquare(int x, int y, double side, char color) {
@@ -92,7 +84,6 @@ public class AsciiPaint {
     }
 
     /**
-     *
      * @param x
      * @param y
      * @param dx
@@ -110,9 +101,12 @@ public class AsciiPaint {
         this.drawing.addShape(new Line(new Point(x, y),
                 new Point(dx, dy), color));
     }
+    public void addShape(Component comp){
+        this.drawing.addShape(comp);
+
+    }
 
     /**
-     *
      * Transforms the drawing and its all shapes in to an Ascii Paint string by
      * verifying if at the given point there's a shape, if it's the case its
      * color will be added to the string.
@@ -136,6 +130,11 @@ public class AsciiPaint {
 
     }
 
+    public int getShapesSize(){
+        return this.drawing.getShapeSize();
+
+    }
+
     public void list() {
         this.drawing.listOfComponents();
     }
@@ -146,6 +145,10 @@ public class AsciiPaint {
 
     public void group(int composantA, int composantB, String name, char color) {
         this.drawing.groupLeafs(composantA, composantB, name, color);
+    }
+    public Component delete(int comp){
+        return this.drawing.delete(comp);
+
     }
 
     public void ungroup(int composant) {

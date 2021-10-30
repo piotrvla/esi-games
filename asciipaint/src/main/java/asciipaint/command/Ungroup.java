@@ -1,5 +1,4 @@
 package asciipaint.command;
 
-public interface Command {
-
+public class Ungroup {
 }

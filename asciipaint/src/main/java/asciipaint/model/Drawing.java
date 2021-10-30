@@ -2,11 +2,11 @@ package asciipaint.model;
 
 import asciipaint.util.Component;
 import asciipaint.util.Composite;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
  * @author g56212
  */
 public class Drawing {
@@ -18,7 +18,6 @@ public class Drawing {
     /**
      * Creates a drawing with default parameters as height at 50, and width at
      * 50;
-     *
      */
     public Drawing() {
         this.height = 50;
@@ -29,7 +28,7 @@ public class Drawing {
     /**
      * Creates a drawing with the given parameteres.
      *
-     * @param width width of the drawing.
+     * @param width  width of the drawing.
      * @param height height of the drawing.
      */
     public Drawing(int width, int height) {
@@ -64,18 +63,18 @@ public class Drawing {
         return null;
     }
 
-    void listOfComponents() {
+    public void listOfComponents() {
         for (int i = 0; i < shapes.size(); i++) {
             System.out.println((i) + ") " + shapes.get(i).getName());
         }
     }
 
-    void move(int pos, int dx, int dy) {
+    public void move(int pos, int dx, int dy) {
         this.shapes.get(pos).move(dx, dy);
     }
 
-    void groupLeafs(int leafA, int leafB, String name, char color) {
-        
+    public void groupLeafs(int leafA, int leafB, String name, char color) {
+
         Composite comp = new Composite(name, color);
         comp.addLeaf(this.shapes.get(leafA));
         comp.addLeaf(this.shapes.get(leafB));
@@ -90,7 +89,7 @@ public class Drawing {
         this.shapes.add(comp);
     }
 
-    void ungroupLeafs(int comp) {
+    public void ungroupLeafs(int comp) {
         if (!(this.shapes.get(comp) instanceof Composite)) {
             throw new IllegalArgumentException("Component isn't a group!");
         }
@@ -101,13 +100,20 @@ public class Drawing {
         this.shapes.remove(comp);
 
     }
-    void delete(int comp){
-        this.shapes.remove(comp);
+
+    public Component delete(int comp) {
+        return this.shapes.remove(comp);
     }
 
     List<Component> getShapes() {
         return this.shapes;
     }
+
+    int getShapeSize() {
+        return this.shapes.size();
+
+    }
+
 
     /**
      * Returns the height of the drawing.
