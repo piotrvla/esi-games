@@ -66,7 +66,7 @@ public class Drawing {
 
     void listOfComponents() {
         for (int i = 0; i < shapes.size(); i++) {
-            System.out.println((i + 1) + ") " + shapes.get(i).getName());
+            System.out.println((i) + ") " + shapes.get(i).getName());
         }
     }
 
@@ -75,23 +75,24 @@ public class Drawing {
     }
 
     void groupLeafs(int leafA, int leafB, String name, char color) {
+        
         Composite comp = new Composite(name, color);
         comp.addLeaf(this.shapes.get(leafA));
         comp.addLeaf(this.shapes.get(leafB));
         if (leafA > leafB) {
-            this.shapes.remove(leafB);
             this.shapes.remove(leafA);
+            this.shapes.remove(leafB);
         } else {
-            this.shapes.remove(leafA);
             this.shapes.remove(leafB);
+            this.shapes.remove(leafA);
         }
 
         this.shapes.add(comp);
     }
 
     void ungroupLeafs(int comp) {
-        if (!Composite.class.equals(this.shapes.get(comp))) {
-            throw new IllegalArgumentException("That's not a group!");
+        if (!(this.shapes.get(comp) instanceof Composite)) {
+            throw new IllegalArgumentException("Component isn't a group!");
         }
         List<Component> leafs = ((Composite) this.shapes.get(comp)).removeGroup();
         for (Component leaf : leafs) {
@@ -99,6 +100,9 @@ public class Drawing {
         }
         this.shapes.remove(comp);
 
+    }
+    void delete(int comp){
+        this.shapes.remove(comp);
     }
 
     List<Component> getShapes() {

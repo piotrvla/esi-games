@@ -36,9 +36,7 @@ public class Composite extends Component {
     }
 
     public void addLeaf(Component leaf) {
-        System.out.println(leaf.getName());
         this.components.add(leaf);
-        System.out.println(this.components.size());
 
     }
 

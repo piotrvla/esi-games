@@ -95,8 +95,13 @@ public class View {
     }
 
     public String[] askCommand() {
+        String input = keyboard.nextLine();
+        String[] command = input.split(" ");
 
-        return keyboard.next().split(" ");
+        return command;
+    }
+    public void displayError(String message){
+        System.err.println(message);
     }
 
 }

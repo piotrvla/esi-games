@@ -15,7 +15,7 @@ import asciipaint.view.View;
 public class Controller {
 
     private AsciiPaint ascii;
-    private View view;
+    private final View view;
 
     public Controller() {
 
@@ -36,14 +36,30 @@ public class Controller {
                     break;
                 case "show":
                     this.view.displayAscii(ascii.asAscii());
-
                     break;
 
                 case "list":
                     this.ascii.list();
                     break;
                 case "move":
+                    this.ascii.move(Integer.parseInt(command[1]),
+                            Integer.parseInt(command[2]),
+                            Integer.parseInt(command[3]));
                     break;
+                case "group":
+                    this.ascii.group(Integer.parseInt(command[1]),
+                            Integer.parseInt(command[2]),
+                            command[3],
+                            command[4].charAt(0));
+                    break;
+                case "ungroup":
+                    try {
+                } catch (Exception e) {
+                    view.displayError("This component isn't a group!");
+                }
+                this.ascii.ungroup(Integer.parseInt(command[1]));
+                break;
+
                 case "exit":
                     exit = true;
                     break;
@@ -59,30 +75,47 @@ public class Controller {
     private void switchAddShape(String[] command) {
         switch (command[1].toLowerCase()) {
             case "circle":
+                try {
                 this.ascii.newCircle(Integer.parseInt(command[2]),
                         Integer.parseInt(command[3]),
                         Double.parseDouble(command[4]),
                         command[5].charAt(0));
-                break;
+            } catch (Exception ex) {
+                this.view.displayError("One of the parameters is out of bonds");
+            }
+
+            break;
             case "rectangle":
+                try {
                 this.ascii.newRectangle(Integer.parseInt(command[2]),
                         Integer.parseInt(command[3]),
                         Double.parseDouble(command[4]),
                         Double.parseDouble(command[5]),
                         command[6].charAt(0));
-                break;
+            } catch (Exception ex) {
+                this.view.displayError("One of the parameters is out of bonds");
+            }
+            break;
             case "square":
+                try {
                 this.ascii.newSquare(Integer.parseInt(command[2]),
                         Integer.parseInt(command[3]),
                         Double.parseDouble(command[4]),
                         command[5].charAt(0));
-                break;
+            } catch (Exception ex) {
+                this.view.displayError("One of the parameters is out of bonds");
+            }
+            break;
             case "line":
+                try {
                 this.ascii.newLine(Integer.parseInt(command[2]),
                         Integer.parseInt(command[3]),
                         Integer.parseInt(command[4]),
                         Integer.parseInt(command[5]),
                         command[6].charAt(0));
+            } catch (Exception ex) {
+                this.view.displayError("One of the parameters is out of bonds");
+            }
 
         }
     }

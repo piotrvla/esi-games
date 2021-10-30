@@ -41,6 +41,10 @@ public class AsciiPaint {
      *
      */
     public void newCircle(int x, int y, double radius, char color) {
+        if (0 > x || x > this.drawing.getWidth()
+                || 0 > y || y > this.drawing.getHeight()) {
+            throw new IllegalArgumentException("Out of bonds");
+        }
         drawing.addShape(new Circle(new Point(x, y), radius, color));
     }
 
@@ -58,6 +62,10 @@ public class AsciiPaint {
      * @param color color of the shape.
      */
     public void newRectangle(int x, int y, double width, double height, char color) {
+        if (0 > x || x > this.drawing.getWidth()
+                || 0 > y || y > this.drawing.getHeight()) {
+            throw new IllegalArgumentException("Out of bonds");
+        }
         drawing.addShape(new Rectangle(new Point(x, y), width, height, color));
 
     }
@@ -73,6 +81,10 @@ public class AsciiPaint {
      * @param color color of the shape.
      */
     public void newSquare(int x, int y, double side, char color) {
+        if (0 > x || x > this.drawing.getWidth()
+                || 0 > y || y > this.drawing.getHeight()) {
+            throw new IllegalArgumentException("Out of bonds");
+        }
         Point p = new Point(x, y);
         Square s = new Square(p, side, color);
 
@@ -88,6 +100,12 @@ public class AsciiPaint {
      * @param color
      */
     public void newLine(int x, int y, int dx, int dy, char color) {
+        if (0 > x || x > this.drawing.getWidth()
+                || 0 > y || y > this.drawing.getHeight()
+                || 0 > dx || dx > this.drawing.getWidth()
+                || 0 > dy || dy > this.drawing.getHeight()) {
+            throw new IllegalArgumentException("Out of bonds");
+        }
 
         this.drawing.addShape(new Line(new Point(x, y),
                 new Point(dx, dy), color));
@@ -124,5 +142,13 @@ public class AsciiPaint {
 
     public void move(int pos, int dx, int dy) {
         this.drawing.move(pos, dx, dy);
+    }
+
+    public void group(int composantA, int composantB, String name, char color) {
+        this.drawing.groupLeafs(composantA, composantB, name, color);
+    }
+
+    public void ungroup(int composant) {
+        this.drawing.ungroupLeafs(composant);
     }
 }
