@@ -8,10 +8,10 @@ package ascii.paint;
 import asciipaint.model.Circle;
 import asciipaint.model.Point;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- *
  * @author piotr
  */
 public class CircleTest {
@@ -87,7 +87,7 @@ public class CircleTest {
         Point center = new Point(10., 10.);
         Circle c = new Circle(center, 5., 'c');
         c.move(25, 25);
-        assertTrue(c.isInside(new Point(25, 25)));
+        assertTrue(c.isInside(new Point(35, 35)));
 
     }
 
@@ -96,6 +96,6 @@ public class CircleTest {
         Point center = new Point(10., 10.);
         Circle c = new Circle(center, 5., 'c');
         c.move(25, 25);
-        assertFalse(c.isInside(center));
+        assertFalse(c.isInside(new Point(10, 10)));
     }
 }

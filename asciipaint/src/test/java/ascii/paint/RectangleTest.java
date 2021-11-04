@@ -8,10 +8,10 @@ package ascii.paint;
 import asciipaint.model.Rectangle;
 import asciipaint.model.Point;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- *
  * @author piotr
  */
 public class RectangleTest {
@@ -81,7 +81,7 @@ public class RectangleTest {
         Point upperLeft = new Point(10., 10.);
         Rectangle r = new Rectangle(upperLeft, 10., 5., 'r');
         r.move(35, 85);
-        assertTrue(r.isInside(new Point(35, 85)));
+        assertTrue(r.isInside(new Point(45, 95)));
     }
 
     @Test
@@ -89,7 +89,7 @@ public class RectangleTest {
         Point upperLeft = new Point(10., 10.);
         Rectangle r = new Rectangle(upperLeft, 10., 5., 'r');
         r.move(35, 85);
-        assertFalse(r.isInside(upperLeft));
+        assertFalse(r.isInside(new Point(10, 10)));
     }
 
 }
