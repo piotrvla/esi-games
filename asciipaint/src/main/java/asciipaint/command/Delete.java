@@ -3,6 +3,9 @@ package asciipaint.command;
 import asciipaint.model.AsciiPaint;
 import asciipaint.util.Component;
 
+/**
+ * Delete command, that deletes a component from the drawing.
+ */
 public class Delete implements Commands {
     private String[] command;
     private AsciiPaint ascii;
@@ -21,6 +24,7 @@ public class Delete implements Commands {
 
     public void undo() {
         this.ascii.addShape(deleted);
+        this.deleted = null;
     }
 
     public void redo() {

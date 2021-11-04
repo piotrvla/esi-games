@@ -3,7 +3,7 @@ package asciipaint.model;
 import asciipaint.util.Component;
 
 /**
- * Rectangle.
+ * Rectangle - a component of the drawing.
  *
  * @author g56212
  */
@@ -45,9 +45,7 @@ public class Rectangle extends Component {
     }
 
 
-    public Point getPosition() {
-        return this.upperLeft;
-    }
+
 
 
 }

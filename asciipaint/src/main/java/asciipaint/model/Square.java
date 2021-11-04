@@ -1,7 +1,7 @@
 package asciipaint.model;
 
 /**
- * Square.
+ * Square - a component of the drawing.
  *
  * @author g56212
  */

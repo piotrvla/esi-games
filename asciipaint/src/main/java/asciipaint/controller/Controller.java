@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author Sammy Guergachi <sguergachi at gmail.com>
+ * @author 56212
  */
 public class Controller {
 
@@ -31,8 +31,7 @@ public class Controller {
         boolean exit = false;
         while (!exit) {
 
-            System.out.println("Avaiable commands: add "
-                    + "(circle, rectangle, square), show, and exit");
+            System.out.println("Type help to get all the commands and theirs utility");
             String[] command = view.askCommand();
 
             switch (command[0].toLowerCase()) {
@@ -67,6 +66,10 @@ public class Controller {
                 case "show":
                     this.view.displayAscii(this.ascii.asAscii());
                     break;
+                case "color":
+                    Color color = new Color(ascii, command);
+                    color.execute();
+                    break;
                 case "undo":
                     try {
                         Commands lastCommand = commands.get(commands.size() - 1);
@@ -82,6 +85,10 @@ public class Controller {
                     } catch (Exception e) {
                         this.view.displayError("Nothing to redo");
                     }
+                    break;
+                case "help":
+                    this.view.displayHelp();
+                    break;
 
             }
         }

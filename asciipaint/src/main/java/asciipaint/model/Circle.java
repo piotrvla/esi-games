@@ -3,7 +3,7 @@ package asciipaint.model;
 import asciipaint.util.Component;
 
 /**
- *
+ * Circle - a component of the drawing.
  * @author g56212
  */
 public class Circle extends Component {

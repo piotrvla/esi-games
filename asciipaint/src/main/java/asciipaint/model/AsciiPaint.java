@@ -5,6 +5,7 @@ import asciipaint.util.Component;
 import java.util.List;
 
 /**
+ * AsciiPaint
  * @author g56212
  */
 public class AsciiPaint {
@@ -134,23 +135,28 @@ public class AsciiPaint {
 
     }
 
+
     public int getShapesSize() {
         return this.drawing.getShapeSize();
 
     }
+
 
     public List<Component> list() {
         return this.drawing.listOfComponents();
 
     }
 
+
     public void move(int pos, int dx, int dy) {
         this.drawing.move(pos, dx, dy);
     }
 
-    public void group(int composantA, int composantB, String name, char color) {
-        this.drawing.groupLeafs(composantA, composantB, name, color);
+
+    public void group(int composantA, int composantB, char color) {
+        this.drawing.groupLeafs(composantA, composantB, color);
     }
+
 
     public Component delete(int comp) {
         return this.drawing.delete(comp);
@@ -160,4 +166,14 @@ public class AsciiPaint {
     public void ungroup(int composant) {
         this.drawing.ungroupLeafs(composant);
     }
+
+    public void color(int composant, char color) {
+        this.drawing.color(composant, color);
+
+    }
+
+    public char getColor(int composant) {
+        return this.drawing.getColor(composant);
+    }
 }
+

@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Drawing of the AsciiPaint
+ *
  * @author g56212
  */
 public class Drawing {
@@ -63,17 +65,36 @@ public class Drawing {
         return null;
     }
 
+    /**
+     * Returns the list of components.
+     *
+     * @return list of components.
+     */
     public List<Component> listOfComponents() {
         return this.shapes;
     }
 
-    public void move(int pos, int dx, int dy) {
+    /**
+     * Moves a component by x and y pixels in the drawing.
+     *
+     * @param pos Position of the component.
+     * @param dx  number of pixels to move X
+     * @param dy  number of pixels to move Y
+     */
+    void move(int pos, int dx, int dy) {
         this.shapes.get(pos).move(dx, dy);
     }
 
-    public void groupLeafs(int leafA, int leafB, String name, char color) {
+    /**
+     * Groups up 2 components into the single one.
+     *
+     * @param leafA First leaf to be grouped.
+     * @param leafB Second leaf to be grouped.
+     * @param color color of the group.
+     */
+    void groupLeafs(int leafA, int leafB, char color) {
 
-        Composite comp = new Composite(name, color);
+        Composite comp = new Composite(color);
         comp.addLeaf(this.shapes.get(leafA));
         comp.addLeaf(this.shapes.get(leafB));
         if (leafA > leafB) {
@@ -87,7 +108,12 @@ public class Drawing {
         this.shapes.add(comp);
     }
 
-    public void ungroupLeafs(int comp) {
+    /**
+     * Ungroups a group of components.
+     *
+     * @param comp Position of the component to ungroup.
+     */
+    void ungroupLeafs(int comp) {
         if (!(this.shapes.get(comp) instanceof Composite)) {
             throw new IllegalArgumentException("Component isn't a group!");
         }
@@ -99,14 +125,42 @@ public class Drawing {
 
     }
 
+    /**
+     * Colors up the component.
+     *
+     * @param component position of the component to color.
+     * @param color     new color of the component.
+     */
+    void color(int component, char color) {
+        this.shapes.get(component).setColor(color);
+    }
+
+    /**
+     * Returns the color of the component.
+     *
+     * @param component position of the component.
+     * @return color of the component.
+     */
+    char getColor(int component) {
+        return this.shapes.get(component).getColor();
+
+    }
+
+    /**
+     * Deletes a component from the list of the component.
+     *
+     * @param comp Position of the component to delete.
+     * @return Deleted component.
+     */
     public Component delete(int comp) {
         return this.shapes.remove(comp);
     }
 
-    List<Component> getShapes() {
-        return this.shapes;
-    }
-
+    /**
+     * Returns the size of the component list.
+     *
+     * @return component list size.
+     */
     int getShapeSize() {
         return this.shapes.size();
 

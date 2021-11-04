@@ -1,7 +1,7 @@
 package asciipaint.model;
 
 /**
- *
+ * Represents a colored shape in the drawing.
  * @author g56212
  */
 public abstract class ColoredShape implements Shape {

@@ -1,8 +1,10 @@
 package asciipaint.command;
 
 import asciipaint.model.AsciiPaint;
-import asciipaint.model.Drawing;
 
+/**
+ * Add command that adds a shape to the drawing.
+ */
 public class Add implements Commands {
 
     private String[] command;
