@@ -1,6 +1,6 @@
 package asciipaint.command;
 
-public interface Commands {
+public abstract interface Commands {
     /**
      *
      */

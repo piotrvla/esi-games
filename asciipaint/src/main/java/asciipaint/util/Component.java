@@ -3,7 +3,6 @@ package asciipaint.util;
 import asciipaint.model.ColoredShape;
 
 /**
- *
  * @author piotr
  */
 public abstract class Component extends ColoredShape {

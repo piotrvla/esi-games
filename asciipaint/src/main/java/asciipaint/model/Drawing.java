@@ -12,8 +12,8 @@ import java.util.List;
 public class Drawing {
 
     private List<Component> shapes;
-    int height;
-    int width;
+    private int height;
+    private int width;
 
     /**
      * Creates a drawing with default parameters as height at 50, and width at
@@ -63,10 +63,8 @@ public class Drawing {
         return null;
     }
 
-    public void listOfComponents() {
-        for (int i = 0; i < shapes.size(); i++) {
-            System.out.println((i) + ") " + shapes.get(i).getName());
-        }
+    public List<Component> listOfComponents() {
+        return this.shapes;
     }
 
     public void move(int pos, int dx, int dy) {

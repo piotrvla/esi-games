@@ -1,11 +1,13 @@
 package asciipaint.view;
 
 import asciipaint.model.AsciiPaint;
+import asciipaint.util.Component;
+
+import java.util.List;
 import java.util.Scanner;
-import java.util.regex.Pattern;
+
 
 /**
- *
  * @author g56212
  */
 public class View {
@@ -38,7 +40,7 @@ public class View {
      * parameter
      *
      * @param message Message to display to the user.
-     * @param min Minimal integer.
+     * @param min     Minimal integer.
      * @return An integer.
      */
     private static int sizeBetweenRange(String message, int min) {
@@ -100,8 +102,15 @@ public class View {
 
         return command;
     }
-    public void displayError(String message){
+
+    public void displayError(String message) {
         System.err.println(message);
     }
 
+    public void list(List<Component> shapes) {
+        for (int i = 0; i < shapes.size(); i++) {
+            System.out.println((i) + ") " + shapes.get(i).getName());
+        }
+
+    }
 }

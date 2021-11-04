@@ -1,11 +1,11 @@
 package asciipaint.util;
 
 import asciipaint.model.Point;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
  * @author g56212
  */
 public class Composite extends Component {

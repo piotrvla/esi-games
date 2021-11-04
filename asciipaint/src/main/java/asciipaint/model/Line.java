@@ -33,5 +33,9 @@ public class Line extends Component {
     }
 
 
+    public Point getPosition() {
+        return null;
+    }
+
 
 }

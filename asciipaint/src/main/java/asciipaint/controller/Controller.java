@@ -5,20 +5,24 @@
  */
 package asciipaint.controller;
 
+import asciipaint.command.*;
 import asciipaint.model.AsciiPaint;
 import asciipaint.view.View;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
- *
  * @author Sammy Guergachi <sguergachi at gmail.com>
  */
 public class Controller {
 
     private AsciiPaint ascii;
     private final View view;
+    private List<Commands> commands;
 
     public Controller() {
-
+        this.commands = new ArrayList<>();
         this.view = new View();
     }
 
@@ -30,93 +34,59 @@ public class Controller {
             System.out.println("Avaiable commands: add "
                     + "(circle, rectangle, square), show, and exit");
             String[] command = view.askCommand();
+
             switch (command[0].toLowerCase()) {
                 case "add":
-                    switchAddShape(command);
+                    Add add = new Add(command, this.ascii);
+                    add.execute();
+                    this.commands.add(add);
                     break;
-                case "show":
-                    this.view.displayAscii(ascii.asAscii());
-                    break;
-
-                case "list":
-                    this.ascii.list();
-                    break;
-                case "move":
-                    this.ascii.move(Integer.parseInt(command[1]),
-                            Integer.parseInt(command[2]),
-                            Integer.parseInt(command[3]));
+                case "delete":
+                    Delete delete = new Delete(command, this.ascii);
+                    delete.execute();
+                    this.commands.add(delete);
                     break;
                 case "group":
-                    this.ascii.group(Integer.parseInt(command[1]),
-                            Integer.parseInt(command[2]),
-                            command[3],
-                            command[4].charAt(0));
+                    Group group = new Group(this.ascii, command);
+                    group.execute();
+                    this.commands.add(group);
                     break;
                 case "ungroup":
+                    Ungroup ungroup = new Ungroup(this.ascii, command);
+                    ungroup.execute();
+                    this.commands.add(ungroup);
+                    break;
+                case "move":
+                    Move move = new Move(command, this.ascii);
+                    move.execute();
+                    this.commands.add(move);
+                    break;
+                case "list":
+                    this.view.list(this.ascii.list());
+                    break;
+                case "show":
+                    this.view.displayAscii(this.ascii.asAscii());
+                    break;
+                case "undo":
                     try {
-                } catch (Exception e) {
-                    view.displayError("This component isn't a group!");
-                }
-                this.ascii.ungroup(Integer.parseInt(command[1]));
-                break;
-
-                case "exit":
-                    exit = true;
+                        Commands lastCommand = commands.get(commands.size() - 1);
+                        lastCommand.undo();
+                    } catch (Exception e) {
+                        this.view.displayError("Nothing to undo");
+                    }
                     break;
-                default:
-                    System.err.println("Retry, the command looks like: "
-                            + "add [shape] [x] [y] [radius/width/height] [color] ");
-                    break;
+                case "redo":
+                    try {
+                        Commands lastCommand = commands.get(commands.size() - 1);
+                        lastCommand.redo();
+                    } catch (Exception e) {
+                        this.view.displayError("Nothing to redo");
+                    }
 
             }
         }
     }
 
-    private void switchAddShape(String[] command) {
-        switch (command[1].toLowerCase()) {
-            case "circle":
-                try {
-                this.ascii.newCircle(Integer.parseInt(command[2]),
-                        Integer.parseInt(command[3]),
-                        Double.parseDouble(command[4]),
-                        command[5].charAt(0));
-            } catch (Exception ex) {
-                this.view.displayError("One of the parameters is out of bonds");
-            }
 
-            break;
-            case "rectangle":
-                try {
-                this.ascii.newRectangle(Integer.parseInt(command[2]),
-                        Integer.parseInt(command[3]),
-                        Double.parseDouble(command[4]),
-                        Double.parseDouble(command[5]),
-                        command[6].charAt(0));
-            } catch (Exception ex) {
-                this.view.displayError("One of the parameters is out of bonds");
-            }
-            break;
-            case "square":
-                try {
-                this.ascii.newSquare(Integer.parseInt(command[2]),
-                        Integer.parseInt(command[3]),
-                        Double.parseDouble(command[4]),
-                        command[5].charAt(0));
-            } catch (Exception ex) {
-                this.view.displayError("One of the parameters is out of bonds");
-            }
-            break;
-            case "line":
-                try {
-                this.ascii.newLine(Integer.parseInt(command[2]),
-                        Integer.parseInt(command[3]),
-                        Integer.parseInt(command[4]),
-                        Integer.parseInt(command[5]),
-                        command[6].charAt(0));
-            } catch (Exception ex) {
-                this.view.displayError("One of the parameters is out of bonds");
-            }
-
-        }
-    }
 }
+

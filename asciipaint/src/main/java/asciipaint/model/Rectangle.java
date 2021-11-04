@@ -44,4 +44,10 @@ public class Rectangle extends Component {
 
     }
 
+
+    public Point getPosition() {
+        return this.upperLeft;
+    }
+
+
 }

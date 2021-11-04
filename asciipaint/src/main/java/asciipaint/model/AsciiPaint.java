@@ -2,6 +2,8 @@ package asciipaint.model;
 
 import asciipaint.util.Component;
 
+import java.util.List;
+
 /**
  * @author g56212
  */
@@ -101,7 +103,9 @@ public class AsciiPaint {
         this.drawing.addShape(new Line(new Point(x, y),
                 new Point(dx, dy), color));
     }
-    public void addShape(Component comp){
+
+    public void addShape(Component comp) {
+
         this.drawing.addShape(comp);
 
     }
@@ -114,29 +118,30 @@ public class AsciiPaint {
      * @return String with all shapes that the drawing contains.
      */
     public String asAscii() {
-        String ascii = "";
+        StringBuilder ascii = new StringBuilder();
         for (int y = 0; y < drawing.getHeight(); y++) {
             for (int x = 0; x < drawing.getWidth(); x++) {
                 Point p = new Point(x, y);
                 if (drawing.getShapeAt(p) != null) {
-                    ascii += drawing.getShapeAt(p).getColor();
+                    ascii.append(drawing.getShapeAt(p).getColor());
                 } else {
-                    ascii += " ";
+                    ascii.append(" ");
                 }
             }
-            ascii += "\n";
+            ascii.append("\n");
         }
-        return ascii;
+        return ascii.toString();
 
     }
 
-    public int getShapesSize(){
+    public int getShapesSize() {
         return this.drawing.getShapeSize();
 
     }
 
-    public void list() {
-        this.drawing.listOfComponents();
+    public List<Component> list() {
+        return this.drawing.listOfComponents();
+
     }
 
     public void move(int pos, int dx, int dy) {
@@ -146,7 +151,8 @@ public class AsciiPaint {
     public void group(int composantA, int composantB, String name, char color) {
         this.drawing.groupLeafs(composantA, composantB, name, color);
     }
-    public Component delete(int comp){
+
+    public Component delete(int comp) {
         return this.drawing.delete(comp);
 
     }

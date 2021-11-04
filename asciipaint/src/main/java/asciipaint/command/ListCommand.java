@@ -2,10 +2,11 @@ package asciipaint.command;
 
 import asciipaint.model.AsciiPaint;
 
-public class Show implements Commands{
+public class ListCommand implements Commands {
+
     private AsciiPaint ascii;
 
-    public Show(AsciiPaint ascii) {
+    public ListCommand(AsciiPaint ascii) {
         this.ascii = ascii;
 
     }
@@ -13,7 +14,7 @@ public class Show implements Commands{
 
     @Override
     public void execute() {
-        this.ascii.asAscii();
+        this.ascii.list();
     }
 
     @Override
@@ -25,4 +26,6 @@ public class Show implements Commands{
     public void redo() {
 
     }
+
+
 }

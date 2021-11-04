@@ -9,23 +9,20 @@ public class Delete implements Commands {
     private Component deleted;
 
 
-    Delete(String[] command, AsciiPaint paint) {
+    public Delete(String[] command, AsciiPaint paint) {
         this.command = command;
         this.ascii = paint;
     }
 
-
     @Override
     public void execute() {
-       this.deleted =this.ascii.delete(Integer.parseInt(this.command[1]));
+        this.deleted = this.ascii.delete(Integer.parseInt(this.command[1]));
     }
 
-    @Override
     public void undo() {
         this.ascii.addShape(deleted);
     }
 
-    @Override
     public void redo() {
         execute();
     }

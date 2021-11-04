@@ -9,7 +9,7 @@ public class Add implements Commands {
     private AsciiPaint ascii;
 
 
-    Add(String[] command, AsciiPaint paint) {
+    public Add(String[] command, AsciiPaint paint) {
         this.command = command;
         this.ascii = paint;
 
@@ -46,17 +46,15 @@ public class Add implements Commands {
                         command[6].charAt(0));
                 break;
         }
-
     }
 
 
-    @Override
     public void undo() {
         this.ascii.delete(this.ascii.getShapesSize() - 1);
 
     }
 
-    @Override
+
     public void redo() {
         execute();
     }
