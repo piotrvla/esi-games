@@ -126,9 +126,7 @@ public class Drawing {
             throw new IllegalArgumentException("Component does not exist.");
         }
         List<Component> leaves = ((Composite) this.shapes.get(comp)).removeGroup();
-        for (Component leaf : leaves) {
-            this.shapes.add(leaf);
-        }
+        for (Component leaf : leaves) this.shapes.add(leaf);
         this.shapes.remove(comp);
 
     }

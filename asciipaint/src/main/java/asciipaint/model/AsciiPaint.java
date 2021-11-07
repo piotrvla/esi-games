@@ -88,11 +88,14 @@ public class AsciiPaint {
     }
 
     /**
-     * @param x
-     * @param y
-     * @param dx
-     * @param dy
-     * @param color
+     * Creates a new shape, a line with position of 2 points given in the
+     * arguments.
+     *
+     * @param x     x of point A.
+     * @param y     y of point A.
+     * @param dx    x of point B.
+     * @param dy    y of point B.
+     * @param color color of the line.
      */
     public void newLine(int x, int y, int dx, int dy, char color) {
         if (0 > x || x > this.drawing.getWidth()
@@ -154,8 +157,8 @@ public class AsciiPaint {
     }
 
 
-    public void group(int composantA, int composantB, char color) {
-        this.drawing.groupLeaves(composantA, composantB, color);
+    public void group(int componentA, int componentB, char color) {
+        this.drawing.groupLeaves(componentA, componentB, color);
     }
 
 
@@ -164,12 +167,12 @@ public class AsciiPaint {
 
     }
 
-    public void ungroup(int composant) {
-        this.drawing.ungroupLeaves(composant);
+    public void ungroup(int component) {
+        this.drawing.ungroupLeaves(component);
     }
 
-    public void color(int composant, char color) {
-        this.drawing.color(composant, color);
+    public void color(int component, char color) {
+        this.drawing.color(component, color);
 
     }
 

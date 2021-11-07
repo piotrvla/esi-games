@@ -13,8 +13,8 @@ public class Point {
     /**
      * Creates a point with parameters X and Y.
      *
-     * @param x
-     * @param y
+     * @param x X of the point.
+     * @param y Y of the point.
      */
     public Point(double x, double y) {
         this.x = x;
@@ -22,9 +22,9 @@ public class Point {
     }
 
     /**
-     * Creates a new point with
+     * Creates a new point by using same position of X and Y from an already existing point.
      *
-     * @param p
+     * @param p Point with already defined X and Y.
      */
     public Point(Point p) {
         this.x = p.x;
