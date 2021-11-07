@@ -35,8 +35,6 @@ public class Circle extends Component {
         this.center.move(dx, dy);
     }
 
-    public Point getPosition(){
-        return this.center;
-    }
+
     
 }

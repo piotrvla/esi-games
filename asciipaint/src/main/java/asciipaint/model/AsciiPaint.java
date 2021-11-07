@@ -6,6 +6,7 @@ import java.util.List;
 
 /**
  * AsciiPaint
+ *
  * @author g56212
  */
 public class AsciiPaint {
@@ -154,7 +155,7 @@ public class AsciiPaint {
 
 
     public void group(int composantA, int composantB, char color) {
-        this.drawing.groupLeafs(composantA, composantB, color);
+        this.drawing.groupLeaves(composantA, composantB, color);
     }
 
 
@@ -164,7 +165,7 @@ public class AsciiPaint {
     }
 
     public void ungroup(int composant) {
-        this.drawing.ungroupLeafs(composant);
+        this.drawing.ungroupLeaves(composant);
     }
 
     public void color(int composant, char color) {

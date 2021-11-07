@@ -82,6 +82,9 @@ public class Drawing {
      * @param dy  number of pixels to move Y
      */
     void move(int pos, int dx, int dy) {
+        if (this.shapes.size() == 0 || pos > this.shapes.size()) {
+            throw new IllegalArgumentException("Component does not exist.");
+        }
         this.shapes.get(pos).move(dx, dy);
     }
 
@@ -92,8 +95,11 @@ public class Drawing {
      * @param leafB Second leaf to be grouped.
      * @param color color of the group.
      */
-    void groupLeafs(int leafA, int leafB, char color) {
-
+    void groupLeaves(int leafA, int leafB, char color) {
+        if (leafA > this.shapes.size() || this.shapes.size() == 0 ||
+                leafB > this.shapes.size()) {
+            throw new IllegalArgumentException("These shapes doesn't exist");
+        }
         Composite comp = new Composite(color);
         comp.addLeaf(this.shapes.get(leafA));
         comp.addLeaf(this.shapes.get(leafB));
@@ -113,12 +119,14 @@ public class Drawing {
      *
      * @param comp Position of the component to ungroup.
      */
-    void ungroupLeafs(int comp) {
+    void ungroupLeaves(int comp) {
         if (!(this.shapes.get(comp) instanceof Composite)) {
             throw new IllegalArgumentException("Component isn't a group!");
+        } else if (this.shapes.size() == 0 || comp > this.shapes.size()) {
+            throw new IllegalArgumentException("Component does not exist.");
         }
-        List<Component> leafs = ((Composite) this.shapes.get(comp)).removeGroup();
-        for (Component leaf : leafs) {
+        List<Component> leaves = ((Composite) this.shapes.get(comp)).removeGroup();
+        for (Component leaf : leaves) {
             this.shapes.add(leaf);
         }
         this.shapes.remove(comp);
@@ -132,6 +140,10 @@ public class Drawing {
      * @param color     new color of the component.
      */
     void color(int component, char color) {
+
+        if (this.shapes.size() == 0 || component > this.shapes.size()) {
+            throw new IllegalArgumentException("Component does not exist.");
+        }
         this.shapes.get(component).setColor(color);
     }
 
@@ -142,6 +154,9 @@ public class Drawing {
      * @return color of the component.
      */
     char getColor(int component) {
+        if (this.shapes.size() == 0 || component > this.shapes.size()) {
+            throw new IllegalArgumentException("Component does not exist.");
+        }
         return this.shapes.get(component).getColor();
 
     }
@@ -153,6 +168,9 @@ public class Drawing {
      * @return Deleted component.
      */
     public Component delete(int comp) {
+        if (this.shapes.size() == 0 || comp > this.shapes.size()) {
+            throw new IllegalArgumentException("Component does not exist.");
+        }
         return this.shapes.remove(comp);
     }
 

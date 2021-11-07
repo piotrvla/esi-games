@@ -3,7 +3,6 @@ package asciipaint;
 import asciipaint.controller.Controller;
 
 /**
- *
  * @author g56212
  */
 public class Main {

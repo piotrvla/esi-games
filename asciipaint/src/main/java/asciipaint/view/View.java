@@ -132,7 +132,6 @@ public class View {
                 "|(color " + nbParam + " " + color + ")" +
                 "|(help)" +
                 "|(delete) " + nbParam;
-        ;
 
 
         keyboard.useDelimiter("\n");
