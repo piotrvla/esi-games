@@ -56,21 +56,6 @@ class Board {
     }
 
     /**
-     * Removes the block at the given position. The
-     *
-     * @param pos Position to remove the colored block at.
-     *
-     */
-    private void removeAt(Position pos) {
-        if (this.board[pos.getX()][pos.getY()] != null) {
-            throw new IllegalArgumentException("The block at the given"
-                    + " position is null");
-        }
-        this.board[pos.getX()][pos.getY()] = null;
-
-    }
-
-    /**
      * Removes the whole color spot only if the number of the block of the same
      * color in the same spot is bigger than 2;
      *
@@ -89,18 +74,18 @@ class Board {
     }
 
     /**
-     * Adds to the global list position of the every single block that is inside
-     * the spot. Initial position must be not null, it's value in the boolean
-     * array 2D path must be at false.
+     * Removes the block at the given position. The
+     *
+     * @param pos Position to remove the colored block at.
+     *
      */
-    private void getSpotPositions(Position pos, boolean[][] checked) {
-        if (!checked[pos.getX()][pos.getY()] && this.board[pos.getX()][pos.getY()] != null) {
-            checked[pos.getX()][pos.getY()] = true;
-            this.positions.add(pos);
-            for (Position neighbour : getNeighbours(pos)) {
-                getSpotPositions(neighbour, checked);
-            }
+    private void removeAt(Position pos) {
+        if (this.board[pos.getX()][pos.getY()] != null) {
+            throw new IllegalArgumentException("The block at the given"
+                    + " position is null");
         }
+        this.board[pos.getX()][pos.getY()] = null;
+
     }
 
     /**
@@ -112,7 +97,7 @@ class Board {
      * @return Returns the number of the blocks of the same color contained in
      * the single spot.
      */
-    public int countColors(Position pos) {
+    private int countColors(Position pos) {
         if (isInside(pos)) {
             throw new IllegalArgumentException("Position isn't inside the board");
         }
@@ -126,6 +111,21 @@ class Board {
             }
         }
         return this.positions.size();
+    }
+
+    /**
+     * Adds to the global list position of the every single block that is inside
+     * the spot. Initial position must be not null, it's value in the boolean
+     * array 2D path must be at false.
+     */
+    private void getSpotPositions(Position pos, boolean[][] checked) {
+        if (!checked[pos.getX()][pos.getY()] && this.board[pos.getX()][pos.getY()] != null) {
+            checked[pos.getX()][pos.getY()] = true;
+            this.positions.add(pos);
+            for (Position neighbour : getNeighbours(pos)) {
+                getSpotPositions(neighbour, checked);
+            }
+        }
     }
 
     /**
@@ -184,7 +184,7 @@ class Board {
      * @param block Block that must be put in the board.
      * @param pos Position to put the block at.
      */
-    void putAt(Block block, Position pos) {
+    private void putAt(Block block, Position pos) {
         if (!isInside(pos)) {
             throw new IllegalArgumentException("Given position is "
                     + "outside of the board");
