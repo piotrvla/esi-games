@@ -25,9 +25,7 @@ class Board {
      */
     Board(int size) {
         this.size = size;
-
         this.board = new Block[size][size];
-
     }
 
     /**
@@ -71,6 +69,21 @@ class Board {
                 removeAt(color);
             }
         }
+    }
+    /**
+     * Checks if there's any spot left with bigger number of colored blocks than 
+     * 1 single block left.
+     * @return True if the number of blocks is bigger than 1, if not - false.
+     */
+    boolean isGameOver() {
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                if (countColors(new Position(i, j)) >= 2) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     /**
