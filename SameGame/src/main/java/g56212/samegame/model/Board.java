@@ -70,9 +70,11 @@ class Board {
             }
         }
     }
+
     /**
-     * Checks if there's any spot left with bigger number of colored blocks than 
+     * Checks if there's any spot left with bigger number of colored blocks than
      * 1 single block left.
+     *
      * @return True if the number of blocks is bigger than 1, if not - false.
      */
     boolean isGameOver() {

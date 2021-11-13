@@ -6,6 +6,7 @@ import asciipaint.model.AsciiPaint;
  * Move command, moves a component.
  */
 public class Move implements Commands {
+
     private String[] command;
     private AsciiPaint ascii;
 
