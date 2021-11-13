@@ -21,7 +21,7 @@ public class Drawing {
      * Creates a drawing with default parameters as height at 50, and width at
      * 50;
      */
-    public Drawing() {
+    Drawing() {
         this.height = 50;
         this.width = 50;
         this.shapes = new ArrayList();
@@ -33,7 +33,7 @@ public class Drawing {
      * @param width  width of the drawing.
      * @param height height of the drawing.
      */
-    public Drawing(int width, int height) {
+    Drawing(int width, int height) {
         this.width = width;
         this.height = height;
         this.shapes = new ArrayList();
@@ -45,7 +45,7 @@ public class Drawing {
      *
      * @param shape shape to add to the list.
      */
-    public void addShape(Component shape) {
+    void addShape(Component shape) {
         shapes.add(shape);
     }
 
@@ -56,7 +56,7 @@ public class Drawing {
      * @param p point to check if there's any shape.
      * @return A shape or null if there's no shape.
      */
-    public Shape getShapeAt(Point p) {
+    Shape getShapeAt(Point p) {
         for (Component shape : shapes) {
             if (shape.isInside(p)) {
                 return shape;
@@ -70,7 +70,7 @@ public class Drawing {
      *
      * @return list of components.
      */
-    public List<Component> listOfComponents() {
+    List<Component> listOfComponents() {
         return this.shapes;
     }
 
@@ -165,7 +165,7 @@ public class Drawing {
      * @param comp Position of the component to delete.
      * @return Deleted component.
      */
-    public Component delete(int comp) {
+    Component delete(int comp) {
         if (this.shapes.size() == 0 || comp > this.shapes.size()) {
             throw new IllegalArgumentException("Component does not exist.");
         }
