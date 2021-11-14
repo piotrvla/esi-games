@@ -87,6 +87,38 @@ class Board {
         }
         return true;
     }
+        /**
+     * Refactors the board by sliding every block to the bottom.
+     */
+    void refactorBoard() {
+        refactorRow();
+    }
+
+    /**
+     * Refactors the rows by sliding them down. This method checks at first if there's any empty space in the row,
+     * starting from the top. If the empty space is found, it's time to find colored block to put at this place.
+     * Whenever it's found empty space is filled with this block, and the block last position is set at null.
+     */
+    private void refactorRow() {
+        for (int i = 0; i < size; i++) {
+            int checkBlock = size - 1;
+            int blockToMove = size - 1;
+            while (checkBlock >= 0 && blockToMove >= 0) {
+                while (checkBlock >= 0 && this.board[checkBlock][i] != null)
+                    checkBlock--;
+                if (checkBlock >= 0)
+                    blockToMove = checkBlock - 1;
+                while (blockToMove >= 0 && this.board[blockToMove][i] == null)
+                    blockToMove--;
+                if (checkBlock >= 0 && blockToMove >= 0) {
+                    board[checkBlock][i] = board[blockToMove][i];
+                    board[blockToMove][i] = null;
+                }
+
+
+            }
+        }
+    }
 
     /**
      * Removes the block at the given position. The
@@ -112,7 +144,7 @@ class Board {
      * @return Returns the number of the blocks of the same color contained in
      * the single spot.
      */
-    private int countColors(Position pos) {
+    int countColors(Position pos) {
         if (isInside(pos)) {
             throw new IllegalArgumentException("Position isn't inside the board");
         }
@@ -199,7 +231,7 @@ class Board {
      * @param block Block that must be put in the board.
      * @param pos Position to put the block at.
      */
-    private void putAt(Block block, Position pos) {
+    void putAt(Block block, Position pos) {
         if (!isInside(pos)) {
             throw new IllegalArgumentException("Given position is "
                     + "outside of the board");

@@ -33,4 +33,8 @@ public class SameGame {
         return this.board.getAt(pos);
     }
 
+    public void putAt(Block block, Position pos) {
+        this.board.putAt(block, pos);
+    }
+
 }
