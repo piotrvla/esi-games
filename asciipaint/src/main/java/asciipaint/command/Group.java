@@ -16,6 +16,8 @@ public class Group implements Commands {
 
     @Override
     public void execute() {
+        // @pbt code is not robust
+        // @pbt group is for more than 2 shapes (use varargs)
         this.ascii.group(Integer.parseInt(command[1]),
                 Integer.parseInt(command[2]),
                 command[3].charAt(0));

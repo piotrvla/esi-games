@@ -20,6 +20,7 @@ import javafx.util.Duration;
 public class Model implements Observable {
 
     private List<Observer> observer;
+    // @pbt list of string or color ok… but no button
     private List<Button> gameSequence = new ArrayList();
     private List<Button> userSequence = new ArrayList();
     private List<Button> lastSequence;
@@ -84,7 +85,7 @@ public class Model implements Observable {
      * @param list list to display as a sequence of colors.
      */
     public void playSequence(List<Button> list) {
-
+        // @pbt view can play sequence. just notify now sequence is ready
         System.out.println(list.size());
         this.indexSequence = 0;
         var timeline = new Timeline((new KeyFrame(Duration.seconds(1 / this.speed), event -> {

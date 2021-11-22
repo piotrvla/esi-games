@@ -42,6 +42,7 @@ public class Composite extends Component {
         }
     }
 
+    // @pbt composite pattern, implies getChildren method
     /**
      * Adds a leaf to the composite.
      *

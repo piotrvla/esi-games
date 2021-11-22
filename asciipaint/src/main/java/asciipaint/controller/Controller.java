@@ -12,6 +12,9 @@ import asciipaint.view.View;
 import java.util.ArrayList;
 import java.util.List;
 
+// @pbt javadoc is rare
+// @pbt write in comments, this class is invoker in command pattern
+
 /**
  * @author 56212
  */

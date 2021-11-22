@@ -7,6 +7,8 @@ import asciipaint.model.AsciiPaint;
  */
 public class Add implements Commands {
 
+    // @pbt i prefer attribute shape and not string[].
+
     private String[] command;
     private AsciiPaint ascii;
 

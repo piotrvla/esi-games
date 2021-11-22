@@ -26,7 +26,7 @@ public class ViewMenu extends VBox implements Observer {
     private final Button last;
     private final Button longest;
     private final Button start;
-    private final Label message;
+    private final Label message; 
 
     /**
      * Constructor of ViewMenu that creates the whole interface of the menu.

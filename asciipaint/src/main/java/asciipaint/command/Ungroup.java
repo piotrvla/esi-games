@@ -24,8 +24,10 @@ public class Ungroup implements Commands {
 
     @Override
     public void undo() {
-        this.ascii.group(this.ascii.getShapesSize() - 1,
-                this.ascii.getShapesSize() - 2, this.color);
+        this.ascii.group(
+                this.ascii.getShapesSize() - 1,
+                this.ascii.getShapesSize() - 2,
+                this.color);
 
     }
 

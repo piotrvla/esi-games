@@ -53,6 +53,7 @@ public class View
 
         this.silentMode = menu.getSilentMode();
         stack.getChildren().addAll(background, menu);
+        // @pbt not my preferred way to add action to buttons
         List<Button> buttons = background.getButtons();
 
         for (Button button : buttons) {
