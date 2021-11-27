@@ -10,6 +10,7 @@ import static javafx.scene.layout.GridPane.setMargin;
 import javafx.scene.paint.Color;
 
 /**
+ * Represents the board in java fx SameGame's game mode.
  *
  * @author g56212
  */
@@ -19,11 +20,22 @@ public class BoardFX extends GridPane {
     private final ControllerFX controller;
     private BlockFX[][] boardFx;
 
+    /**
+     * BoardFX needs a SameGame instance and controllerFX to be instanced.
+     *
+     * @param game SameGame current instance.
+     * @param controller ControllerFX current instance.
+     */
     public BoardFX(SameGame game, ControllerFX controller) {
         this.game = game;
         this.controller = controller;
     }
 
+    /**
+     * Creates the FX board by using model's board to get color at x and y
+     * position in the board. Then a new fx block is instanced at the same
+     * position as in the model's board.
+     */
     void createBoard() {
         this.getChildren().clear();
         int size = game.getSize();
@@ -61,6 +73,10 @@ public class BoardFX extends GridPane {
         setEventHandlerOn();
     }
 
+    /**
+     * Sets the event for every block in game that's not null. If clicked, play
+     * method from the controller is called.
+     */
     void setEventHandlerOn() {
         for (BlockFX[] blockFXs : boardFx) {
             for (BlockFX blockFX : blockFXs) {
@@ -72,6 +88,9 @@ public class BoardFX extends GridPane {
         }
     }
 
+    /**
+     * Updates the board.
+     */
     void updateBoard() {
         createBoard();
     }
