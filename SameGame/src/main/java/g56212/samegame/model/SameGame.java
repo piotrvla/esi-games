@@ -48,6 +48,24 @@ public class SameGame {
     }
 
     /**
+     * Clones the current board and returns it as a new instance.
+     *
+     * @return Cloned board.
+     */
+    public Board clone() {
+        return this.board.clone();
+    }
+
+    /**
+     * Remplaces the board by the board given in the parameter.
+     *
+     * @param board
+     */
+    public void setBoard(Board board) {
+        this.board = board;
+    }
+
+    /**
      * Puts a block at the given position.
      *
      * @param block block to put.
