@@ -185,7 +185,7 @@ class Board {
      * Refactors the board by sliding every block to the bottom.
      */
     void refactorBoard() {
-
+        refactorRow();
         refactorColumn();
     }
 
