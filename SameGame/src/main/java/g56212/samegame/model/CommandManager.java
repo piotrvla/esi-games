@@ -51,7 +51,7 @@ public class CommandManager {
      * @param game Instance of SameGame to redo the move at.
      */
     public void redo(SameGame game) {
-        if (!redoStack.empty() && !(redoStack.lastElement() instanceof Remove)) {
+        if (!redoStack.empty()) {
             redoStack.lastElement().execute();
             undoStack.push(redoStack.lastElement());
             redoStack.pop();

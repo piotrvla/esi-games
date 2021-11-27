@@ -1,74 +1,74 @@
 package g56212.samegame.controller;
 
-import g56212.samegame.model.Command;
+import g56212.samegame.model.CommandManager;
 import g56212.samegame.model.Remove;
 import g56212.samegame.model.SameGame;
 import g56212.samegame.view.View;
 
-import java.util.ArrayList;
-import java.util.List;
-
+/**
+ * Controller of the terminal mode of the SameGame.
+ *
+ * @author 56212
+ */
 public class Controller {
 
     private final SameGame samegame;
     private final View view;
-    private List<Command> commands;
-    private List<Command> undoCommands;
+    private CommandManager cmd;
 
+    /**
+     * Controller creates the instances of SameGame, view and the command
+     * manager. Then starts the game by asking the size of the board and the
+     * difficulty.
+     */
     public Controller() {
         this.samegame = new SameGame();
         this.view = new View(this.samegame);
         this.samegame.startGame(view.askSize(), view.askDifficulty());
-        this.commands = new ArrayList<>();
-        this.undoCommands = new ArrayList<>();
+        this.cmd = new CommandManager();
+
     }
 
+    /**
+     * Runs the game till the game isn't over. At every loop the board is shown
+     * a new command asked, at the end when the game is over final score and
+     * remaining number of blocks is shown.
+     */
     void run() {
         while (!this.samegame.isGameOver()) {
             this.view.displayGame();
             String[] command = this.view.askCommand();
+
             switch (command[0]) {
                 case "remove":
                     try {
-                    Remove remove = new Remove(samegame,
-                            Integer.parseInt(command[1]) - 1,
-                            Integer.parseInt(command[2]) - 1);
-                    remove.execute();
-                    this.commands.add(remove);
+                    cmd.add(new Remove(samegame, Integer.parseInt(command[1]) - 1,
+                            Integer.parseInt(command[2]) - 1));
                     this.samegame.refactorBoard();
                 } catch (IllegalArgumentException ex) {
-                    view.displayError("Cannot remove at this position.");
+                    this.view.displayError("Cannot remove at given position.");
                 }
-                break;
 
+                break;
                 case "redo":
-                    try {
-                    Command lastCmd = undoCommands.get(undoCommands.size() - 1);
-                    undoCommands.remove(lastCmd);
-                    commands.add(lastCmd);
-                    lastCmd.execute();
-                } catch (Exception ex) {
-                    view.displayError("Nothing to undo");
-                }
+                    cmd.redo(samegame);
+                    this.samegame.refactorBoard();
 
-                break;
+                    break;
                 case "undo":
-                    try {
-                    Command lastCm = commands.get(commands.size() - 1);
-                    commands.remove(lastCm);
-                    undoCommands.add(lastCm);
-                    lastCm.undo();
-                } catch (Exception ex) {
-                    view.displayError("Nothing to undo.");
-                }
-
-                break;
+                    cmd.undo(samegame);
+                    break;
             }
 
         }
         this.view.displayFinalScore();
     }
 
+    /**
+     * Main of the SameGame game used to start the game.
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         Controller controller = new Controller();
         controller.run();
