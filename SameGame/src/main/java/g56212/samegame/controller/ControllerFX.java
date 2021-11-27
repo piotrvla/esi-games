@@ -5,6 +5,7 @@
  */
 package g56212.samegame.controller;
 
+import g56212.samegame.model.Position;
 import javafx.stage.Stage;
 
 /**
@@ -18,5 +19,8 @@ public class ControllerFX {
 
     public void start(Stage stage) {
 
+    }
+    public void play(Position pos){
+    
     }
 }

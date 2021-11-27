@@ -1,8 +1,12 @@
 package g56212.samegame.model;
 
-public class SameGame {
+import java.util.ArrayList;
+import java.util.List;
 
+public class SameGame implements Observable {
+    
     private Board board;
+    private List<Observer> observers;
 
     /*
      * Constructor of SameGame facade that initializes and fills the board
@@ -10,9 +14,9 @@ public class SameGame {
      * @param size size of the game board.
      */
     public SameGame() {
-
+        this.observers = new ArrayList<>();
     }
-
+    
     public void startGame(int size, int difficulty) {
         this.board = new Board(size);
         this.board.fillBoard(difficulty);
@@ -36,7 +40,7 @@ public class SameGame {
     public Block getAt(Position pos) {
         return this.board.getAt(pos);
     }
-
+    
     public void refactorBoard() {
         this.board.refactorBoard();
     }
@@ -48,7 +52,7 @@ public class SameGame {
      */
     public boolean isGameOver() {
         return this.board.isGameOver();
-
+        
     }
 
     /**
@@ -105,10 +109,27 @@ public class SameGame {
     public int getRecentScore() {
         return this.board.getRecentScore();
     }
-
+    
     public int getRemainingBlocks() {
-
+        
         return this.board.getRemainingBlocks();
     }
-
+    
+    @Override
+    public void notifyObs(String update) {
+        for (Observer observer : observers) {
+            observer.update(update);
+        }
+    }
+    
+    @Override
+    public void subscribe(Observer ob) {
+        this.observers.add(ob);
+    }
+    
+    @Override
+    public void unsubscribe(Observer ob) {
+        this.observers.remove(ob);
+    }
+    
 }

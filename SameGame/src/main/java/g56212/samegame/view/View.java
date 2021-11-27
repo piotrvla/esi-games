@@ -101,21 +101,39 @@ public class View {
         return nb;
     }
 
+    /**
+     * Asks and returns the user input as a size of the game.
+     *
+     * @return an integer is returned between 5 and 20.
+     */
     public int askSize() {
         return readBetweenRange("Enter the size of the board between 5 and 20",
                 5, 20);
 
     }
 
+    /**
+     * Returns the user input as a difficulty of the game.
+     *
+     * @return an integer is returned between 2 and 5.
+     */
     public int askDifficulty() {
         return readBetweenRange("Enter the difficulty of the game, between "
                 + "2 and 5", 2, 5);
     }
 
+    /**
+     * Displays a message as an error.
+     *
+     * @param message message to print.
+     */
     public void displayError(String message) {
         System.err.println(message);
     }
 
+    /**
+     * Displays final score and the number of remaining blocks.
+     */
     public void displayFinalScore() {
         System.out.println("Final score: " + this.sameGame.getScore());
         System.out.println("Remaining blocks: " + this.sameGame.getRemainingBlocks());
