@@ -99,6 +99,9 @@ class Board {
             throw new IllegalArgumentException("Position isn't inside the board");
         }
         int count = countColors(pos);
+        if (count < 2) {
+            throw new IllegalArgumentException("Cannot remove the spot.");
+        }
         this.remainingBlock -= count;
         this.score.addScore(count);
 
@@ -342,7 +345,8 @@ class Board {
     int getRecentScore() {
         return this.score.getRecentScore();
     }
-    int getRemainingBlocks(){
+
+    int getRemainingBlocks() {
         return this.remainingBlock;
     }
 

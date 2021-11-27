@@ -75,16 +75,7 @@ public class View {
         }
 
         String[] command = keyboard.next().split(" ");
-        if (command[0].equals("remove")) {
-            while (Integer.parseInt(command[1]) <= 0
-                    || Integer.parseInt(command[1]) > this.sameGame.getSize()
-                    || Integer.parseInt(command[2]) <= 0
-                    || Integer.parseInt(command[2]) > this.sameGame.getSize()) {
-                displayError("Error! Your remove command must be between 1 and "
-                        + this.sameGame.getSize());
-                askCommand();
-            }
-        }
+
         return command;
     }
 
