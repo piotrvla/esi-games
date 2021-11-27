@@ -53,6 +53,7 @@ public class View {
         }
         System.out.println("Current score: " + this.sameGame.getScore());
         System.out.println("Recent score: " + this.sameGame.getRecentScore());
+        System.out.println("Remaining blocks: " + this.sameGame.getRemainingBlocks());
     }
 
     /**
@@ -79,14 +80,53 @@ public class View {
                     || Integer.parseInt(command[1]) > this.sameGame.getSize()
                     || Integer.parseInt(command[2]) <= 0
                     || Integer.parseInt(command[2]) > this.sameGame.getSize()) {
-                displayError("Error! Your command must be between 1 and " + this.sameGame.getSize());
+                displayError("Error! Your remove command must be between 1 and "
+                        + this.sameGame.getSize());
                 askCommand();
             }
         }
         return command;
     }
 
+    private int readInt(String message) {
+
+        System.out.println(message);
+        while (!keyboard.hasNextInt()) {
+            keyboard.next();
+            System.out.println("Le nombre saisi n'est pas un entier.");
+            System.out.println(message);
+        }
+        return keyboard.nextInt();
+    }
+
+    public int readBetweenRange(String message, int min, int max) {
+
+        int nb = readInt(message);
+        while (nb < min || nb > max) {
+            System.out.println("The number isn't between " + min
+                    + " and " + max);
+            nb = readInt(message);
+        }
+        return nb;
+    }
+
+    public int askSize() {
+        return readBetweenRange("Enter the size of the board between 5 and 20",
+                5, 20);
+
+    }
+
+    public int askDifficulty() {
+        return readBetweenRange("Enter the difficulty of the game, between "
+                + "2 and 5", 2, 5);
+    }
+
     public void displayError(String message) {
         System.err.println(message);
+    }
+
+    public void displayFinalScore() {
+        System.out.println("Final score: " + this.sameGame.getScore());
+        System.out.println("Remaining blocks: " + this.sameGame.getRemainingBlocks());
     }
 }

@@ -13,6 +13,7 @@ class Board {
     private Block[][] board;
     private Score score;
     private List<Position> positions;
+    private int remainingBlock;
     private static List<Colors> colors = Arrays.asList(Colors.BLUE,
             Colors.RED,
             Colors.YELLOW,
@@ -29,6 +30,7 @@ class Board {
         this.size = size;
         this.board = new Block[size][size];
         this.score = new Score();
+        this.remainingBlock = size * size;
     }
 
     /**
@@ -96,7 +98,10 @@ class Board {
         if (!isInside(pos)) {
             throw new IllegalArgumentException("Position isn't inside the board");
         }
-        this.score.addScore(countColors(pos));
+        int count = countColors(pos);
+        this.remainingBlock -= count;
+        this.score.addScore(count);
+
         for (Position color : this.positions) {
             removeAt(color);
         }
@@ -127,7 +132,7 @@ class Board {
      * @return Returns the number of the blocks of the same color contained in
      * the single spot.
      */
-    public int countColors(Position pos) {
+    int countColors(Position pos) {
         if (!isInside(pos)) {
             throw new IllegalArgumentException("Position isn't inside the board");
         }
@@ -336,6 +341,9 @@ class Board {
      */
     int getRecentScore() {
         return this.score.getRecentScore();
+    }
+    int getRemainingBlocks(){
+        return this.remainingBlock;
     }
 
 }

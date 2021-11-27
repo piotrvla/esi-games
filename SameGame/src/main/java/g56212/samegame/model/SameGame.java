@@ -9,7 +9,11 @@ public class SameGame {
      * with randomly generated colored blocks.
      * @param size size of the game board.
      */
-    public SameGame(int size, int difficulty) {
+    public SameGame() {
+
+    }
+
+    public void startGame(int size, int difficulty) {
         this.board = new Board(size);
         this.board.fillBoard(difficulty);
     }
@@ -100,6 +104,11 @@ public class SameGame {
      */
     public int getRecentScore() {
         return this.board.getRecentScore();
+    }
+
+    public int getRemainingBlocks() {
+
+        return this.board.getRemainingBlocks();
     }
 
 }
