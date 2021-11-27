@@ -5,14 +5,14 @@ package g56212.samegame.model;
  */
 public class Block {
 
-    private Color color;
+    private Colors color;
 
     /**
      * Constructor of the block that needs a color to be initialised.
      *
      * @param color Color to initialize the block.
      */
-    public Block(Color color) {
+    public Block(Colors color) {
         this.color = color;
     }
 
@@ -21,7 +21,7 @@ public class Block {
      *
      * @return Color of the block.
      */
-    public Color getColor() {
+    public Colors getColor() {
         return this.color;
     }
 

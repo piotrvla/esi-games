@@ -11,11 +11,13 @@ class Board {
 
     private int size;
     private Block[][] board;
+    private Score score;
     private List<Position> positions;
-    private static List<Color> colors = Arrays.asList(Color.BLUE,
-            Color.RED,
-            Color.YELLOW,
-            Color.GREEN);
+    private static List<Colors> colors = Arrays.asList(Colors.BLUE,
+            Colors.RED,
+            Colors.YELLOW,
+            Colors.GREEN,
+            Colors.ORANGE);
 
     /**
      * Constructor of game board of same game that needs only width and height
@@ -26,6 +28,7 @@ class Board {
     Board(int size) {
         this.size = size;
         this.board = new Block[size][size];
+        this.score = new Score();
     }
 
     /**
@@ -36,128 +39,68 @@ class Board {
      */
     Block getAt(Position pos) {
         if (!isInside(pos)) {
-            throw new IllegalArgumentException("Given position is "
-                    + "outside of the board");
+            throw new IllegalArgumentException("Given position is outside of the board");
         }
         return this.board[pos.getX()][pos.getY()];
     }
 
-    /**
-     * Fills the whole board with randomly generated colored blocks.
-     */
-    void fillBoard() {
+    void fillBoard(int difficulty) {
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                putAt(randomBlock(), new Position(i, j));
+                putAt(randomBlock(difficulty), new Position(i, j));
             }
         }
     }
 
     /**
+     * Chooses randomly a random color then creates a new block with this
+     * randomly chosen color then returns it.
+     *
+     * @return New randomly generated colored block.
+     */
+    private Block randomBlock(int difficulty) {
+        if (difficulty <= 1 || difficulty > 5) {
+            throw new IllegalArgumentException("Error: cannot play with this kind of difficulty.");
+        }
+        int random = (int) (Math.random() * difficulty);
+        return new Block(this.colors.get(random));
+    }
+
+    /**
      * Removes the whole color spot only if the number of the block of the same
-     * color in the same spot is bigger than 2;
+     * color in the same spot is bigger than 2; Number of deleted blocks is
+     * returned.
      *
      * @param pos Position to remove the color spot.
+     * @return number of deleted blocks in the spot.
+     */
+    private void removeAt(Position pos) {
+        if (this.board[pos.getX()][pos.getY()] != null) {
+            this.board[pos.getX()][pos.getY()] = null;
+        }
+    }
+
+    boolean canRemoveAt(Position pos) {
+        if (!isInside(pos)) {
+            throw new IllegalArgumentException("Position isn't inside the board");
+        }
+        return countColors(pos) >= 2;
+    }
+
+    /**
+     * Removes the whole spot whenever it's number of blocks is 2 or more.
      *
+     * @param pos Position to remove the spot at.
      */
     void removeSpot(Position pos) {
         if (!isInside(pos)) {
             throw new IllegalArgumentException("Position isn't inside the board");
         }
-        if (countColors(pos) >= 2) {
-            for (Position color : this.positions) {
-                removeAt(color);
-            }
+        this.score.addScore(countColors(pos));
+        for (Position color : this.positions) {
+            removeAt(color);
         }
-    }
 
-    /**
-     * Checks if there's any spot left with bigger number of colored blocks than
-     * 1 single block left.
-     *
-     * @return True if the number of blocks is bigger than 1, if not - false.
-     */
-    boolean isGameOver() {
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                if (countColors(new Position(i, j)) >= 2) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-        /**
-     * Refactors the board by sliding every block to the bottom.
-     */
-    void refactorBoard() {
-        refactorRow();
-    }
-
-    /**
-     * Refactors the rows by sliding them down. This method checks at first if there's any empty space in the row,
-     * starting from the top. If the empty space is found, it's time to find colored block to put at this place.
-     * Whenever it's found empty space is filled with this block, and the block last position is set at null.
-     */
-    private void refactorRow() {
-        for (int i = 0; i < size; i++) {
-            int checkBlock = size - 1;
-            int blockToMove = size - 1;
-            while (checkBlock >= 0 && blockToMove >= 0) {
-                while (checkBlock >= 0 && this.board[checkBlock][i] != null)
-                    checkBlock--;
-                if (checkBlock >= 0)
-                    blockToMove = checkBlock - 1;
-                while (blockToMove >= 0 && this.board[blockToMove][i] == null)
-                    blockToMove--;
-                if (checkBlock >= 0 && blockToMove >= 0) {
-                    board[checkBlock][i] = board[blockToMove][i];
-                    board[blockToMove][i] = null;
-                }
-
-
-            }
-        }
-    }
-
-    /**
-     * Removes the block at the given position. The
-     *
-     * @param pos Position to remove the colored block at.
-     *
-     */
-    private void removeAt(Position pos) {
-        if (this.board[pos.getX()][pos.getY()] != null) {
-            throw new IllegalArgumentException("The block at the given"
-                    + " position is null");
-        }
-        this.board[pos.getX()][pos.getY()] = null;
-
-    }
-
-    /**
-     * Counts the number of the block contained in the single spot. This method
-     * uses another one that adds to the global list every single block of the
-     * same color. This list is used to get the size of the spot.
-     *
-     * @param pos Position to count the number of the blocks at.
-     * @return Returns the number of the blocks of the same color contained in
-     * the single spot.
-     */
-    int countColors(Position pos) {
-        if (isInside(pos)) {
-            throw new IllegalArgumentException("Position isn't inside the board");
-        }
-        boolean[][] checked = new boolean[this.size][this.size];
-        this.positions = new ArrayList<>();
-        if (this.board[pos.getX()][pos.getY()] != null) {
-            this.positions.add(pos);
-            checked[pos.getX()][pos.getY()] = true;
-            for (Position neighbour : getNeighbours(pos)) {
-                getSpotPositions(neighbour, checked);
-            }
-        }
-        return this.positions.size();
     }
 
     /**
@@ -176,10 +119,35 @@ class Board {
     }
 
     /**
+     * Counts the number of the block contained in the single spot. This method
+     * uses another one that adds to the global list every single block of the
+     * same color. This list is used to get the size of the spot.
+     *
+     * @param pos Position to count the number of the blocks at.
+     * @return Returns the number of the blocks of the same color contained in
+     * the single spot.
+     */
+    public int countColors(Position pos) {
+        if (!isInside(pos)) {
+            throw new IllegalArgumentException("Position isn't inside the board");
+        }
+        boolean[][] checked = new boolean[this.size][this.size];
+        this.positions = new ArrayList<>();
+        if (this.board[pos.getX()][pos.getY()] != null) {
+            this.positions.add(pos);
+            checked[pos.getX()][pos.getY()] = true;
+            for (Position neighbour : getNeighbours(pos)) {
+                getSpotPositions(neighbour, checked);
+            }
+        }
+        return this.positions.size();
+    }
+
+    /**
      * Adds to the list every neighbour of the block at the given position. The
      * block at the given position can't be null, must be inside the board.
      *
-     * @param pos Position to get the neighbours from.
+     * @param pos Position to get the neibghours from.
      * @return Returns every single neighbour of the block if the conditions are
      * respected.
      */
@@ -210,49 +178,164 @@ class Board {
                 }
             }
         }
-
         return neighbours;
     }
 
     /**
-     * Chooses randomly a random color then creates a new block with this
-     * randomly choosen color then returns it.
-     *
-     * @return New randomly generated colored block.
+     * Refactors the board by sliding every block to the bottom.
      */
-    private Block randomBlock() {
-        int random = (int) (Math.random() * 4);
-        return new Block(this.colors.get(random));
+    void refactorBoard() {
+
+        refactorColumn();
     }
 
     /**
-     * Puts given the given block in the parameters at the given position.
+     * Refactors the rows by sliding them to the left. This method checks at
+     * first if there's any empty space in the row, starting from the left side.
+     * If the empty space is found, a colored block is put at this place.
+     * Whenever an empty spaceis found, it's filled with this block, and the
+     * block last position is set at null.
+     */
+    private void refactorRow() {
+        for (int i = 0; i < size; i++) {
+            int checkBlock = size - 1;
+            int blockToMove = size - 1;
+            while (checkBlock >= 0 && blockToMove >= 0) {
+                while (checkBlock >= 0 && this.board[checkBlock][i] != null) {
+                    checkBlock--;
+                }
+                if (checkBlock >= 0) {
+                    blockToMove = checkBlock - 1;
+                }
+                while (blockToMove >= 0 && this.board[blockToMove][i] == null) {
+                    blockToMove--;
+                }
+                if (checkBlock >= 0 && blockToMove >= 0) {
+                    board[checkBlock][i] = board[blockToMove][i];
+                    board[blockToMove][i] = null;
+                }
+            }
+        }
+    }
+
+    /**
+     * Refactors the columns by sliding them down. It's searching for an empty
+     * block to slide all remaining blocks which are above this empty cell,
+     * every block's last position that was moved, is set as null.
+     */
+    private void refactorColumn() {
+        int checkBlock = 0;
+        int blockToMove = 0;
+        while (checkBlock < size && blockToMove < size) {
+            while (checkBlock < size && this.board[size - 1][checkBlock] != null) {
+                checkBlock++;
+            }
+            if (checkBlock < size) {
+                blockToMove = checkBlock + 1;
+            }
+            while (blockToMove < size && this.board[size - 1][blockToMove] == null) {
+                blockToMove++;
+            }
+            if (blockToMove < size && checkBlock < size) {
+                for (int i = 0; i < size; i++) {
+                    this.board[i][checkBlock] = this.board[i][blockToMove];
+                    this.board[i][blockToMove] = null;
+                }
+            }
+
+        }
+
+    }
+
+    @Override
+    public Board clone() {
+        Board cloneBoard = new Board(size);
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                if (this.getAt(new Position(i, j)) != null) {
+                    cloneBoard.putAt(new Block(getAt(new Position(i, j)).getColor()), new Position(i, j));
+                } else {
+                    cloneBoard.putAt(null, new Position(i, j));
+                }
+            }
+        }
+        cloneBoard.setScore(new Score(getScore(), getRecentScore()));
+        return cloneBoard;
+    }
+
+    private void setScore(Score score) {
+        this.score = score;
+    }
+
+    /**
+     * Puts at the given position a colored block that isn't null and is inside
+     * the board.
      *
-     * @param block Block that must be put in the board.
-     * @param pos Position to put the block at.
+     * @param block Colored block to put in the board.
+     * @param pos Position where the block must be put.
      */
     void putAt(Block block, Position pos) {
         if (!isInside(pos)) {
-            throw new IllegalArgumentException("Given position is "
-                    + "outside of the board");
-        }
-        if (block == null) {
-            throw new IllegalArgumentException("Given block is null");
+            throw new IllegalArgumentException("Given position is outside of the board");
         }
         this.board[pos.getX()][pos.getY()] = block;
     }
 
     /**
-     * Verifies if the given position is inside the board.
+     * Checks if the game is over or not, the only condition is that there must
+     * be a spot with bigger amount of blocks than 2. These blocks must be of
+     * the same color.
      *
-     * @param pos position to check.
-     * @return if the position is inside returns true, if not false.
+     * @return True if there's no spot left, false if there's any spot with more
+     * than 1 block in the spot.
+     */
+    boolean isGameOver() {
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                if (countColors(new Position(i, j)) >= 2) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Verifies if the given position is inside the board or not.
+     *
+     * @param pos Position to check if it's inside the board.
+     * @return True if the position is inside the board, false if not.
      */
     private boolean isInside(Position pos) {
-        return (pos.getX() >= 0
-                && pos.getX() < size
-                && pos.getY() < size
-                && pos.getY() >= 0);
+        return (pos.getX() >= 0 && pos.getX() < size && pos.getY() < size && pos.getY() >= 0);
+    }
+
+    /**
+     * Returns the size of the board, the board is of the size n x n, then
+     * there's only one value returned.
+     *
+     * @return Size of the board.
+     */
+    int getSize() {
+        return this.size;
+    }
+
+    /**
+     * Returns the current total score.
+     *
+     * @return Score.
+     */
+    int getScore() {
+        return this.score.getScore();
+    }
+
+    /**
+     * Returns the score of the last move.
+     *
+     * @return score of the last move.
+     */
+    int getRecentScore() {
+        return this.score.getRecentScore();
     }
 
 }

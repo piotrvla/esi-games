@@ -11,7 +11,6 @@ public class SameGame {
      */
     public SameGame(int size) {
         this.board = new Board(size);
-        this.board.fillBoard();
     }
 
     /**

@@ -1,6 +1,11 @@
 package g56212.samegame.model;
 
-public enum Color {
+/**
+ * All available colors in the game.
+ *
+ * @author 56212
+ */
+public enum Colors {
     /**
      * Red color of the block.
      */
@@ -16,5 +21,9 @@ public enum Color {
     /**
      * Yellow color of the block.
      */
-    YELLOW;
+    YELLOW,
+    /**
+     * Orange color of the block;
+     */
+    ORANGE;
 }
