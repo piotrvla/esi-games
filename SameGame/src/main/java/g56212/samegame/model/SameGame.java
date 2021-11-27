@@ -9,8 +9,9 @@ public class SameGame {
      * with randomly generated colored blocks.
      * @param size size of the game board.
      */
-    public SameGame(int size) {
+    public SameGame(int size, int difficulty) {
         this.board = new Board(size);
+        this.board.fillBoard(difficulty);
     }
 
     /**
@@ -30,6 +31,20 @@ public class SameGame {
      */
     public Block getAt(Position pos) {
         return this.board.getAt(pos);
+    }
+
+    public void refactorBoard() {
+        this.board.refactorBoard();
+    }
+
+    /**
+     * Verifies if the game is over or not.
+     *
+     * @return true if there's no any spot of 2 blocks at least left.
+     */
+    public boolean isGameOver() {
+        return this.board.isGameOver();
+
     }
 
     /**
