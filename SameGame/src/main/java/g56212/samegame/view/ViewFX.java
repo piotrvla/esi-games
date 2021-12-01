@@ -11,14 +11,14 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class ViewFX implements Observer {
-
+    
     private ControllerFX controller;
     private SameGame game;
     private VBox root;
     private ButtonsFX buttons;
     private MainZoneFX mainZone;
     private ScoreMenuFX scoreMenu;
-
+    
     public ViewFX(ControllerFX controller, SameGame game) {
         this.game = game;
         this.controller = controller;
@@ -32,9 +32,9 @@ public class ViewFX implements Observer {
      */
     public void start(Stage primaryStage) {
         primaryStage.setResizable(false);
-        primaryStage.setTitle("SameGame");
+        primaryStage.setTitle("SameGame - 56212 Smolinski Piotr");
         this.root = new VBox(30);
-
+        
         root.setStyle("-fx-background-color: linear-gradient(to top right, #ff7f50, #6a5acd);");
         root.setAlignment(Pos.CENTER);
         this.buttons = new ButtonsFX(controller);
@@ -47,18 +47,12 @@ public class ViewFX implements Observer {
         Scene scene = new Scene(root, 1000, 750);
         primaryStage.setScene(scene);
         primaryStage.show();
-
     }
-
+    
     public void startGame() {
         mainZone.updateBoard();
     }
-
-    private void displayMenu() {
-        mainZone.setVisible();
-        buttons.setVisible(false);
-    }
-
+    
     @Override
     public void update(String update) {
         if (update.equals("update")) {
@@ -72,11 +66,12 @@ public class ViewFX implements Observer {
             scoreMenu.setVisible(true);
             mainZone.setUnvisible();
             mainZone.createBoard();
-
+            
+            
         } else if (update.equals("redoError")) {
-
+            
         } else if (update.equals("undoError")) {
-
+            
         } else if (update.equals("removeError")) {
             Alert sheesh = new Alert(Alert.AlertType.ERROR, "Nothing to remove");
             sheesh.show();
@@ -84,9 +79,13 @@ public class ViewFX implements Observer {
             scoreMenu.setVisible(false);
             mainZone.setVisible();
             buttons.setVisible(false);
-            displayMenu();
+            mainZone.setState(this.game.getRemainingBlocks());
+            
         } else if (update.equals("surrender")) {
-            displayMenu();
+            mainZone.setVisible();
+            buttons.setVisible(false);
+            scoreMenu.setVisible(false);
+            mainZone.setState(this.game.getRemainingBlocks());
         }
     }
 }

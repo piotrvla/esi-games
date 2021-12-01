@@ -131,7 +131,9 @@ public class SameGame implements Observable {
     public int getRemainingBlocks() {
         return this.board.getRemainingBlocks();
     }
-
+    /**
+     * Allows to surren
+     */
     public void surrender() {
         this.board = null;
         notifyObs("surrender");

@@ -72,7 +72,7 @@ public class BoardFX extends GridPane {
         }
         setEventHandlerOn();
     }
- 
+
     /**
      * Sets the event for every block in game that's not null. If clicked, play
      * method from the controller is called.
@@ -94,4 +94,5 @@ public class BoardFX extends GridPane {
     void updateBoard() {
         createBoard();
     }
+
 }

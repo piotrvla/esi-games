@@ -39,4 +39,7 @@ public class MainZoneFX extends StackPane {
     void createBoard() {
         this.board.createBoard();
     }
+        void setState(int nbBlocks){
+    this.menuFX.setState(nbBlocks);
+    }
 }
