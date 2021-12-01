@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SameGame implements Observable {
-    
+
     private Board board;
     private List<Observer> observers;
 
@@ -15,11 +15,16 @@ public class SameGame implements Observable {
      */
     public SameGame() {
         this.observers = new ArrayList<>();
+        notifyObs("ready");
+
     }
-    
+
     public void startGame(int size, int difficulty) {
         this.board = new Board(size);
         this.board.fillBoard(difficulty);
+        notifyObs("start");
+        notifyObs("update");
+
     }
 
     /**
@@ -28,7 +33,14 @@ public class SameGame implements Observable {
      * @param pos Position to remove the spot at.
      */
     public void removeSpot(Position pos) {
-        this.board.removeSpot(pos);
+        if (this.board.canRemoveAt(pos)) {
+            this.board.removeSpot(pos);
+            refactorBoard();
+            isGameOver();
+            notifyObs("update");
+        } else {
+            notifyObs("removeError");
+        }
     }
 
     /**
@@ -40,7 +52,7 @@ public class SameGame implements Observable {
     public Block getAt(Position pos) {
         return this.board.getAt(pos);
     }
-    
+
     public void refactorBoard() {
         this.board.refactorBoard();
     }
@@ -51,8 +63,13 @@ public class SameGame implements Observable {
      * @return true if there's no any spot of 2 blocks at least left.
      */
     public boolean isGameOver() {
-        return this.board.isGameOver();
-        
+        if (this.board.isGameOver()) {
+            notifyObs("gameOver");
+            return true;
+        } else {
+            return false;
+        }
+
     }
 
     /**
@@ -71,6 +88,7 @@ public class SameGame implements Observable {
      */
     public void setBoard(Board board) {
         this.board = board;
+        notifyObs("update");
     }
 
     /**
@@ -109,27 +127,31 @@ public class SameGame implements Observable {
     public int getRecentScore() {
         return this.board.getRecentScore();
     }
-    
+
     public int getRemainingBlocks() {
-        
         return this.board.getRemainingBlocks();
     }
-    
+
+    public void surrender() {
+        this.board = null;
+        notifyObs("surrender");
+    }
+
     @Override
     public void notifyObs(String update) {
         for (Observer observer : observers) {
             observer.update(update);
         }
     }
-    
+
     @Override
     public void subscribe(Observer ob) {
         this.observers.add(ob);
     }
-    
+
     @Override
     public void unsubscribe(Observer ob) {
         this.observers.remove(ob);
     }
-    
+
 }
