@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package g56212.samegame.model;
 
 import org.junit.jupiter.api.Test;
@@ -73,8 +68,8 @@ public class BoardTest {
         board.putAt(new Block(Colors.BLUE), new Position(0, 1));
         board.putAt(new Block(Colors.YELLOW), new Position(1, 0));
         board.putAt(new Block(Colors.GREEN), new Position(0, 2));
-        board.removeSpot(new Position(0, 0));
-        assertEquals(1, board.countColors(new Position(0, 0)));
+        assertThrows(IllegalArgumentException.class,
+                () -> board.removeSpot(new Position(0, 0)));
     }
 
     @Test
@@ -117,4 +112,8 @@ public class BoardTest {
         assertEquals(9, board.countColors(new Position(4, 4)));
     }
 
+    @Test
+    public void refactorColumn() {
+        Board board = new Board(5);
+    }
 }

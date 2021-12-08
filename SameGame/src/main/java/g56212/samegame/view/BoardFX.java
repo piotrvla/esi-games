@@ -3,7 +3,7 @@ package g56212.samegame.view;
 import g56212.samegame.controller.ControllerFX;
 import g56212.samegame.model.Colors;
 import g56212.samegame.model.Position;
-import g56212.samegame.model.SameGame;
+import g56212.samegame.model.Game;
 import javafx.geometry.Insets;
 import javafx.scene.layout.GridPane;
 import static javafx.scene.layout.GridPane.setMargin;
@@ -16,7 +16,7 @@ import javafx.scene.paint.Color;
  */
 public class BoardFX extends GridPane {
 
-    private final SameGame game;
+    private final Game game;
     private final ControllerFX controller;
     private BlockFX[][] boardFx;
 
@@ -26,7 +26,7 @@ public class BoardFX extends GridPane {
      * @param game SameGame current instance.
      * @param controller ControllerFX current instance.
      */
-    public BoardFX(SameGame game, ControllerFX controller) {
+    public BoardFX(Game game, ControllerFX controller) {
         this.game = game;
         this.controller = controller;
     }

@@ -3,7 +3,7 @@ package g56212.samegame.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SameGame implements Observable {
+public class Game implements Observable {
 
     private Board board;
     private List<Observer> observers;
@@ -13,7 +13,7 @@ public class SameGame implements Observable {
      * with randomly generated colored blocks.
      * @param size size of the game board.
      */
-    public SameGame() {
+    public Game() {
         this.observers = new ArrayList<>();
         notifyObs("ready");
 

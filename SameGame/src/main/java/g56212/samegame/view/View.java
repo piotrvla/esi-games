@@ -2,7 +2,7 @@ package g56212.samegame.view;
 
 import g56212.samegame.model.Block;
 import g56212.samegame.model.Position;
-import g56212.samegame.model.SameGame;
+import g56212.samegame.model.Game;
 import java.util.Scanner;
 
 /**
@@ -12,7 +12,7 @@ import java.util.Scanner;
  */
 public class View {
 
-    private SameGame sameGame;
+    private Game sameGame;
     private static final Scanner keyboard = new Scanner(System.in);
 
     /**
@@ -20,7 +20,7 @@ public class View {
      *
      * @param sameGame
      */
-    public View(SameGame sameGame) {
+    public View(Game sameGame) {
         this.sameGame = sameGame;
     }
 

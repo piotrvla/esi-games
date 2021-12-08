@@ -34,7 +34,7 @@ public class CommandManager {
      *
      * @param game Instance of SameGame to undo the move at.
      */
-    public void undo(SameGame game) {
+    public void undo(Game game) {
         if (!undoStack.empty()) {
             undoStack.lastElement().undo();
             redoStack.push(undoStack.lastElement());
@@ -50,7 +50,7 @@ public class CommandManager {
      *
      * @param game Instance of SameGame to redo the move at.
      */
-    public void redo(SameGame game) {
+    public void redo(Game game) {
         if (!redoStack.empty()) {
             redoStack.lastElement().execute();
             undoStack.push(redoStack.lastElement());

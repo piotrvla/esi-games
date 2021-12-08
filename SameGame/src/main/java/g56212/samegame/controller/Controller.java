@@ -2,7 +2,7 @@ package g56212.samegame.controller;
 
 import g56212.samegame.model.CommandManager;
 import g56212.samegame.model.Remove;
-import g56212.samegame.model.SameGame;
+import g56212.samegame.model.Game;
 import g56212.samegame.view.View;
 
 /**
@@ -12,7 +12,7 @@ import g56212.samegame.view.View;
  */
 public class Controller {
 
-    private final SameGame samegame;
+    private final Game samegame;
     private final View view;
     private CommandManager cmd;
 
@@ -22,7 +22,7 @@ public class Controller {
      * difficulty.
      */
     public Controller() {
-        this.samegame = new SameGame();
+        this.samegame = new Game();
         this.view = new View(this.samegame);
         this.samegame.startGame(view.askSize(), view.askDifficulty());
         this.cmd = new CommandManager();

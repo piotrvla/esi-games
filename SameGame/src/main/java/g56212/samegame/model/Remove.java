@@ -5,7 +5,7 @@ package g56212.samegame.model;
  */
 public class Remove implements Command {
 
-    private SameGame sameGame;
+    private Game sameGame;
     private Board lastMove;
     private int x;
     private int y;
@@ -18,7 +18,7 @@ public class Remove implements Command {
      * @param x X of the position to delete at.
      * @param y Y of the position to delete at.
      */
-    public Remove(SameGame sameGame, int x, int y) {
+    public Remove(Game sameGame, int x, int y) {
         this.sameGame = sameGame;
         this.x = x;
         this.y = y;

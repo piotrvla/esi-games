@@ -3,7 +3,7 @@ package g56212.samegame.controller;
 import g56212.samegame.model.CommandManager;
 import g56212.samegame.model.Position;
 import g56212.samegame.model.Remove;
-import g56212.samegame.model.SameGame;
+import g56212.samegame.model.Game;
 import g56212.samegame.view.ViewFX;
 
 import javafx.stage.Stage;
@@ -15,16 +15,16 @@ import javafx.stage.Stage;
  */
 public class ControllerFX {
 
-    private SameGame game;
+    private Game game;
     private ViewFX view;
     private CommandManager cmd;
 
     /**
-     * Constructor of the controller that creates instances of samegame and
+     * Constructor of the controller that creates instances of game and
      * view.
      */
     public ControllerFX() {
-        this.game = new SameGame();
+        this.game = new Game();
         this.view = new ViewFX(this, this.game);
 
     }

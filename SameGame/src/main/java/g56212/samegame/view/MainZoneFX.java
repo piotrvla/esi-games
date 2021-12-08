@@ -1,7 +1,7 @@
 package g56212.samegame.view;
 
 import g56212.samegame.controller.ControllerFX;
-import g56212.samegame.model.SameGame;
+import g56212.samegame.model.Game;
 import javafx.geometry.Pos;
 import javafx.scene.layout.StackPane;
 
@@ -22,7 +22,7 @@ public class MainZoneFX extends StackPane {
      * @param game Current instance of same game object.
      * @param controller current instance of the controller fx.
      */
-    MainZoneFX(SameGame game, ControllerFX controller) {
+    MainZoneFX(Game game, ControllerFX controller) {
         this.board = new BoardFX(game, controller);
         this.board.setAlignment(Pos.CENTER);
         this.menuFX = new MenuFX(10, controller);

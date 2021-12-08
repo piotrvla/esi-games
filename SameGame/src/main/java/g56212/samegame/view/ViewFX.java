@@ -2,7 +2,7 @@ package g56212.samegame.view;
 
 import g56212.samegame.controller.ControllerFX;
 import g56212.samegame.model.Observer;
-import g56212.samegame.model.SameGame;
+import g56212.samegame.model.Game;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -18,7 +18,7 @@ import javafx.stage.Stage;
 public class ViewFX implements Observer {
 
     private ControllerFX controller;
-    private SameGame game;
+    private Game game;
     private VBox root;
     private ButtonsFX buttons;
     private MainZoneFX mainZone;
@@ -30,7 +30,7 @@ public class ViewFX implements Observer {
      * @param controller current instance of controllerFX
      * @param game current instance of SameGame.
      */
-    public ViewFX(ControllerFX controller, SameGame game) {
+    public ViewFX(ControllerFX controller, Game game) {
         this.game = game;
         this.controller = controller;
         this.game.subscribe(this);
@@ -85,12 +85,14 @@ public class ViewFX implements Observer {
             mainZone.createBoard();
 
         } else if (update.equals("redoError")) {
-
+            Alert redoError = new Alert(Alert.AlertType.ERROR, "Nothing to redo");
+            redoError.show();
         } else if (update.equals("undoError")) {
-
+            Alert undoError = new Alert(Alert.AlertType.ERROR, "Nothing to undo");
+            undoError.show();
         } else if (update.equals("removeError")) {
-            Alert sheesh = new Alert(Alert.AlertType.ERROR, "Nothing to remove");
-            sheesh.show();
+            Alert removeError = new Alert(Alert.AlertType.ERROR, "Nothing to remove");
+            removeError.show();
         } else if (update.equals("gameOver")) {
             mainZone.setVisible();
             buttons.setVisible(false);
