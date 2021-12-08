@@ -145,35 +145,35 @@ Il n'est que possible de move le circle en utilisant la méthode de la classe.
 
 ## Question 1
 
-# 1.1:
+### 1.1:
 La taille de fenetre est modifié
 
-# 1.2:
+### 1.2:
 Le texte est transparant, autrement dit invisible.
 -DECORATED
 -UNDECORATED
 -TRANSPARENT
 -UTILITY
 
-# 1.3:
+### 1.3:
 Le texte se déplace sur la fenetre selon la méthode appelé.
 
 ## Question 2:
 
-# 2.1:
+### 2.1:
 Au début 1er checkbox est coché par défaut et peut etre décoché.
 2eme est neutre, peut etre coché et décoché.
 3eme est indeterminé et peut etre coché et décoché.
 
-# 2.2:
+### 2.2:
 Les checkbox ne seront plus alignés.
 
 ## Question 3:
 
-# 3.1:
+### 3.1:
 Le texte entré dans le champ est masqué par des étoiles.
 
-# 3.2:
+### 3.2:
 Apres avoir appuyé sur la touche enter, le texte inséré dans le champ n'est plus modifiable.
 
 ## Question 4:
@@ -185,23 +185,67 @@ la méthode getChildren() retourne une liste de Node. Cette peut etre utiliser p
 
 ## Question 6:
 
-# 6.2: 
+### 6.2: 
 Oui, cela est possible. addAll() permet de ajouter plusieurs compossants au meme temps.
 
-# 6.3:
+### 6.3:
 Il y a une méthode qui peut empecher ceci: setVgrow()
 
 ## Question 7:
 
-# 7.1:
+### 7.1:
 ? ?
-# 7.2:
-Le texte du label est centré entre la bordure de la fenetre et le champ de texte.
-# 7.3:
+### 7.2:
+Le texte du label est centré entre la bordure de la fenetre et le champ de texte. 7.3:
 Le champ de texte de mot de passe est repartie sur toute la longeur de la fenetre.
 
 
 
+# TD 5
+
+## Questions
+
+### Question 1
+Que les types ne sont pas compatbiles, Double ne peut pas etre converti en Integer.
+
+### Question 2
+Netbeans constate qu'il est inutile de wrapper l'entier indiqué c-à-d 42.
+
+### Question 3
+Non, parce que tout classe hérite de l'objet Object.
+
+### Question 4
+Impossible de convertir Box<Integer> en Box<Object>
+
+### Question 5
+Il y a une erreur à la ligne 11, il n'y a pas de transtypage de Double vers Integer.
+
+### Question 6
+Integer ne peut pas etre converti en CAP #1.
+
+### Question 7
+La class n'a plus d'acces à la méthode compareTo
+
+### Question 8
+Les arguments de l'appel au constructeur ne sont pas dans la portée de l'objet T.
+
+### Question 
+1 ere déclaration de la méthode est plus générale elle permet de copier les objets d'un type different. Parce que le type de d est bien une liste d'un type dont hérite T (Object) et le type s hérite bien de T (Double)
+Exemple:
+<br>
+ArrayList<Object> list = new ArrayList<>();
+<br>
+ArrayList<Double> list2 = new ArrayList<>();
+<br>
+list.add(44);
+<br>
+list2.add(4.2);
+<br>
+copy(list,list2);
+### Question 10
+
+ 
+# TD 6
 
 
 
