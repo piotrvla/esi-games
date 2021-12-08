@@ -90,6 +90,17 @@ public class View {
         return keyboard.nextInt();
     }
 
+    /**
+     * Reads the input from the keyboard, the input must be an integer which has
+     * to be between a specified range
+     *
+     * @param message Message to print to the user, whenever the value doesn't
+     * respect the conditions
+     * @param min value that must be smaller than read value.
+     * @param max value that must be bigger than read value.
+     *
+     * @return Returns an integer that is between the given range.
+     */
     public int readBetweenRange(String message, int min, int max) {
 
         int nb = readInt(message);

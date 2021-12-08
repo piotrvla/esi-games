@@ -16,23 +16,23 @@ import javafx.scene.text.Font;
  * @author g56212
  */
 class MenuFX extends VBox {
-    
+
     private ControllerFX controller;
     private HBox buttons;
     private ComboBox difficulty;
     private ComboBox size;
     private Label state;
     private VBox gameState;
-    
+
     MenuFX(int spacing, ControllerFX controller) {
         super(spacing);
         this.setMinSize(200, 150);
-        
+
         this.setStyle(" -fx-background-color: rgba(215, 179, 255,0.9);"
                 + " -fx-content-display: top;"
                 + " -fx-border-color: rgb(255, 0, 102);"
                 + " -fx-border-width: 2;");
-        
+
         this.controller = controller;
         this.buttons = new HBox(10);
         Label gameText = new Label("Same Game");
@@ -57,7 +57,7 @@ class MenuFX extends VBox {
                 + " -fx-text-decoration:none;");
         this.gameState = new VBox(1050);
         gameState.setVisible(false);
-        
+
         this.state = new Label();
         gameState.setAlignment(Pos.CENTER);
         gameState.getChildren().add(state);
@@ -69,7 +69,14 @@ class MenuFX extends VBox {
         this.getChildren().addAll(gameText, gameState, diff, this.difficulty, textSize, this.size, this.buttons);
         this.setAlignment(Pos.CENTER);
     }
-    
+
+    /**
+     * Set the game state by the number of remaining blocks. If the count is 0,
+     * current round is won, if not it's lost.
+     *
+     * @param nbBlocks number of remaining blocks.
+     */
+
     void setState(int nbBlocks) {
         this.gameState.setVisible(true);
         if (nbBlocks == 0) {
@@ -79,8 +86,11 @@ class MenuFX extends VBox {
         }
     }
 
+    /**
+     * Sets the game status invisible.
+     */
     void gameStateSetUnvisible() {
         this.setVisible(false);
     }
-    
+
 }

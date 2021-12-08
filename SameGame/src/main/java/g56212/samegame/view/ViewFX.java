@@ -10,15 +10,26 @@ import javafx.scene.control.Alert;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+/**
+ * Main view of the game mode java fx.
+ *
+ * @author g56212
+ */
 public class ViewFX implements Observer {
-    
+
     private ControllerFX controller;
     private SameGame game;
     private VBox root;
     private ButtonsFX buttons;
     private MainZoneFX mainZone;
     private ScoreMenuFX scoreMenu;
-    
+
+    /**
+     * Constructor of the main View.
+     *
+     * @param controller current instance of controllerFX
+     * @param game current instance of SameGame.
+     */
     public ViewFX(ControllerFX controller, SameGame game) {
         this.game = game;
         this.controller = controller;
@@ -26,7 +37,10 @@ public class ViewFX implements Observer {
     }
 
     /**
-     * Creates the whole interface of the SameGame and starts the program.
+     * Creates the whole interface of the SameGame by instancing the score UI,
+     * main zone that interacts with the player, all the buttons responsible for
+     * redoing/undoing the last move, also to give up. Then the program is
+     * started.
      *
      * @param primaryStage primary stage of the window.
      */
@@ -34,7 +48,7 @@ public class ViewFX implements Observer {
         primaryStage.setResizable(false);
         primaryStage.setTitle("SameGame - 56212 Smolinski Piotr");
         this.root = new VBox(30);
-        
+
         root.setStyle("-fx-background-color: linear-gradient(to top right, #ff7f50, #6a5acd);");
         root.setAlignment(Pos.CENTER);
         this.buttons = new ButtonsFX(controller);
@@ -48,11 +62,14 @@ public class ViewFX implements Observer {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-    
+
+    /**
+     * Starts the game by updating the board.
+     */
     public void startGame() {
         mainZone.updateBoard();
     }
-    
+
     @Override
     public void update(String update) {
         if (update.equals("update")) {
@@ -66,26 +83,24 @@ public class ViewFX implements Observer {
             scoreMenu.setVisible(true);
             mainZone.setUnvisible();
             mainZone.createBoard();
-            
-            
+
         } else if (update.equals("redoError")) {
-            
+
         } else if (update.equals("undoError")) {
-            
+
         } else if (update.equals("removeError")) {
             Alert sheesh = new Alert(Alert.AlertType.ERROR, "Nothing to remove");
             sheesh.show();
         } else if (update.equals("gameOver")) {
-            scoreMenu.setVisible(false);
             mainZone.setVisible();
             buttons.setVisible(false);
             mainZone.setState(this.game.getRemainingBlocks());
-            
+
         } else if (update.equals("surrender")) {
             mainZone.setVisible();
             buttons.setVisible(false);
-            scoreMenu.setVisible(false);
-            mainZone.setState(this.game.getRemainingBlocks());
+            //Litteral 1 represents that the game is lost.
+            mainZone.setState(1);
         }
     }
 }

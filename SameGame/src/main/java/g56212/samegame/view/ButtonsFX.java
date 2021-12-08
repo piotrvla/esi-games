@@ -6,7 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 
 /**
- *
+ * Buttons redo,undo,give up as a HBox
  * @author g56212
  */
 public class ButtonsFX extends HBox {
@@ -15,7 +15,10 @@ public class ButtonsFX extends HBox {
     private Button undo;
     private Button gameOver;
     private ControllerFX controller;
-
+   /**
+    * Constructor of the button's HBox
+    * @param controller controller of the java fx game mode.
+    */
     ButtonsFX(ControllerFX controller) {
         super(15);
         this.controller = controller;

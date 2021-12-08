@@ -82,7 +82,7 @@ public class SameGame implements Observable {
     }
 
     /**
-     * Remplaces the board by the board given in the parameter.
+     * Changes the board to the board given in the parameter.
      *
      * @param board
      */
@@ -128,11 +128,18 @@ public class SameGame implements Observable {
         return this.board.getRecentScore();
     }
 
+    /**
+     * Getter of the remaining blocks.
+     *
+     * @return number of remaining blocks.
+     */
     public int getRemainingBlocks() {
         return this.board.getRemainingBlocks();
     }
+
     /**
-     * Allows to surren
+     * Surrender the game by setting the actual board at null, which mean that
+     * current round is abandoned.
      */
     public void surrender() {
         this.board = null;

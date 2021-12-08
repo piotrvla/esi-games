@@ -46,6 +46,12 @@ class Board {
         return this.board[pos.getX()][pos.getY()];
     }
 
+    /**
+     * Fills the board with random colored blocks within the difficulty given as
+     * an argument.
+     *
+     * @param difficulty difficulty that represents the number of colors to use.
+     */
     void fillBoard(int difficulty) {
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
@@ -82,6 +88,12 @@ class Board {
         }
     }
 
+    /**
+     * Verifies if the spot can be deleted at the given position.
+     *
+     * @param pos Position to check
+     * @return true if it can be removed, if not false.
+     */
     boolean canRemoveAt(Position pos) {
         if (!isInside(pos)) {
             throw new IllegalArgumentException("Position isn't inside the board");
@@ -346,6 +358,11 @@ class Board {
         return this.score.getRecentScore();
     }
 
+    /**
+     * Getter of remaining blocks.
+     *
+     * @return remaining blocks.
+     */
     int getRemainingBlocks() {
         return this.remainingBlock;
     }
