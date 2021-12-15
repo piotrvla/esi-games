@@ -38,30 +38,21 @@ public class Controller {
         while (!this.samegame.isGameOver()) {
             this.view.displayGame();
             String[] command = this.view.askCommand();
-
             switch (command[0]) {
                 case "remove":
-                    try {
                     cmd.add(new Remove(samegame, Integer.parseInt(command[1]) - 1,
                             Integer.parseInt(command[2]) - 1));
                     this.samegame.refactorBoard();
-                } catch (IllegalArgumentException ex) {
-                    this.view.displayError("Cannot remove at given position.");
-                }
-
-                break;
+                    break;
                 case "redo":
                     cmd.redo(samegame);
                     this.samegame.refactorBoard();
-
                     break;
                 case "undo":
                     cmd.undo(samegame);
                     break;
             }
-
         }
-        this.view.displayFinalScore();
     }
 
     /**

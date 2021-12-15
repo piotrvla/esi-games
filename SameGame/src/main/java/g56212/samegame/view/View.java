@@ -3,6 +3,7 @@ package g56212.samegame.view;
 import g56212.samegame.model.Block;
 import g56212.samegame.model.Position;
 import g56212.samegame.model.Game;
+import g56212.samegame.model.Observer;
 import java.util.Scanner;
 
 /**
@@ -10,7 +11,7 @@ import java.util.Scanner;
  *
  * @author 56212
  */
-public class View {
+public class View implements Observer {
 
     private Game sameGame;
     private static final Scanner keyboard = new Scanner(System.in);
@@ -22,6 +23,7 @@ public class View {
      */
     public View(Game sameGame) {
         this.sameGame = sameGame;
+        this.sameGame.subscribe(this);
     }
 
     /**
@@ -148,5 +150,18 @@ public class View {
     public void displayFinalScore() {
         System.out.println("Final score: " + this.sameGame.getScore());
         System.out.println("Remaining blocks: " + this.sameGame.getRemainingBlocks());
+    }
+
+    @Override
+    public void update(String update) {
+        if (update.equals("redoError")) {
+            displayError("Nothing to redo!");
+        } else if (update.equals("undoError")) {
+            displayError("Nothing to undo");
+        } else if (update.equals("removeError")) {
+            displayError("Nothing to remove at this position.");
+        } else if (update.equals("gameOver")) {
+            displayFinalScore();
+        }
     }
 }

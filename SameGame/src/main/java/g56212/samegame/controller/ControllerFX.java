@@ -20,8 +20,7 @@ public class ControllerFX {
     private CommandManager cmd;
 
     /**
-     * Constructor of the controller that creates instances of game and
-     * view.
+     * Constructor of the controller that creates instances of game and view.
      */
     public ControllerFX() {
         this.game = new Game();

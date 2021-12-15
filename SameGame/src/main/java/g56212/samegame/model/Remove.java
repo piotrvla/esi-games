@@ -34,6 +34,5 @@ public class Remove implements Command {
     public void undo() {
         this.sameGame.setBoard(lastMove);
     }
-    
 
 }
