@@ -3,7 +3,6 @@ package g56212.samegame.view;
 import g56212.samegame.model.Block;
 import g56212.samegame.model.Position;
 import g56212.samegame.model.Game;
-import g56212.samegame.model.Observer;
 import java.util.Scanner;
 
 /**
@@ -11,7 +10,7 @@ import java.util.Scanner;
  *
  * @author 56212
  */
-public class View implements Observer {
+public class View {
 
     private Game sameGame;
     private static final Scanner keyboard = new Scanner(System.in);
@@ -23,7 +22,6 @@ public class View implements Observer {
      */
     public View(Game sameGame) {
         this.sameGame = sameGame;
-        this.sameGame.subscribe(this);
     }
 
     /**
@@ -92,17 +90,6 @@ public class View implements Observer {
         return keyboard.nextInt();
     }
 
-    /**
-     * Reads the input from the keyboard, the input must be an integer which has
-     * to be between a specified range
-     *
-     * @param message Message to print to the user, whenever the value doesn't
-     * respect the conditions
-     * @param min value that must be smaller than read value.
-     * @param max value that must be bigger than read value.
-     *
-     * @return Returns an integer that is between the given range.
-     */
     public int readBetweenRange(String message, int min, int max) {
 
         int nb = readInt(message);
@@ -150,18 +137,5 @@ public class View implements Observer {
     public void displayFinalScore() {
         System.out.println("Final score: " + this.sameGame.getScore());
         System.out.println("Remaining blocks: " + this.sameGame.getRemainingBlocks());
-    }
-
-    @Override
-    public void update(String update) {
-        if (update.equals("redoError")) {
-            displayError("Nothing to redo!");
-        } else if (update.equals("undoError")) {
-            displayError("Nothing to undo");
-        } else if (update.equals("removeError")) {
-            displayError("Nothing to remove at this position.");
-        } else if (update.equals("gameOver")) {
-            displayFinalScore();
-        }
     }
 }
