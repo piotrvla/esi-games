@@ -1,13 +1,17 @@
 package g56212.samegame.view;
 
 import g56212.samegame.controller.ControllerFX;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 
 /**
  * Menu of the game, used to change the size or the difficulty, or restart the
@@ -23,6 +27,7 @@ class MenuFX extends VBox {
     private ComboBox size;
     private Label state;
     private VBox gameState;
+    private Button start;
 
     MenuFX(int spacing, ControllerFX controller) {
         super(spacing);
@@ -46,7 +51,7 @@ class MenuFX extends VBox {
         this.size = new ComboBox();
         this.size.getItems().addAll(5, 8, 10, 13);
         this.size.getSelectionModel().selectFirst();
-        Button start = new Button("Start");
+        start = new Button("Start");
         start.setStyle("-fx-border-radius:120px;"
                 + " -fx-background-color:#ea4a2a;"
                 + " -fx-cursor:pointer;"
@@ -63,9 +68,6 @@ class MenuFX extends VBox {
         gameState.getChildren().add(state);
         this.buttons.getChildren().add(start);
         this.buttons.setAlignment(Pos.CENTER);
-        start.setOnMouseClicked(
-                mouseEvent -> this.controller.startGame((int) this.size.getValue(),
-                        (int) this.difficulty.getValue()));
         this.getChildren().addAll(gameText, gameState, diff, this.difficulty, textSize, this.size, this.buttons);
         this.setAlignment(Pos.CENTER);
     }
@@ -76,7 +78,6 @@ class MenuFX extends VBox {
      *
      * @param nbBlocks number of remaining blocks.
      */
-
     void setState(int nbBlocks) {
         this.gameState.setVisible(true);
         if (nbBlocks == 0) {
@@ -92,5 +93,15 @@ class MenuFX extends VBox {
     void gameStateSetUnvisible() {
         this.setVisible(false);
     }
+    int getSize(){
+        return (int) this.size.getValue();
+    }
+    int getDifficulty(){
+    return (int) this.difficulty.getValue();
+    }
+    Button getStart(){
+    return this.start;
+    }
+
 
 }

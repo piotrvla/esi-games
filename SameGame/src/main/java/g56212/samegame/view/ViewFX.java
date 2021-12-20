@@ -23,7 +23,7 @@ public class ViewFX implements Observer {
     private ButtonsFX buttons;
     private MainZoneFX mainZone;
     private ScoreMenuFX scoreMenu;
-
+    
     /**
      * Constructor of the main View.
      *
@@ -54,6 +54,7 @@ public class ViewFX implements Observer {
         this.buttons = new ButtonsFX(controller);
         buttons.setVisible(false);
         this.mainZone = new MainZoneFX(game, controller);
+
         this.scoreMenu = new ScoreMenuFX();
         this.scoreMenu.setVisible(false);
         root.getChildren().addAll(scoreMenu, mainZone, buttons);
