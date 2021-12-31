@@ -247,5 +247,27 @@ copy(list,list2);
  
 # TD 6
 
+## Questions
+### Q1:
+    - 1 pas autorisé
+    - 2 pas autorisé
+    - 3 autorisé
+    - 4 autorisé
+    - 5 pas autorisé
+    - 6 pas autorisé
+    - 7 autorisé
+    - 8 pas autorisé
+    - 9 pas autorisé
+    - 10 autorisé
+    - 11 pas autorisé
+    - 12 autorisé
+
+### Q2:
+    - IntPredicate intPredi = (shape) -> shape.getX() < 5;
+    - BiPredicate<Shape,Shape> bitPredi = (shape1, shape2) -> shape1 == shape2; 
+    - DoubleConsumer doubleConsume = (nombre) ->  System.out.println(nombre + " " + nombre);
+    - ToIntFunction<Shape> toInt = (shape) -> Character.getNumericValue(shape.getColor());
+    - DoubleFunction<Shape> doubleFunc = (center) -> new Circle(center);
+    - IntToDoubleFunction intToDouble = (nb) -> Double.valueOf(nb);
 
 
