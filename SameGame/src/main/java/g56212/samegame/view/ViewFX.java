@@ -72,6 +72,7 @@ public class ViewFX implements Observer {
 
     @Override
     public void update(String update) {
+        //@pbt use string constant or enum
         if (update.equals("update")) {
             this.game.refactorBoard();
             mainZone.updateBoard();

@@ -24,6 +24,7 @@ public class CommandManager {
      * @param command Command to execute.
      */
     public void add(Command command) {
+        //@pbt naming, s/add/execute[command]
         undoStack.push(command);
         command.execute();
         redoStack.clear();

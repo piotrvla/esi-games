@@ -6,6 +6,7 @@ package g56212.samegame.model;
  * @author 56212
  */
 public enum Colors {
+    // @pbt usually singular : Color
     /**
      * Red color of the block.
      */

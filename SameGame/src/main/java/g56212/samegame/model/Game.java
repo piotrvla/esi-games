@@ -64,6 +64,7 @@ public class Game implements Observable {
      */
     public boolean isGameOver() {
         if (this.board.isGameOver()) {
+            //@pbt notify will be after played, not when call to this method
             notifyObs("gameOver");
             return true;
         } else {

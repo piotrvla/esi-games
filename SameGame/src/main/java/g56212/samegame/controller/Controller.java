@@ -40,6 +40,18 @@ public class Controller {
             String[] command = this.view.askCommand();
             switch (command[0]) {
                 case "remove":
+                    /*
+                    @pbt not robust
+                    Enter your command please
+remove 0 1
+Exception in thread "main" java.lang.IllegalArgumentException: Position isn't inside the board
+	at g56212.samegame.model.Board.canRemoveAt(Board.java:99)
+	at g56212.samegame.model.Game.removeSpot(Game.java:36)
+	at g56212.samegame.model.Remove.execute(Remove.java:30)
+	at g56212.samegame.model.CommandManager.add(CommandManager.java:29)
+	at g56212.samegame.controller.Controller.run(Controller.java:43)
+	at g56212.samegame.controller.Controller.main(Controller.java:65)
+                     */
                     cmd.add(new Remove(samegame, Integer.parseInt(command[1]) - 1,
                             Integer.parseInt(command[2]) - 1));
                     this.samegame.refactorBoard();

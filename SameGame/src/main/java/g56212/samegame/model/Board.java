@@ -130,7 +130,8 @@ class Board {
      * array 2D path must be at false.
      */
     private void getSpotPositions(Position pos, boolean[][] checked) {
-        if (!checked[pos.getX()][pos.getY()] && this.board[pos.getX()][pos.getY()] != null) {
+        if (!checked[pos.getX()][pos.getY()]
+                && this.board[pos.getX()][pos.getY()] != null) {
             checked[pos.getX()][pos.getY()] = true;
             this.positions.add(pos);
             for (Position neighbour : getNeighbours(pos)) {

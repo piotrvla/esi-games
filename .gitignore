@@ -1,3 +1,5 @@
+**/target
+**/.idea
 /asciipaint/target/
 /SameGame/nbproject/
 /SameGame/target/
